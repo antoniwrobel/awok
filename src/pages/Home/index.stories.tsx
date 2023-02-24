@@ -1,15 +1,15 @@
 // External imports
-import { ComponentMeta } from '@storybook/react';
+import { ComponentMeta } from "@storybook/react";
 
 // Local imports
-import HomePage from '.';
+import HomePage from ".";
 
 // Story placement in the story list
 export default {
-  title: 'Pages/Home',
+  title: "Pages/Home",
   component: HomePage,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } as ComponentMeta<typeof HomePage>;
 

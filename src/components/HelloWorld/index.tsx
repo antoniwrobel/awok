@@ -4,14 +4,14 @@
  */
 
 // External imports
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Box from '@mui/material/Box';
-import { AlertProps, BoxProps } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Box from "@mui/material/Box";
+import { AlertProps, BoxProps } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 // Local imports
-import styles from './index.module.scss';
+import styles from "./index.module.scss";
 
 // Component props
 export interface HelloWorldProps {
@@ -19,16 +19,16 @@ export interface HelloWorldProps {
    * The alert message styles.
    * See: https://mui.com/material-ui/api/alert
    */
-  alert?: AlertProps,
+  alert?: AlertProps;
   /**
    * The box container styles.
    * See: https://mui.com/material-ui/api/box
    */
-  box?: BoxProps,
+  box?: BoxProps;
 }
 
 // Component definition
-function HelloWorld({ alert, box } : HelloWorldProps) {
+const HelloWorld = ({ alert, box }: HelloWorldProps) => {
   const { t } = useTranslation();
 
   const defaults = HelloWorld.defaultProps;
@@ -42,21 +42,21 @@ function HelloWorld({ alert, box } : HelloWorldProps) {
   return (
     <Box {...boxProps}>
       <Alert {...alertProps}>
-        <AlertTitle>{t('hello-world')}</AlertTitle>
+        <AlertTitle>{t("hello-world")}</AlertTitle>
         <div className={styles.info}>{name}</div>
         <div className={styles.info}>{version}</div>
         <div className={styles.info}>{env}</div>
       </Alert>
     </Box>
   );
-}
+};
 
 // Default props
 HelloWorld.defaultProps = {
   alert: {
-    severity: 'success',
+    severity: "success",
     sx: { width: 300 },
-    variant: 'filled',
+    variant: "filled",
   },
   box: {},
 };
