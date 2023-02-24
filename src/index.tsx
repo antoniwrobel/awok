@@ -17,7 +17,7 @@ const reactRoot = ReactDOM.createRoot(htmlRoot);
 
 reactRoot.render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <App />
     </BrowserRouter>
   </StrictMode>
