@@ -4,8 +4,8 @@
  * expect(element).toHaveTextContent(/react/i)
  * Learn more: https://github.com/testing-library/jest-dom
  */
-import '@testing-library/jest-dom';
-import initI18n from './lang';
+import "@testing-library/jest-dom";
+import initI18n from "./lang";
 
 // Global initialization
 initI18n();

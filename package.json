@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "React, MUI and TypeScript template",
   "private": false,
-  "homepage": "./",
+  "homepage": "https://antoniwrobel.github.io/awok/",
   "keywords": [
     "airbnb",
     "emotion",
@@ -29,6 +29,7 @@
     "@fontsource/roboto": "^4.5.7",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.6",
+    "gh-pages": "^5.0.0",
     "i18next": "^21.8.11",
     "i18next-browser-languagedetector": "^6.1.4",
     "react": "^18.2.0",
@@ -75,6 +76,8 @@
     "webpack": "^5.73.0"
   },
   "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d out/build/production",
     "build": "env-cmd --no-override -f ./.env-override/.env.production react-scripts build",
     "build:d": "env-cmd --no-override -f ./.env-override/.env.development react-scripts build",
     "build:l": "env-cmd --no-override -f ./.env-override/.env.local react-scripts build",
