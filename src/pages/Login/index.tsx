@@ -1,53 +1,63 @@
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth, useLoading } from "../../hooks";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const auth = useAuth();
+  const { t } = useTranslation();
+  const { signin, user } = useAuth();
+  const { isLoading, setIsLoading } = useLoading();
+  const [username, setUsername] = useState("");
 
   const from = location.state?.from?.pathname || "/";
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    setIsLoading(true);
 
-    const formData = new FormData(event.currentTarget);
-    const username = formData.get("username") as string;
-
-    auth.signin(username, () => {
+    signin(username, () => {
+      setIsLoading(false);
       navigate(from, { replace: true });
     });
   };
 
+  const handleChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setUsername(value);
+
   useEffect(() => {
-    if (auth && auth.user) {
+    if (user) {
       navigate(from, { replace: true });
     }
-  }, [auth]);
+  }, [user]);
 
   return (
-    <>
+    <Box display="flex" flexDirection="column" width="100%">
       <Typography variant="h6" component="h6">
-        You must log in to view the page at "{from}"
+        {t("login-to-view")} "{from}"
       </Typography>
 
-      <form onSubmit={handleSubmit}>
-        <Box display="flex" mt="10px">
-          <TextField
-            id="username"
-            label="e-mail"
-            name="username"
-            variant="outlined"
-          />
+      <Box display="flex" mt="10px" justifyContent="space-between">
+        <TextField
+          label="e-mail"
+          variant="outlined"
+          disabled={isLoading}
+          value={username}
+          onChange={handleChange}
+        />
 
-          <Button type="submit" sx={{ marginLeft: "20px" }}>
-            Login
-          </Button>
-        </Box>
-      </form>
-    </>
+        <Button
+          sx={{ marginLeft: "20px" }}
+          disabled={isLoading}
+          onClick={handleSubmit}
+          type="button"
+        >
+          {t("login")}
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

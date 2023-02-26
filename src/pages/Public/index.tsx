@@ -1,7 +1,9 @@
 import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const PublicPage = () => {
-  return <Box>This is public page</Box>;
+  const { t } = useTranslation();
+  return <Box>{t("this-is-public")}</Box>;
 };
 
 export default PublicPage;

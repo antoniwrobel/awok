@@ -4,14 +4,19 @@ import { Routes, Route } from "react-router-dom";
 
 // Local imports
 import RequireAuth from "../components/RequireAuth";
+import LoadingModal from "../modals/Loading";
 import HomePage from "../pages/Home";
 import LoginPage from "../pages/Login";
 import PublicPage from "../pages/Public";
+import { useLoading } from "../hooks";
 
 // Component definition
 const App = () => {
+  const { isLoading } = useLoading();
+
   return (
     <Box height="100%">
+      <LoadingModal isOpen={isLoading} />
       <Routes>
         <Route>
           <Route path="/" element={<PublicPage />} />

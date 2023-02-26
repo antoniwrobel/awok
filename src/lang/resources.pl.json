@@ -1,7 +1,11 @@
 {
-  "hello": "Witaj!",
+  "hello": "Witaj",
   "hello-world": "Witaj świecie!",
   "signout": "Wyloguj",
+  "login": "Zaloguj",
   "go-to-public": "Przejdź do publicznej zawartości",
-  "go-to-protected": "Przejdź do chronionej zawartości"
+  "this-is-public": "To jest publiczna strona",
+  "go-to-protected": "Przejdź do chronionej zawartości",
+  "login-to-view": "Musisz się zalogować, żeby zobaczyć zawartość ",
+  "not-logged-in": "Nie jesteś zalogowany"
 }

@@ -1,7 +1,11 @@
 {
-  "hello": "¡Hola!",
+  "hello": "Hola",
   "hello-world": "¡Hola Mundo!",
   "signout": "cerrar sesión",
+  "login": "Login",
   "go-to-public": "Ir al contenido público",
-  "go-to-protected": "Ir al contenido protegido"
+  "this-is-public": "Página pública",
+  "go-to-protected": "Ir al contenido protegido",
+  "login-to-view": "Debe iniciar sesión para ver la página en ",
+  "not-logged-in": " No ha iniciado sesión"
 }

@@ -1,7 +1,11 @@
 {
-  "hello": "Hello!",
+  "hello": "Hello",
   "hello-world": "Hello World!",
   "signout": "Signout",
+  "login": "Login",
   "go-to-public": "Go to public content",
-  "go-to-protected": "Go to protected content"
+  "this-is-public": "This is public page",
+  "go-to-protected": "Go to protected content",
+  "login-to-view": "You must log in to view the page at ",
+  "not-logged-in": " You are not logged in."
 }

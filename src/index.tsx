@@ -11,6 +11,7 @@ import styles from "./index.module.scss";
 import Layout from "./components/Layout";
 import AuthProvider from "./context/AuthProvider";
 import ErrorBoundary from "./error-boundary";
+import LoadingProvider from "./context/LoadingProvider";
 
 import "./styles/main.scss";
 // import reportWebVitals from "./util/web-vitals";
@@ -27,14 +28,16 @@ reactRoot.render(
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ErrorBoundary>
           <AuthProvider>
-            <Box className={styles["main-box"]}>
-              <Container className={styles["main-container"]}>
-                <Layout />
-              </Container>
-              <Container className={styles["main-container"]}>
-                <App />
-              </Container>
-            </Box>
+            <LoadingProvider>
+              <Box className={styles["main-box"]}>
+                <Container className={styles["main-container"]}>
+                  <Layout />
+                </Container>
+                <Container className={styles["main-container"]}>
+                  <App />
+                </Container>
+              </Box>
+            </LoadingProvider>
           </AuthProvider>
         </ErrorBoundary>
       </BrowserRouter>
