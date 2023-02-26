@@ -8,15 +8,15 @@ import LoadingModal from "../modals/Loading";
 import HomePage from "../pages/Home";
 import LoginPage from "../pages/Login";
 import PublicPage from "../pages/Public";
-import { useLoading } from "../hooks";
+// import { useLoading } from "../hooks";
 
 // Component definition
 const App = () => {
-  const { isLoading } = useLoading();
+  // const { isLoading } = useLoading();
 
   return (
     <Box height="100%">
-      <LoadingModal isOpen={isLoading} />
+      <LoadingModal isOpen />
       <Routes>
         <Route>
           <Route path="/" element={<PublicPage />} />
