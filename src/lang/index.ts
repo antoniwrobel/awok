@@ -6,10 +6,11 @@
 
 // External imports
 import LanguageDetector from "i18next-browser-languagedetector";
-import i18n from "i18next";
+import * as i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 // Local imports
+import resourcesPl from "./resources.pl.json";
 import resourcesEn from "./resources.en.json";
 import resourcesEs from "./resources.es.json";
 
@@ -20,6 +21,9 @@ const initI18n = () => {
     .use(initReactI18next)
     .init({
       resources: {
+        pl: {
+          translations: { ...resourcesPl },
+        },
         en: {
           translations: { ...resourcesEn },
         },
@@ -27,7 +31,7 @@ const initI18n = () => {
           translations: { ...resourcesEs },
         },
       },
-      fallbackLng: "en",
+      fallbackLng: "pl",
       debug: false,
       ns: ["translations"],
       defaultNS: "translations",

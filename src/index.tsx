@@ -2,12 +2,18 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { StrictMode } from "react";
+import { Box, Container } from "@mui/material";
 
 // Local imports
-import { App } from "./app";
+import App from "./app";
 import initI18n from "./lang";
-import reportWebVitals from "./util/web-vitals";
+import styles from "./index.module.scss";
+import Layout from "./components/Layout";
+import AuthProvider from "./context/AuthProvider";
+import ErrorBoundary from "./error-boundary";
+
 import "./styles/main.scss";
+// import reportWebVitals from "./util/web-vitals";
 
 // Global initialization
 initI18n();
@@ -17,9 +23,22 @@ const reactRoot = ReactDOM.createRoot(htmlRoot);
 
 reactRoot.render(
   <StrictMode>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <App />
-    </BrowserRouter>
+    <Box className={styles["main-wrapper"]}>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <ErrorBoundary>
+          <AuthProvider>
+            <Box className={styles["main-box"]}>
+              <Container className={styles["main-container"]}>
+                <Layout />
+              </Container>
+              <Container className={styles["main-container"]}>
+                <App />
+              </Container>
+            </Box>
+          </AuthProvider>
+        </ErrorBoundary>
+      </BrowserRouter>
+    </Box>
   </StrictMode>
 );
 
@@ -28,5 +47,5 @@ if (process.env.REACT_APP_ENV !== "production") {
   // to log results (for example: reportWebVitals(console.log))
   // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
   // eslint-disable-next-line no-console
-  reportWebVitals(console.log);
+  // reportWebVitals(console.log);
 }

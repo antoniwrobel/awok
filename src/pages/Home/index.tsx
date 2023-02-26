@@ -3,19 +3,7 @@ import HelloWorld from "../../components/HelloWorld";
 
 // Component definition
 const HomePage = () => {
-  return (
-    <HelloWorld
-      box={{
-        sx: {
-          background: "rgb(0, 30, 60)",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        },
-      }}
-    />
-  );
+  return <HelloWorld />;
 };
 
 // Default export

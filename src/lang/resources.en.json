@@ -1,3 +1,7 @@
 {
-  "hello-world": "Hello World!"
+  "hello": "Hello!",
+  "hello-world": "Hello World!",
+  "signout": "Signout",
+  "go-to-public": "Go to public content",
+  "go-to-protected": "Go to protected content"
 }
