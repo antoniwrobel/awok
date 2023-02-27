@@ -21,11 +21,11 @@ initI18n();
 
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = ReactDOM.createRoot(htmlRoot);
-
+console.log(process.env.PUBLIC_URL);
 reactRoot.render(
   <StrictMode>
     <Box className={styles["main-wrapper"]}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ErrorBoundary>
           <AuthProvider>
             <LoadingProvider>
