@@ -1,6 +1,6 @@
 // External imports
 import { StrictMode } from "react";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import ReactDOM from "react-dom/client";
 
@@ -21,8 +21,6 @@ initI18n();
 
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = ReactDOM.createRoot(htmlRoot);
-
-console.log(2, process.env.PUBLIC_URL);
 
 reactRoot.render(
   <StrictMode>
