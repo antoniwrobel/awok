@@ -13,7 +13,7 @@ import { useLoading } from "../hooks";
 // Component definition
 const App = () => {
   const { isLoading } = useLoading();
-
+  console.log({ isLoading });
   return (
     <Box height="100%">
       <LoadingModal isOpen={isLoading} />
