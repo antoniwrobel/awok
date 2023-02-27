@@ -25,7 +25,7 @@ const reactRoot = ReactDOM.createRoot(htmlRoot);
 reactRoot.render(
   <StrictMode>
     <Box className={styles["main-wrapper"]}>
-      <BrowserRouter basename="https://antoniwrobel.github.io/awok/">
+      <BrowserRouter>
         <ErrorBoundary>
           <AuthProvider>
             <LoadingProvider>
