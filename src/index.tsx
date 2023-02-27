@@ -1,6 +1,6 @@
 // External imports
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { HashRouter as Router } from "react-router-dom";
 import { StrictMode } from "react";
 import { Box, Container } from "@mui/material";
 
@@ -19,28 +19,30 @@ import "./styles/main.scss";
 // Global initialization
 initI18n();
 
-ReactDOM.render(
+const htmlRoot = document.getElementById("root") as HTMLElement;
+const reactRoot = ReactDOM.createRoot(htmlRoot);
+
+reactRoot.render(
   <StrictMode>
     <Box className={styles["main-wrapper"]}>
       <ErrorBoundary>
         <AuthProvider>
           <LoadingProvider>
             <Box className={styles["main-box"]}>
-              <BrowserRouter basename={process.env.PUBLIC_URL}>
+              <Router basename={process.env.PUBLIC_URL}>
                 <Container className={styles["main-container"]}>
                   <Layout />
                 </Container>
                 <Container className={styles["main-container"]}>
                   <App />
                 </Container>
-              </BrowserRouter>
+              </Router>
             </Box>
           </LoadingProvider>
         </AuthProvider>
       </ErrorBoundary>
     </Box>
-  </StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 );
 
 if (process.env.REACT_APP_ENV !== "production") {
