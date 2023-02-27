@@ -28,6 +28,7 @@ const App = () => {
             </RequireAuth>
           }
         />
+        <Route path="*" element={<Box>Page not found</Box>} />
       </Routes>
     </Box>
   );

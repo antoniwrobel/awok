@@ -1,8 +1,8 @@
 {
   "homepage": "https://antoniwrobel.github.io/awok/",
   "name": "awok",
-  "version": "0.1.0",
-  "description": "React, MUI and TypeScript template",
+  "version": "0.1.1",
+  "description": "AWOK",
   "private": false,
   "keywords": [
     "airbnb",
@@ -125,7 +125,7 @@
     ]
   },
   "main": "index.js",
-  "repository": "https://github.com/equisoide/react-mui-ts-template.git",
-  "author": "awok",
+  "repository": "https://github.com/antoniwrobel/awok",
+  "author": "aw/ok",
   "license": "MIT"
 }

@@ -29,7 +29,7 @@ reactRoot.render(
         <AuthProvider>
           <LoadingProvider>
             <Box className={styles["main-box"]}>
-              <Router>
+              <Router basename={process.env.PUBLIC_URL}>
                 <Container className={styles["main-container"]}>
                   <Layout />
                 </Container>
