@@ -1,7 +1,6 @@
 // External imports
 import ReactDOM from "react-dom/client";
-import { HashRouter as Router } from "react-router-dom";
-import { StrictMode } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 
 // Local imports
@@ -23,7 +22,7 @@ const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = ReactDOM.createRoot(htmlRoot);
 
 reactRoot.render(
-  <StrictMode>
+  <>
     <Box className={styles["main-wrapper"]}>
       <ErrorBoundary>
         <AuthProvider>
@@ -42,7 +41,7 @@ reactRoot.render(
         </AuthProvider>
       </ErrorBoundary>
     </Box>
-  </StrictMode>
+  </>
 );
 
 if (process.env.REACT_APP_ENV !== "production") {

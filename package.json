@@ -1,9 +1,9 @@
 {
+  "homepage": "https://antoniwrobel.github.io/awok/",
   "name": "awok",
   "version": "0.1.0",
   "description": "React, MUI and TypeScript template",
   "private": false,
-  "homepage": "https://antoniwrobel.github.io/awok/",
   "keywords": [
     "airbnb",
     "emotion",
