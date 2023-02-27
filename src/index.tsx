@@ -24,6 +24,8 @@ const reactRoot = ReactDOM.createRoot(htmlRoot);
 
 const reportOn = false;
 
+console.log(123);
+
 reactRoot.render(
   <StrictMode>
     <Box className={styles["main-wrapper"]}>
