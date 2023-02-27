@@ -1,5 +1,5 @@
 // External imports
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 
 // Local imports
@@ -18,18 +18,16 @@ const App = () => {
     <Box height="100%">
       <LoadingModal isOpen={isLoading} />
       <Routes>
-        <Route>
-          <Route path="/" element={<PublicPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/protected"
-            element={
-              <RequireAuth>
-                <HomePage />
-              </RequireAuth>
-            }
-          />
-        </Route>
+        <Route path="/" element={<PublicPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/protected"
+          element={
+            <RequireAuth>
+              <HomePage />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </Box>
   );
