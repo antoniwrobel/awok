@@ -22,7 +22,7 @@ initI18n();
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = ReactDOM.createRoot(htmlRoot);
 
-console.log(process.env.PUBLIC_URL);
+console.log(1, process.env.PUBLIC_URL);
 
 reactRoot.render(
   <StrictMode>
