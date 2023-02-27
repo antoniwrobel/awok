@@ -22,6 +22,8 @@ initI18n();
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = ReactDOM.createRoot(htmlRoot);
 
+console.log(process.env.PUBLIC_URL);
+
 reactRoot.render(
   <StrictMode>
     <Box className={styles["main-wrapper"]}>
@@ -29,7 +31,7 @@ reactRoot.render(
         <AuthProvider>
           <LoadingProvider>
             <Box className={styles["main-box"]}>
-              <Router>
+              <Router basename={process.env.PUBLIC_URL}>
                 <Container className={styles["main-container"]}>
                   <Layout />
                 </Container>
