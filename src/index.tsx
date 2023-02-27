@@ -1,5 +1,5 @@
 // External imports
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { StrictMode } from "react";
 import { Box, Container } from "@mui/material";
@@ -19,10 +19,7 @@ import "./styles/main.scss";
 // Global initialization
 initI18n();
 
-const htmlRoot = document.getElementById("root") as HTMLElement;
-const reactRoot = ReactDOM.createRoot(htmlRoot);
-
-reactRoot.render(
+ReactDOM.render(
   <StrictMode>
     <Box className={styles["main-wrapper"]}>
       <ErrorBoundary>
@@ -42,7 +39,8 @@ reactRoot.render(
         </AuthProvider>
       </ErrorBoundary>
     </Box>
-  </StrictMode>
+  </StrictMode>,
+  document.getElementById("root")
 );
 
 if (process.env.REACT_APP_ENV !== "production") {
