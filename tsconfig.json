@@ -3,6 +3,7 @@
   // to compile the TypeScript project.
   // Learn more: https://www.typescriptlang.org/tsconfig
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "experimentalDecorators": true,

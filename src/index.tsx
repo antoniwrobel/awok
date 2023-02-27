@@ -23,8 +23,9 @@ const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = ReactDOM.createRoot(htmlRoot);
 
 const reportOn = false;
+const appVersion = process.env.REACT_APP_PACKAGE_VERSION;
 
-console.log(123);
+console.log({ appVersion });
 
 reactRoot.render(
   <StrictMode>
