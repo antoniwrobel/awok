@@ -2,9 +2,6 @@
 import HelloWorld from "../../components/HelloWorld";
 
 // Component definition
-const HomePage = () => {
+export const HomePage = () => {
   return <HelloWorld />;
 };
-
-// Default export
-export default HomePage;

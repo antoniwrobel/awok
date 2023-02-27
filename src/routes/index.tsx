@@ -1,6 +1,4 @@
-import PublicPage from "../pages/Public";
-import HomePage from "../pages/Home";
-import LoginPage from "../pages/Login";
+import { LoginPage, HomePage, PublicPage } from "../pages";
 
 type RouteType = {
   path: string;

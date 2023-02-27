@@ -2,7 +2,7 @@
 import { render, screen } from "@testing-library/react";
 
 // Local imports
-import HomePage from ".";
+import { HomePage } from ".";
 
 test("Render HomePage", () => {
   render(<HomePage />);

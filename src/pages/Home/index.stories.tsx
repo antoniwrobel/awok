@@ -2,7 +2,7 @@
 import { ComponentMeta } from "@storybook/react";
 
 // Local imports
-import HomePage from ".";
+import { HomePage } from ".";
 
 // Story placement in the story list
 export default {

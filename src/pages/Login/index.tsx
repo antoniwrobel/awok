@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
 import { useTranslation } from "react-i18next";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
@@ -60,5 +60,3 @@ const LoginPage = () => {
     </Box>
   );
 };
-
-export default LoginPage;
