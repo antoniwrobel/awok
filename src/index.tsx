@@ -25,22 +25,22 @@ const reactRoot = ReactDOM.createRoot(htmlRoot);
 reactRoot.render(
   <StrictMode>
     <Box className={styles["main-wrapper"]}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <ErrorBoundary>
-          <AuthProvider>
-            <LoadingProvider>
-              <Box className={styles["main-box"]}>
+      <ErrorBoundary>
+        <AuthProvider>
+          <LoadingProvider>
+            <Box className={styles["main-box"]}>
+              <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Container className={styles["main-container"]}>
                   <Layout />
                 </Container>
                 <Container className={styles["main-container"]}>
                   <App />
                 </Container>
-              </Box>
-            </LoadingProvider>
-          </AuthProvider>
-        </ErrorBoundary>
-      </BrowserRouter>
+              </BrowserRouter>
+            </Box>
+          </LoadingProvider>
+        </AuthProvider>
+      </ErrorBoundary>
     </Box>
   </StrictMode>
 );
