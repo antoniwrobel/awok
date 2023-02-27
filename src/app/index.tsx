@@ -16,23 +16,25 @@ const App = () => {
     <Box height="100%">
       <LoadingModal isOpen={isLoading} />
       <Routes>
-        {routes.map((route, index) => {
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              element={
-                route.isProtected ? (
-                  <RequireAuth>
-                    <route.component />
-                  </RequireAuth>
-                ) : (
-                  <route.component />
-                )
-              }
-            />
-          );
-        })}
+        {routes.map(
+          ({ path, isProtected, component: RouteComponent }, index) => {
+            return (
+              <Route
+                key={index}
+                path={path}
+                element={
+                  isProtected ? (
+                    <RequireAuth>
+                      <RouteComponent />
+                    </RequireAuth>
+                  ) : (
+                    <RouteComponent />
+                  )
+                }
+              />
+            );
+          }
+        )}
       </Routes>
     </Box>
   );
