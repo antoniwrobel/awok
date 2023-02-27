@@ -1,12 +1,33 @@
-import axios from 'axios';
-import {  getRefreshToken, getAccessToken, setAccessToken,setRefreshToken, redirectToLogin } from './auth-service';
+import axios, { AxiosError, AxiosInstance } from "axios";
+import { AxiosErrorType } from "src/types/axios.types";
+import {
+  getRefreshToken,
+  getAccessToken,
+  setAccessToken,
+  setRefreshToken,
+  redirectToLogin,
+  axiosErrorHandler,
+} from "./auth-service";
 
-const API_BASE_URL = 'https://api.example.com';
+const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
+  axiosInstance.interceptors.response.use(
+    (response) => response,
+    axiosErrorHandler<AxiosErrorType<T>>((error) => {
+      console.error(error);
+    })
+  );
 
-const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-   timeout: 5000,
-});
+  return axiosInstance;
+};
+
+const API_BASE_URL = "http://127.0.0.1:8000/";
+
+const axiosInstance = withErrorHandling(
+  axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 5000,
+  })
+);
 
 // Add authorization header to axios instance
 axiosInstance.interceptors.request.use(
@@ -23,7 +44,7 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
- (response) => {
+  (response) => {
     return response;
   },
   async (error) => {
@@ -36,7 +57,9 @@ axiosInstance.interceptors.response.use(
       const refreshToken = getRefreshToken();
       if (refreshToken) {
         try {
-          const response = await axios.post('/auth/refresh-token', { refreshToken });
+          const response = await axios.post("/auth/refresh-token", {
+            refreshToken,
+          });
           const { accessToken, refreshToken: newRefreshToken } = response.data;
           setAccessToken(accessToken);
           setRefreshToken(newRefreshToken);

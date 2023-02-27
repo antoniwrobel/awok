@@ -96,6 +96,7 @@
     "@typescript-eslint/comma-dangle": "off",
     "import/no-named-as-default": "off",
     "import/named": "off",
+    "import/namespace": "off",
     "react/prop-types": "off"
   },
   "ignorePatterns": ["**/*.css"],

@@ -3,29 +3,45 @@ import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
 import { useTranslation } from "react-i18next";
+import { toast, ToastContent } from "react-toastify";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const { signin, user } = useAuth();
+
+  const { signIn, user } = useAuth();
+
   const { isLoading, setIsLoading } = useLoading();
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    signin(username, () => {
-      setIsLoading(false);
-      navigate(from, { replace: true });
-    });
+    try {
+      await signIn(username, password);
+    } catch (err) {
+      const error = err as ToastContent<unknown>;
+      toast.error(error);
+    }
+
+    setIsLoading(false);
+    // signin(username, () => {
+    //   setIsLoading(false);
+    //   navigate(from, { replace: true });
+    // });
   };
 
-  const handleChange = ({
+  const handleChangeUsername = ({
     target: { value },
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setUsername(value);
+
+  const handleChangePassword = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPassword(value);
 
   useEffect(() => {
     if (user) {
@@ -40,13 +56,22 @@ export const LoginPage = () => {
       </Typography>
 
       <Box display="flex" mt="10px" justifyContent="space-between">
-        <TextField
-          label="e-mail"
-          variant="outlined"
-          disabled={isLoading}
-          value={username}
-          onChange={handleChange}
-        />
+        <Box display="flex" flexDirection="column" gap="10px">
+          <TextField
+            label="username"
+            variant="outlined"
+            disabled={isLoading}
+            value={username}
+            onChange={handleChangeUsername}
+          />
+          <TextField
+            label="password"
+            variant="outlined"
+            disabled={isLoading}
+            value={password}
+            onChange={handleChangePassword}
+          />
+        </Box>
 
         <Button
           sx={{ marginLeft: "20px" }}
