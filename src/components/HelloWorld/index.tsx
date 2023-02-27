@@ -45,20 +45,17 @@ const HelloWorld = ({ alert, box }: HelloWorldProps) => {
   return (
     <Box {...boxProps}>
       <Alert {...alertProps}>
-        <div>
-          {Object.keys(lngs).map((lng) => (
-            <button
-              type="submit"
-              key={lng}
-              onClick={() => i18n.changeLanguage(lng)}
-              disabled={i18n.resolvedLanguage === lng}
-              className={styles["lng-button"]}
-            >
-              {lngs[lng].nativeName}
-            </button>
-          ))}
-        </div>
-
+        {Object.keys(lngs).map((lng) => (
+          <button
+            type="submit"
+            key={lng}
+            onClick={() => i18n.changeLanguage(lng)}
+            disabled={i18n.resolvedLanguage === lng}
+            className={styles["lng-button"]}
+          >
+            {lngs[lng].nativeName}
+          </button>
+        ))}
         <div className={styles.info}>{name}</div>
         <div className={styles.info}>{version}</div>
         <div className={styles.info}>{env}</div>

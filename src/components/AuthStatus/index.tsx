@@ -1,6 +1,9 @@
+// External imports
 import { Box, Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
+
+// Local imports
 import { useAuth, useLoading } from "../../hooks";
 
 const AuthStatus = () => {
@@ -33,8 +36,8 @@ const AuthStatus = () => {
         {!isOnLoginPage && (
           <Button
             type="button"
-            onClick={handleGoToLoginPage}
             disabled={isLoading}
+            onClick={handleGoToLoginPage}
           >
             {t("login")}
           </Button>

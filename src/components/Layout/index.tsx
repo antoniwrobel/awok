@@ -1,6 +1,9 @@
+// External imports
 import { Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
+
+// Local imports
 import AuthStatus from "../AuthStatus";
 
 const Layout = () => {

@@ -1,4 +1,7 @@
+// External imports
 import { Backdrop, Box, CircularProgress } from "@mui/material";
+
+// Local imports
 import styles from "./index.module.scss";
 
 type LoadingModalProps = {
@@ -7,6 +10,7 @@ type LoadingModalProps = {
 
 const LoadingModal = (props: LoadingModalProps) => {
   const { isOpen } = props;
+
   return isOpen ? (
     <Box className={styles["modal-wrapper"]}>
       <Box

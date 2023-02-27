@@ -1,8 +1,8 @@
 // External imports
+import ReactDOM from "react-dom/client";
 import { StrictMode } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Container } from "@mui/material";
-import ReactDOM from "react-dom/client";
 
 // Local imports
 import App from "./app";
@@ -10,8 +10,8 @@ import initI18n from "./lang";
 import styles from "../src/index.module.scss";
 import Layout from "./components/Layout";
 import AuthProvider from "./context/AuthProvider";
-import ErrorBoundary from "./error-boundary";
 import LoadingProvider from "./context/LoadingProvider";
+import ErrorBoundary from "./error-boundary";
 
 import reportWebVitals from "./util/web-vitals";
 import "./styles/main.scss";
