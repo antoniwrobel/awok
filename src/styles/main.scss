@@ -7,6 +7,8 @@
 // Local imports
 @import "reset";
 @import "material-icons";
+@import "../index.module";
+@import "../modals/Loading/index.module";
 
 .main-wrapper {
   background-color: red;
