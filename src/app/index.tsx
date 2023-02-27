@@ -3,11 +3,9 @@ import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 
 // Local imports
-import RequireAuth from "../components/RequireAuth";
+import routes from "../../src/routes";
 import LoadingModal from "../modals/Loading";
-import HomePage from "../pages/Home";
-import LoginPage from "../pages/Login";
-import PublicPage from "../pages/Public";
+import RequireAuth from "../components/RequireAuth";
 import { useLoading } from "../hooks";
 
 // Component definition
@@ -18,17 +16,23 @@ const App = () => {
     <Box height="100%">
       <LoadingModal isOpen={isLoading} />
       <Routes>
-        <Route path="/" element={<PublicPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/protected"
-          element={
-            <RequireAuth>
-              <HomePage />
-            </RequireAuth>
-          }
-        />
-        <Route path="*" element={<Box>Page not found</Box>} />
+        {routes.map((route, index) => {
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                route.isProtected ? (
+                  <RequireAuth>
+                    <route.component />
+                  </RequireAuth>
+                ) : (
+                  <route.component />
+                )
+              }
+            />
+          );
+        })}
       </Routes>
     </Box>
   );
