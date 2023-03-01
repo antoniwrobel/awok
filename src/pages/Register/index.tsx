@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
 import { useTranslation } from "react-i18next";
 import { toast, ToastContent } from "react-toastify";
-import { Formik } from "formik";
+import { Formik, Form, FormikValues } from "formik";
 import {
+  generateYupSchema,
   RegisterFormFieldNamesType,
   registerFormFields,
   registerFormFieldsNamesArray,
@@ -28,10 +29,14 @@ export const RegisterPage = () => {
 
   const from = location.state?.from?.pathname || "/";
 
-  const handleSubmit = async () => {
+  const validationSchema = generateYupSchema(registerFormFields);
+
+  const handleSubmit = async (values: FormikValues) => {
     setIsLoading(true);
 
     try {
+      const success = await validationSchema.validate(values);
+      console.log({ success, values });
     } catch (err) {
       const error = err as ToastContent<unknown>;
       toast.error(error);
@@ -47,53 +52,66 @@ export const RegisterPage = () => {
   }, [user]);
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      width="100%"
-      alignItems="flex-end"
-    >
+    <Box>
       <Box display="flex" mt="10px" justifyContent="space-between" width="100%">
-        <Box
-          display="grid"
-          flexDirection="column"
-          gap="10px"
-          gridTemplateColumns="2fr 2fr 2fr"
-          width="100%"
-        >
-          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Box width="100%">
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
             {({ values, handleChange }) => {
-              return registerFormFields.map((field) => {
-                const { label, name, type } = field;
-                return (
-                  <TextField
-                    key={name}
-                    label={label}
-                    name={name}
-                    variant="outlined"
-                    disabled={isLoading}
-                    value={values[name]}
-                    onChange={handleChange}
-                    type={type}
-                  />
-                );
-              });
+              return (
+                <Box>
+                  <Form
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-end",
+                    }}
+                  >
+                    <Box
+                      display="grid"
+                      flexDirection="column"
+                      gap="10px"
+                      gridTemplateColumns="2fr 2fr 2fr"
+                      width="100%"
+                    >
+                      {registerFormFields.map((field) => {
+                        const { label, name, type } = field;
+                        return (
+                          <TextField
+                            key={name}
+                            label={label}
+                            name={name}
+                            variant="outlined"
+                            disabled={isLoading}
+                            value={values[name]}
+                            onChange={handleChange}
+                            type={type}
+                          />
+                        );
+                      })}
+                    </Box>
+
+                    <Button
+                      type="submit"
+                      disabled={isLoading}
+                      sx={{
+                        maxWidth: "150px",
+                        mt: "20px",
+                      }}
+                    >
+                      {t("register")}
+                    </Button>
+                  </Form>
+                </Box>
+              );
             }}
           </Formik>
         </Box>
       </Box>
-
-      <Button
-        disabled={isLoading}
-        onClick={handleSubmit}
-        type="button"
-        sx={{
-          maxWidth: "150px",
-          mt: "20px",
-        }}
-      >
-        {t("register")}
-      </Button>
     </Box>
   );
 };
