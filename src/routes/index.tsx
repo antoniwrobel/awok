@@ -1,4 +1,4 @@
-import { LoginPage, HomePage, PublicPage } from "../pages";
+import { LoginPage, HomePage, PublicPage, RegisterPage } from "../pages";
 
 type RouteType = {
   path: string;
@@ -12,6 +12,11 @@ const routes: RouteType[] = [
     path: "/login",
     component: LoginPage,
     name: "LOGIN",
+  },
+  {
+    path: "/register",
+    component: RegisterPage,
+    name: "REGISTER",
   },
   {
     path: "/",

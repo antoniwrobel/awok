@@ -31,7 +31,7 @@ const appVersion = process.env.REACT_APP_PACKAGE_VERSION;
 console.log({ appVersion });
 
 reactRoot.render(
-  <StrictMode>
+  <>
     <Box className={styles["main-wrapper"]}>
       <ToastContainer
         theme="colored"
@@ -62,7 +62,7 @@ reactRoot.render(
         </AuthProvider>
       </ErrorBoundary>
     </Box>
-  </StrictMode>
+  </>
 );
 
 if (process.env.REACT_APP_ENV !== "production" && reportOn) {
