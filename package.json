@@ -1,5 +1,5 @@
 {
-  "homepage": "https://antoniwrobel.github.io/awok/",
+  "homepage": "https://antoniwrobel.github.io/awok-fe/",
   "name": "awok",
   "version": "0.1.3",
   "description": "AWOK",
@@ -134,7 +134,7 @@
     ]
   },
   "main": "index.js",
-  "repository": "https://github.com/antoniwrobel/awok",
+  "repository": "https://github.com/antoniwrobel/awok-fe",
   "author": "aw/ok",
   "license": "MIT"
 }
