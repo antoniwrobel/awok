@@ -24,8 +24,8 @@ initI18n();
 
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = createRoot(htmlRoot);
-
 const reportOn = false;
+
 const appVersion = process.env.REACT_APP_PACKAGE_VERSION;
 
 console.log({ appVersion });
