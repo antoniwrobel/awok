@@ -1,6 +1,8 @@
 // External imports
 import { AlertProps, Box, BoxProps, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useLocale } from "src/hooks/useLocale";
+import { LocalesType } from "src/types/locale.types";
 interface HelloWorldProps {
   alert?: AlertProps;
   box?: BoxProps;
@@ -16,8 +18,11 @@ const lngs: Language = {
   es: { nativeName: "Español" },
 };
 
-const HelloWorld = ({ alert, box }: HelloWorldProps) => {
-  const { i18n } = useTranslation();
+const HelloWorld = ({ box }: HelloWorldProps) => {
+  const {
+    i18n: { resolvedLanguage },
+  } = useTranslation();
+  const { changeLocale } = useLocale();
 
   const defaults = HelloWorld.defaultProps;
   const boxProps = { ...defaults.box, ...box } as BoxProps;
@@ -41,8 +46,11 @@ const HelloWorld = ({ alert, box }: HelloWorldProps) => {
               backgroundColor: "#fff",
             }}
             key={lng}
-            onClick={() => i18n.changeLanguage(lng)}
-            disabled={i18n.resolvedLanguage === lng}
+            onClick={() => {
+              const lang = lng as LocalesType;
+              changeLocale(lang);
+            }}
+            disabled={resolvedLanguage === lng}
           >
             {lngs[lng].nativeName}
           </Button>

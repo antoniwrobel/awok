@@ -17,10 +17,6 @@ export const setRefreshToken = (token: string): void => {
 export const removeAccessToken = (): void =>
   localStorage.removeItem(ACCESS_TOKEN_KEY);
 
-export const redirectToLogin = (): void => {
-  window.location.href = "/awok-fe/login";
-};
-
 export const axiosErrorHandler = <T>(
   callback: (err: IAxiosError<T> | IStockError<T>) => void
 ) => {

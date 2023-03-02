@@ -2,10 +2,6 @@
 import { useState, MouseEvent } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import MailIcon from "@mui/icons-material/Mail";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Badge from "@mui/material/Badge";
 
 // Local imports
 import { Toolbar } from "./components/Toolbar";
@@ -14,6 +10,8 @@ import { useTranslation } from "react-i18next";
 import { getAccessToken, removeAccessToken } from "src/auth/auth-service";
 import { useNavigate } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
+import { useLocale } from "src/hooks/useLocale";
+import { LocalesType } from "src/types/locale.types";
 
 type Language = {
   [key: string]: { nativeName: string };
@@ -26,7 +24,12 @@ const lngs: Language = {
 };
 
 export const Navbar = () => {
-  const { t, i18n } = useTranslation();
+  const {
+    t,
+    i18n: { resolvedLanguage },
+  } = useTranslation();
+  const { changeLocale } = useLocale();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [localeAnchorEl, setLocaleAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -95,10 +98,11 @@ export const Navbar = () => {
             <MenuItem
               key={lng}
               onClick={() => {
-                i18n.changeLanguage(lng);
+                const lang = lng as LocalesType;
+                changeLocale(lang);
                 handleMenuClose();
               }}
-              disabled={i18n.resolvedLanguage === lng}
+              disabled={resolvedLanguage === lng}
             >
               {lngs[lng].nativeName}
             </MenuItem>
@@ -142,10 +146,11 @@ export const Navbar = () => {
             <MenuItem
               key={lng}
               onClick={() => {
-                i18n.changeLanguage(lng);
+                const lang = lng as LocalesType;
+                changeLocale(lang);
                 handleMenuClose();
               }}
-              disabled={i18n.resolvedLanguage === lng}
+              disabled={resolvedLanguage === lng}
             >
               {lngs[lng].nativeName}
             </MenuItem>
