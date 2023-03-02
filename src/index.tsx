@@ -51,7 +51,7 @@ reactRoot.render(
     <Box
       sx={{
         backgroundColor: "#f8f8f9",
-        height: "100vh",
+        minHeight: "100vh",
         padding: ["10px", "20px 10px"],
         boxSizing: "border-box",
       }}
