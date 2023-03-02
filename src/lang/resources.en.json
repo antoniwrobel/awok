@@ -9,5 +9,21 @@
   "go-to-protected": "Go to protected content",
   "login-to-view": "You must log in to view the page at ",
   "not-logged-in": "You are not logged in.",
-  "regiter": "Register"
+  "regiter": "Register",
+  "only-letters": "Only letters, digits, and @/./+/-/_ are allowed",
+  "required": "Field {{label}} is required",
+  "invalid-email": "Invalid e-mail address",
+  "pass-one-uppercase": "Password must contain at least one uppercase letter",
+  "pass-one-lowercase": "Password must contain at least one lowercase letter",
+  "pass-one-digit": "Password must contain at least one digit",
+  "pass-match": "Passwords must match",
+  "pass-confirm": "Confirm password",
+  "min-length": "Field {{label}} must have at least {{length}} characters",
+  "max-length": "Field {{label}} may contain maximum {{length}} characters",
+  "username": "Username",
+  "pass": "Password",
+  "email": "E-mail",
+  "first-name": "First name",
+  "last-name": "Last name",
+  "register": "Register"
 }

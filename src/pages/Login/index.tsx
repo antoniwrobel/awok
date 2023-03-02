@@ -10,7 +10,7 @@ export const LoginPage = () => {
   const location = useLocation();
   const { t } = useTranslation();
 
-  const { signIn, user } = useAuth();
+  const { signin, signIn, user } = useAuth();
 
   const { isLoading, setIsLoading } = useLoading();
   const [username, setUsername] = useState("");
@@ -22,17 +22,17 @@ export const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      await signIn(username, password);
+      // await signIn(username, password);
+      signin(username, () => {
+        setIsLoading(false);
+        navigate(from, { replace: true });
+      });
     } catch (err) {
       const error = err as ToastContent<unknown>;
       toast.error(error);
     }
 
     setIsLoading(false);
-    // signin(username, () => {
-    //   setIsLoading(false);
-    //   navigate(from, { replace: true });
-    // });
   };
 
   const handleChangeUsername = ({

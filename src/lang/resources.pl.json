@@ -8,5 +8,22 @@
   "this-is-public": "To jest publiczna strona",
   "go-to-protected": "Przejdź do chronionej zawartości",
   "login-to-view": "Musisz się zalogować, żeby zobaczyć zawartość ",
-  "not-logged-in": "Nie jesteś zalogowany"
+  "not-logged-in": "Nie jesteś zalogowany",
+  "regiter": "Register",
+  "only-letters": "Tylko litery, cyfry, i @/./+/-/_ są dozwolone",
+  "required": "Pole {{label}} jest wymagane",
+  "invalid-email": "Podaj poprawny adres e-mail",
+  "pass-one-uppercase": "Hasło musi zawierać przynajmniej jedną wielką literę",
+  "pass-one-lowercase": "Hasło musi zawierać przynajmniej jedną małą literę",
+  "pass-one-digit": "Hasło musi zawierać przynajmniej jedną cyfrę",
+  "pass-match": "Hasła nie są zgodne",
+  "pass-confirm": "Potwierdź hasło",
+  "min-length": "Pole {{label}} musi mieć przynajmniej {{length}} znaków",
+  "max-length": "Pole {{label}} może mieć maksymalnie {{length}} znaków",
+  "username": "Nazwa użytkownika",
+  "pass": "Hasło",
+  "email": "E-mail",
+  "first-name": "Imię",
+  "last-name": "Nazwisko",
+  "register": "Zarejestruj"
 }

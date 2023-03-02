@@ -8,5 +8,22 @@
   "this-is-public": "Página pública",
   "go-to-protected": "Ir al contenido protegido",
   "login-to-view": "Debe iniciar sesión para ver la página en ",
-  "not-logged-in": " No ha iniciado sesión"
+  "not-logged-in": " No ha iniciado sesión",
+  "regiter": "Register",
+  "only-letters": "Tylko litery, cyfry, i @/./+/-/_ są dozwolone",
+  "required": "Pole {{label}} jest wymagane",
+  "invalid-email": "Podaj poprawny adres e-mail",
+  "pass-one-uppercase": "Hasło musi zawierać przynajmniej jedną wielką literę",
+  "pass-one-lowercase": "Hasło musi zawierać przynajmniej jedną małą literę",
+  "pass-one-digit": "Hasło musi zawierać przynajmniej jedną cyfrę",
+  "pass-match": "Hasła nie są zgodne",
+  "pass-confirm": "Confirmar contraseña",
+  "min-length": "Pole {{label}} musi mieć przynajmniej {{length}} znaków",
+  "max-length": "Pole {{label}} może mieć maksymalnie {{length}} znaków",
+  "username": "Nombre de usuario",
+  "pass": "Contraseña",
+  "email": "E-mail",
+  "first-name": "Nombre",
+  "last-name": "Apellido",
+  "register": "Register ES"
 }

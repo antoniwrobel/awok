@@ -3,14 +3,13 @@ import { Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
 import { useTranslation } from "react-i18next";
-import { toast, ToastContent } from "react-toastify";
 import { Formik, Form, FormikValues } from "formik";
 import {
-  generateYupSchema,
   RegisterFormFieldNamesType,
-  registerFormFields,
   registerFormFieldsNamesArray,
 } from "./register-form-fields";
+import { generateYupSchema } from "./generate-registration-schema";
+import { generateRegisterFormFields } from "./generate-registration-fields";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -28,19 +27,13 @@ export const RegisterPage = () => {
   const { isLoading, setIsLoading } = useLoading();
 
   const from = location.state?.from?.pathname || "/";
-
+  const registerFormFields = generateRegisterFormFields();
   const validationSchema = generateYupSchema(registerFormFields);
 
   const handleSubmit = async (values: FormikValues) => {
     setIsLoading(true);
 
-    try {
-      const success = await validationSchema.validate(values);
-      console.log({ success, values });
-    } catch (err) {
-      const error = err as ToastContent<unknown>;
-      toast.error(error);
-    }
+    console.log({ values });
 
     setIsLoading(false);
   };
@@ -60,7 +53,8 @@ export const RegisterPage = () => {
             onSubmit={handleSubmit}
             validationSchema={validationSchema}
           >
-            {({ values, handleChange }) => {
+            {({ values, handleChange, errors, touched }) => {
+              console.log({ errors, touched });
               return (
                 <Box>
                   <Form
@@ -75,21 +69,24 @@ export const RegisterPage = () => {
                       display="grid"
                       flexDirection="column"
                       gap="10px"
-                      gridTemplateColumns="2fr 2fr 2fr"
+                      gridTemplateColumns="2fr 2fr"
                       width="100%"
                     >
                       {registerFormFields.map((field) => {
                         const { label, name, type } = field;
+                        const hasError = Boolean(errors[name] && touched[name]);
                         return (
                           <TextField
                             key={name}
-                            label={label}
                             name={name}
-                            variant="outlined"
-                            disabled={isLoading}
-                            value={values[name]}
-                            onChange={handleChange}
                             type={type}
+                            label={label}
+                            variant="outlined"
+                            error={hasError}
+                            value={values[name]}
+                            disabled={isLoading}
+                            onChange={handleChange}
+                            helperText={hasError && errors[name]}
                           />
                         );
                       })}

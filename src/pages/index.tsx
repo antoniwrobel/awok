@@ -1,4 +1,4 @@
 export * from "./Home";
 export * from "./Login";
-export * from "./Public";
+export * from "./Protected";
 export * from "./Register";
