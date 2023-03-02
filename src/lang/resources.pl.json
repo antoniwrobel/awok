@@ -27,6 +27,7 @@
   "first-name": "Imię",
   "last-name": "Nazwisko",
   "register": "Zarejestruj",
-  "register-success-message": "User has beed registered",
-  "login-success": "Poprawnie zalogowano"
+  "register-success-message": "Użytkownik został zarejestrowany",
+  "login-success": "Poprawnie zalogowano",
+  "search": "Wyszukaj..."
 }

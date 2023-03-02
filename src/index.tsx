@@ -43,8 +43,7 @@ const containerSx = {
   border: "1px solid #dedede",
   borderRadius: "4px",
   padding: ["10px", "10px", "20px"],
-  boxsizing: "border-box",
-  marginBottom: "20px",
+  marginBottom: ["10px", "20px"],
 };
 
 reactRoot.render(

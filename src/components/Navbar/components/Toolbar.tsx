@@ -1,5 +1,5 @@
 // External imports
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import ToolbarComponent from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -19,6 +19,7 @@ import {
   StyledInputBase,
   SubmitIconWrapper,
 } from "./composition";
+import { useTranslation } from "react-i18next";
 
 const menuId = "primary-search-account-menu";
 const menuId1 = "primary-locale-select-menu";
@@ -33,32 +34,38 @@ type ToolbarPropsType = {
 export const Toolbar = (toolbarProps: ToolbarPropsType) => {
   const { handleProfileMenuOpen, handleMobileMenuOpen, handleLocalesMenuOpen } =
     toolbarProps;
+
+  const { t } = useTranslation();
+  const searchRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
 
-  const searchRef = useRef<HTMLInputElement>(null);
+  const useKeypress = useMemo(
+    () => (key: string, action: () => void) =>
+      useEffect(() => {
+        const onKeyup = (e: { key: string }) => {
+          if (e.key === key) {
+            action();
+          }
+        };
 
-  const useKeypress = (key: string, action: () => void) => {
-    useEffect(() => {
-      const onKeyup = (e: { key: string }) => {
-        if (e.key === key) {
-          action();
+        window.addEventListener("keyup", onKeyup);
+
+        return () => window.removeEventListener("keyup", onKeyup);
+      }, [focused]),
+    [focused]
+  );
+
+  const handleLogSearchValue = useMemo(
+    () => (condition: boolean) => {
+      if (searchRef && searchRef.current) {
+        const inputValue = searchRef.current.value;
+        if (condition && inputValue.trim()) {
+          console.log("search value => ", inputValue);
         }
-      };
-
-      window.addEventListener("keyup", onKeyup);
-
-      return () => window.removeEventListener("keyup", onKeyup);
-    }, [focused, searchRef]);
-  };
-
-  const handleLogSearchValue = (condition: boolean) => {
-    if (searchRef && searchRef.current) {
-      const inputValue = searchRef.current.value;
-      if (condition && inputValue.trim()) {
-        console.log("search value => ", inputValue);
       }
-    }
-  };
+    },
+    []
+  );
 
   useKeypress("Enter", () => handleLogSearchValue(focused));
 
@@ -80,7 +87,7 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         <StyledInputBase
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          placeholder="Search…"
+          placeholder={t("search")}
           inputProps={{ "aria-label": "search" }}
           inputRef={searchRef}
         />

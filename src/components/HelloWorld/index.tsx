@@ -4,11 +4,8 @@
  */
 
 // External imports
-import { Alert, AlertProps, Box, BoxProps } from "@mui/material";
+import { Alert, AlertProps, Box, BoxProps, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
-// Local imports
-import styles from "./index.module.scss";
 
 // Component props
 interface HelloWorldProps {
@@ -36,7 +33,7 @@ const HelloWorld = ({ alert, box }: HelloWorldProps) => {
 
   const defaults = HelloWorld.defaultProps;
   const boxProps = { ...defaults.box, ...box } as BoxProps;
-  const alertProps = { ...defaults.alert, ...alert } as AlertProps;
+  const alertProps = { ...alert } as AlertProps;
 
   const name = process.env.REACT_APP_PACKAGE_NAME;
   const version = process.env.REACT_APP_PACKAGE_VERSION;
@@ -44,33 +41,37 @@ const HelloWorld = ({ alert, box }: HelloWorldProps) => {
 
   return (
     <Box {...boxProps}>
-      <Alert {...alertProps}>
+      <Box
+        display="grid"
+        gridTemplateColumns={["1fr", "1fr 1fr 1fr"]}
+        gap="10px"
+      >
         {Object.keys(lngs).map((lng) => (
-          <button
+          <Button
             type="submit"
+            variant="outlined"
+            sx={{
+              backgroundColor: "#fff",
+            }}
             key={lng}
             onClick={() => i18n.changeLanguage(lng)}
             disabled={i18n.resolvedLanguage === lng}
-            className={styles["lng-button"]}
           >
             {lngs[lng].nativeName}
-          </button>
+          </Button>
         ))}
-        <div className={styles.info}>{name}</div>
-        <div className={styles.info}>{version}</div>
-        <div className={styles.info}>{env}</div>
-      </Alert>
+      </Box>
+      <Box display="grid" gridTemplateColumns="1fr" mt="10px">
+        <Box>{name}</Box>
+        <Box>{version}</Box>
+        <Box>{env}</Box>
+      </Box>
     </Box>
   );
 };
 
 // Default props
 HelloWorld.defaultProps = {
-  alert: {
-    severity: "info",
-    sx: { width: "100%" },
-    variant: "filled",
-  },
   box: {},
 };
 
