@@ -1,4 +1,10 @@
-import { LoginPage, HomePage, ProtectedPage, RegisterPage } from "../pages";
+import {
+  LoginPage,
+  HomePage,
+  ProtectedPage,
+  RegisterPage,
+  LoggedIn,
+} from "../pages";
 
 type RouteType = {
   path: string;
@@ -27,6 +33,12 @@ const routes: RouteType[] = [
     path: "/protected",
     component: ProtectedPage,
     name: "AUTH",
+    isProtected: true,
+  },
+  {
+    path: "/logged-in",
+    component: LoggedIn,
+    name: "LOGGED IN",
     isProtected: true,
   },
 ];

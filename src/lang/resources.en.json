@@ -25,5 +25,6 @@
   "email": "E-mail",
   "first-name": "First name",
   "last-name": "Last name",
-  "register": "Register"
+  "register": "Register",
+  "register-success-message": "User has beed registered"
 }

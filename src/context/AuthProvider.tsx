@@ -1,22 +1,18 @@
 import axios from "axios";
 import { createContext } from "react";
+import { setAccessToken } from "src/auth/auth-service";
 
 import ax from "src/auth/axios-config";
 import { fakeAuthProvider } from "../auth/auth";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { AuthContextType } from "../types/auth.types";
-import { ErrorResponse } from "src/types/axios.types";
 
 export const AuthContext = createContext<AuthContextType>(null!);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useLocalStorage("user", null);
 
-  const signIn = async (
-    username: string,
-    password: string,
-    callback?: VoidFunction
-  ) => {
+  const signIn = async (username: string, password: string) => {
     try {
       const successResponse = await ax.post("/api-token-auth", {
         username,
@@ -24,16 +20,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       if (successResponse.status === 200) {
+        setAccessToken(successResponse.data.token);
         return successResponse.data;
       }
-    } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const error = err as ErrorResponse;
-        throw new Error(error.response.data?.message);
-      } else {
-        console.error(err);
-        throw new Error("Other axios error");
-      }
+    } catch (error) {
+      return Promise.reject(error);
     }
   };
 
@@ -45,10 +36,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signout = (callback: VoidFunction) => {
-    return fakeAuthProvider.signout(() => {
-      setUser(null);
-      callback();
-    });
+    setUser(null);
+    setAccessToken("");
+    callback();
   };
 
   const value = { user, signin, signout, signIn };

@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { RegisterFormFieldNamesType } from "src/pages/Register/register-form-fields";
 
 export type ErrorResponse = {
   response: {
@@ -6,6 +7,14 @@ export type ErrorResponse = {
       message: string;
     };
     status: number;
+  };
+};
+
+export type RegisterResponseError = {
+  response: {
+    data: {
+      [key in RegisterFormFieldNamesType]?: string[] | string;
+    };
   };
 };
 

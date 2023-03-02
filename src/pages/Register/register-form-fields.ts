@@ -1,14 +1,4 @@
-import {
-  object,
-  string,
-  number,
-  date,
-  InferType,
-  StringSchema,
-  ref,
-} from "yup";
-
-interface IRegisterFormFields {
+export interface IRegisterFormFields {
   username: string;
   password: string;
   password2: string;

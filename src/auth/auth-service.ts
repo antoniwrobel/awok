@@ -16,7 +16,7 @@ export const setRefreshToken = (token: string): void => {
 };
 
 export const redirectToLogin = (): void => {
-  window.location.href = "/login";
+  window.location.href = "/awok-fe/login";
 };
 
 export const axiosErrorHandler = <T>(
@@ -24,12 +24,12 @@ export const axiosErrorHandler = <T>(
 ) => {
   return (error: Error | AxiosError<T>) => {
     if (axios.isAxiosError(error)) {
-      callback({
-        error: error,
+      return callback({
+        error: error as AxiosError<T>,
         type: "axios-error",
       });
     } else {
-      callback({
+      return callback({
         error: error,
         type: "stock-error",
       });

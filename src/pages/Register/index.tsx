@@ -1,15 +1,20 @@
+import axios from "axios";
+import axiosInstance from "src/auth/axios-config";
 import { useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
 import { useTranslation } from "react-i18next";
-import { Formik, Form, FormikValues } from "formik";
+import { Formik, Form } from "formik";
 import {
   RegisterFormFieldNamesType,
   registerFormFieldsNamesArray,
 } from "./register-form-fields";
 import { generateYupSchema } from "./generate-registration-schema";
 import { generateRegisterFormFields } from "./generate-registration-fields";
+import { toast } from "react-toastify";
+import { RegisterResponseError } from "src/types/axios.types";
+import { setAccessToken } from "src/auth/auth-service";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -30,14 +35,6 @@ export const RegisterPage = () => {
   const registerFormFields = generateRegisterFormFields();
   const validationSchema = generateYupSchema(registerFormFields);
 
-  const handleSubmit = async (values: FormikValues) => {
-    setIsLoading(true);
-
-    console.log({ values });
-
-    setIsLoading(false);
-  };
-
   useEffect(() => {
     if (user) {
       navigate(from, { replace: true });
@@ -50,11 +47,60 @@ export const RegisterPage = () => {
         <Box width="100%">
           <Formik
             initialValues={initialValues}
-            onSubmit={handleSubmit}
+            onSubmit={async (values, { setSubmitting, setFieldError }) => {
+              setIsLoading(true);
+              setSubmitting(true);
+              try {
+                const registerResponse = await axiosInstance.post(
+                  "/register",
+                  values
+                );
+
+                if (registerResponse.status === 201) {
+                  const successMessage = t("register-success-message");
+
+                  setIsLoading(false);
+                  setSubmitting(false);
+                  toast.success(successMessage);
+
+                  try {
+                    const apiTokenAuthResponse = await axiosInstance.post(
+                      "/api-token-auth",
+                      { username: values.username, password: values.password }
+                    );
+
+                    if (apiTokenAuthResponse.status === 200) {
+                      setAccessToken(apiTokenAuthResponse.data.token);
+                      navigate("/logged-in");
+                    }
+                  } catch (error) {
+                    console.error(error);
+                  }
+                }
+              } catch (error) {
+                setIsLoading(false);
+                setSubmitting(false);
+
+                if (axios.isAxiosError(error) && error.response) {
+                  for (const fieldName of registerFormFieldsNamesArray) {
+                    const err = error as RegisterResponseError;
+                    const errors = err.response.data[fieldName];
+                    const errorMessage =
+                      typeof errors === "object" ? errors.join(", ") : errors;
+
+                    if (errors) {
+                      setFieldError(fieldName, errorMessage);
+                    }
+                  }
+                } else {
+                  console.error(error);
+                  throw new Error("Other register user error");
+                }
+              }
+            }}
             validationSchema={validationSchema}
           >
             {({ values, handleChange, errors, touched }) => {
-              console.log({ errors, touched });
               return (
                 <Box>
                   <Form
