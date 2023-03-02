@@ -30,5 +30,6 @@
   "register-success-message": "User has beed registered",
   "login-success": "Login successful",
   "search": "Search...",
-  "this-is-protected": "This page is protected"
+  "this-is-protected": "This page is protected",
+  "user-logged-in": "You have been correctly logged in"
 }

@@ -30,5 +30,6 @@
   "register-success-message": "El usuario ha sido registrado",
   "login-success": "Registro realizado con éxito",
   "search": "Buscar...",
-  "this-is-protected": "Esta página está protegida"
+  "this-is-protected": "Esta página está protegida",
+  "user-logged-in": "Se ha identificado correctamente"
 }

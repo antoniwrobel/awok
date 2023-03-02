@@ -4,8 +4,10 @@ import axiosInstance from "src/auth/axios-config";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useLoading } from "src/hooks";
+import { useTranslation } from "react-i18next";
 
 export const LoggedIn = () => {
+  const { t } = useTranslation();
   const { setIsLoading } = useLoading();
   const [user, setUser] = useState<any>();
 
@@ -33,7 +35,7 @@ export const LoggedIn = () => {
 
   return (
     <Box>
-      Zostales poprawnie zalogowany <br />
+      {t("user-logged-in")} <br />
       {JSON.stringify(user, null, 2)}
     </Box>
   );

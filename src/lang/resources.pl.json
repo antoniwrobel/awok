@@ -30,5 +30,6 @@
   "register-success-message": "Użytkownik został zarejestrowany",
   "login-success": "Poprawnie zalogowano",
   "search": "Wyszukaj...",
-  "this-is-protected": "Dostęp do strony jest chroniony"
+  "this-is-protected": "Dostęp do strony jest chroniony",
+  "user-logged-in": "Zostałeś poprawnie zalogowany"
 }
