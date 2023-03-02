@@ -29,5 +29,6 @@
   "register": "Zarejestruj",
   "register-success-message": "Użytkownik został zarejestrowany",
   "login-success": "Poprawnie zalogowano",
-  "search": "Wyszukaj..."
+  "search": "Wyszukaj...",
+  "this-is-protected": "Dostęp do strony jest chroniony"
 }

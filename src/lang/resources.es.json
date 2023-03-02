@@ -29,5 +29,6 @@
   "register": "Register ES",
   "register-success-message": "El usuario ha sido registrado",
   "login-success": "Registro realizado con éxito",
-  "search": "Buscar..."
+  "search": "Buscar...",
+  "this-is-protected": "Esta página está protegida"
 }
