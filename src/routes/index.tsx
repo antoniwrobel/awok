@@ -5,6 +5,7 @@ import {
   RegisterPage,
   LoggedIn,
   YourAccount,
+  AdminPage,
 } from "../pages";
 
 type RouteType = {
@@ -16,6 +17,11 @@ type RouteType = {
 
 const routes: RouteType[] = [
   {
+    path: "/",
+    component: HomePage,
+    name: "AWOK",
+  },
+  {
     path: "/login",
     component: LoginPage,
     name: "LOGIN",
@@ -24,11 +30,6 @@ const routes: RouteType[] = [
     path: "/register",
     component: RegisterPage,
     name: "REGISTER",
-  },
-  {
-    path: "/",
-    component: HomePage,
-    name: "AWOK",
   },
   {
     path: "/protected",
@@ -42,11 +43,16 @@ const routes: RouteType[] = [
     name: "LOGGED IN",
     isProtected: true,
   },
-
   {
     path: "/your-account",
     component: YourAccount,
     name: "YOUR ACCOUNT",
+    isProtected: true,
+  },
+  {
+    path: "/admin-page",
+    component: AdminPage,
+    name: "ADMIN PAGE",
     isProtected: true,
   },
 ];

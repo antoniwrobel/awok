@@ -14,13 +14,14 @@ import { generateYupSchema } from "./generate-registration-schema";
 import { generateRegisterFormFields } from "./generate-registration-fields";
 import { toast } from "react-toastify";
 import { RegisterResponseError } from "src/types/axios.types";
-import { setAccessToken } from "src/auth/auth-service";
+import { getAccessToken, setAccessToken } from "src/auth/auth-service";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const { user } = useAuth();
+  const accessToken = getAccessToken();
 
   const initialValues = registerFormFieldsNamesArray.reduce((acc, currVal) => {
     return {
@@ -36,10 +37,10 @@ export const RegisterPage = () => {
   const validationSchema = generateYupSchema(registerFormFields);
 
   useEffect(() => {
-    if (user) {
+    if (user || accessToken) {
       navigate(from, { replace: true });
     }
-  }, [user]);
+  }, [user, accessToken]);
 
   return (
     <Box>

@@ -6,6 +6,10 @@
   "your-account": "Tu cuenta",
   "go-to-public": "Ir al contenido público",
   "go-to-register": "Ir a la página de registro",
+  "go-to-login": "Ir a la página de inicio de sesión",
+  "go-to-logged-in": "Ir a la página de inicio de sesión",
+  "go-to-your-account": "Ir a tu cuenta",
+  "go-to-admin-page": "Ir a la página del administrador",
   "this-is-public": "Página pública",
   "go-to-protected": "Ir al contenido protegido",
   "login-to-view": "Debe iniciar sesión para ver la página en ",
@@ -31,5 +35,6 @@
   "login-success": "Registro realizado con éxito",
   "search": "Buscar...",
   "this-is-protected": "Esta página está protegida",
+  "this-is-admin-page": "Esta es la página admin",
   "user-logged-in": "Se ha identificado correctamente"
 }

@@ -1,7 +1,7 @@
 // External imports
 import { Box, Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "src/auth/auth-service";
 
 // Local imports
@@ -9,13 +9,11 @@ import { useAuth, useLoading } from "../../hooks";
 
 const AuthStatus = () => {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
   const { isLoading, setIsLoading } = useLoading();
   const { user, signout } = useAuth();
 
   const token = getAccessToken();
   const navigate = useNavigate();
-  const isOnLoginPage = pathname.includes("login");
 
   const handleSignout = () => {
     setIsLoading(true);
@@ -26,34 +24,18 @@ const AuthStatus = () => {
     });
   };
 
-  const handleGoToLoginPage = () => navigate("/login");
-
   if (!user && !token) {
     return (
-      <Box display="flex" justifyContent="space-between">
+      <Box display="flex" justifyContent="space-between" mb={["10px", "20px"]}>
         <Typography variant="h6" component="h6">
           {t("not-logged-in")}
         </Typography>
-
-        {!isOnLoginPage && (
-          <Button
-            type="button"
-            disabled={isLoading}
-            onClick={handleGoToLoginPage}
-          >
-            {t("login")}
-          </Button>
-        )}
       </Box>
     );
   }
 
   return (
     <Box display="flex" justifyContent="space-between">
-      <Typography variant="h6" component="h6">
-        {t("hello")} {user}!
-      </Typography>
-
       <Button type="button" onClick={handleSignout} disabled={isLoading}>
         {t("signout")}
       </Button>

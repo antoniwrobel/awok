@@ -76,14 +76,23 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         noWrap
         component="a"
         href={process.env.PUBLIC_URL}
-        sx={{ display: { xs: "none", sm: "block", color: "#fff" } }}
+        sx={{ display: { xs: "none", sm: "none", lg: "block", color: "#fff" } }}
       >
         AWOK
       </Typography>
-      <Search>
+
+      <Search
+        sx={{
+          width: { lg: "550px", md: "100%", xs: "100%", sm: "100%" },
+
+          ml: "auto",
+          mr: "auto",
+        }}
+      >
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
+
         <StyledInputBase
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -91,6 +100,7 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
           inputProps={{ "aria-label": "search" }}
           inputRef={searchRef}
         />
+
         <SubmitIconWrapper onClick={() => handleLogSearchValue(true)}>
           <PublishSharpIcon
             sx={{
@@ -101,7 +111,7 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
           />
         </SubmitIconWrapper>
       </Search>
-      <Box sx={{ flexGrow: 1 }} />
+
       <Box sx={{ display: { xs: "none", md: "flex" } }}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">

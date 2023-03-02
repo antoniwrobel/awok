@@ -11,14 +11,15 @@ import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
+import { getAccessToken } from "src/auth/auth-service";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const accessToken = getAccessToken();
+
   const { t } = useTranslation();
-
   const { signIn, user } = useAuth();
-
   const { isLoading, setIsLoading } = useLoading();
 
   const loginFormFields = generateLoginFormFields();
@@ -27,16 +28,18 @@ export const LoginPage = () => {
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (user) {
+    if (user || accessToken) {
       navigate(from, { replace: true });
     }
-  }, [user]);
+  }, [user, accessToken]);
 
   return (
     <Box display="flex" flexDirection="column" width="100%">
-      <Typography variant="h6" component="h6">
-        {t("login-to-view")} "{from}"
-      </Typography>
+      {from !== "/" && (
+        <Typography variant="h6" component="h6">
+          {t("login-to-view")} "{from}"
+        </Typography>
+      )}
 
       <Box display="flex" mt="10px" justifyContent="space-between">
         <Box width="100%">

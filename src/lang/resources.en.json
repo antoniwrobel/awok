@@ -5,6 +5,10 @@
   "login": "Login",
   "your-account": "Your account",
   "go-to-public": "Go to public content",
+  "go-to-login": "Go to login page",
+  "go-to-logged-in": "Go to logged in page",
+  "go-to-your-account": "Go to your account",
+  "go-to-admin-page": "Go to admin page",
   "go-to-register": "Go to register page",
   "this-is-public": "This is public page",
   "go-to-protected": "Go to protected content",
@@ -31,5 +35,6 @@
   "login-success": "Login successful",
   "search": "Search...",
   "this-is-protected": "This page is protected",
+  "this-is-admin-page": "This is admin page",
   "user-logged-in": "You have been correctly logged in"
 }

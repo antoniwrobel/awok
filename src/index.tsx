@@ -9,7 +9,6 @@ import { BrowserTracing } from "@sentry/tracing";
 
 // Local imports
 import App from "./app";
-import Layout from "./components/Layout";
 import AuthProvider from "./context/AuthProvider";
 import LoadingProvider from "./context/LoadingProvider";
 import ErrorBoundary from "./error-boundary";
@@ -22,6 +21,7 @@ import reportWebVitals from "./util/web-vitals";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/main.scss";
 import initI18n from "./routes/i18n";
+import { PagesList } from "./components/PagesList";
 
 // Global initialization
 initI18n();
@@ -85,7 +85,7 @@ reactRoot.render(
                   <Router basename={process.env.PUBLIC_URL}>
                     <Navbar />
                     <Container maxWidth={false} sx={containerSx}>
-                      <Layout />
+                      <PagesList />
                     </Container>
                     <Container maxWidth={false} sx={containerSx}>
                       <App />
