@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/awok-fe/static/css/main.b89b8708.css",
-    "main.js": "/awok-fe/static/js/main.3861d7b7.js",
+    "main.js": "/awok-fe/static/js/main.45b077c2.js",
     "static/media/material-icons.ttf": "/awok-fe/static/media/material-icons.f19c679e91ad7ca6f4d6.ttf",
     "static/media/roboto-all-500-normal.woff": "/awok-fe/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/awok-fe/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
@@ -37,10 +37,10 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/awok-fe/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/awok-fe/index.html",
     "main.b89b8708.css.map": "/awok-fe/static/css/main.b89b8708.css.map",
-    "main.3861d7b7.js.map": "/awok-fe/static/js/main.3861d7b7.js.map"
+    "main.45b077c2.js.map": "/awok-fe/static/js/main.45b077c2.js.map"
   },
   "entrypoints": [
     "static/css/main.b89b8708.css",
-    "static/js/main.3861d7b7.js"
+    "static/js/main.45b077c2.js"
   ]
 }
