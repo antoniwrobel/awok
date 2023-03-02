@@ -46,10 +46,10 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
                 });
                 const { accessToken, refreshToken: newRefreshToken } =
                   response.data;
+
                 setAccessToken(accessToken);
                 setRefreshToken(newRefreshToken);
 
-                // Re-send original request with new access token
                 const originalRequest = error.error.response.config;
                 originalRequest.headers.Authorization = `Token ${accessToken}`;
                 return axiosInstance.request(originalRequest);
@@ -64,11 +64,9 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
           console.error("Handle the error response here", error);
           return Promise.reject(error.error);
         } else {
-          console.error("Handle other types of errors here", error.error);
+          console.error("Handle other types of errors here", error);
+          return Promise.reject("Something went");
         }
-
-        console.error("Re-throw the error to propagate it further", error);
-        return Promise.reject(error.error);
       })
     );
 

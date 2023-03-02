@@ -3,6 +3,7 @@
   "hello-world": "Hello World!",
   "signout": "Signout",
   "login": "Login",
+  "your-account": "Your account",
   "go-to-public": "Go to public content",
   "go-to-register": "Go to register page",
   "this-is-public": "This is public page",
@@ -26,5 +27,6 @@
   "first-name": "First name",
   "last-name": "Last name",
   "register": "Register",
-  "register-success-message": "User has beed registered"
+  "register-success-message": "User has beed registered",
+  "login-success": "Login successful"
 }

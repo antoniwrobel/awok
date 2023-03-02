@@ -14,6 +14,8 @@ export const setAccessToken = (token: string): void => {
 export const setRefreshToken = (token: string): void => {
   localStorage.setItem(REFRESH_TOKEN_KEY, token);
 };
+export const removeAccessToken = (): void =>
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
 
 export const redirectToLogin = (): void => {
   window.location.href = "/awok-fe/login";

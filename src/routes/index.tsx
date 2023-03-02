@@ -4,6 +4,7 @@ import {
   ProtectedPage,
   RegisterPage,
   LoggedIn,
+  YourAccount,
 } from "../pages";
 
 type RouteType = {
@@ -39,6 +40,13 @@ const routes: RouteType[] = [
     path: "/logged-in",
     component: LoggedIn,
     name: "LOGGED IN",
+    isProtected: true,
+  },
+
+  {
+    path: "/your-account",
+    component: YourAccount,
+    name: "YOUR ACCOUNT",
     isProtected: true,
   },
 ];

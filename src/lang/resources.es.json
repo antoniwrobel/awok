@@ -3,6 +3,7 @@
   "hello-world": "¡Hola Mundo!",
   "signout": "cerrar sesión",
   "login": "Login",
+  "your-account": "Your account",
   "go-to-public": "Ir al contenido público",
   "go-to-register": "Go to register page",
   "this-is-public": "Página pública",
@@ -26,5 +27,6 @@
   "first-name": "Nombre",
   "last-name": "Apellido",
   "register": "Register ES",
-  "register-success-message": "User has beed registered"
+  "register-success-message": "User has beed registered",
+  "login-success": "Login successful"
 }

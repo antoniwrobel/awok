@@ -1,6 +1,5 @@
 // External imports
 import { createRoot } from "react-dom/client";
-import { StrictMode } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Container, createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
@@ -13,6 +12,7 @@ import AuthProvider from "./context/AuthProvider";
 import LoadingProvider from "./context/LoadingProvider";
 import ErrorBoundary from "./error-boundary";
 import styles from "./index.module.scss";
+import { Navbar } from "./components/Navbar";
 
 import reportWebVitals from "./util/web-vitals";
 
@@ -56,10 +56,11 @@ reactRoot.render(
           <LoadingProvider>
             <Box className={styles["main-box"]}>
               <Router basename={process.env.PUBLIC_URL}>
-                <Container className={styles["main-container"]}>
+                <Navbar />
+                <Container className={styles["main-container"]} maxWidth="xl">
                   <Layout />
                 </Container>
-                <Container className={styles["main-container"]}>
+                <Container className={styles["main-container"]} maxWidth="xl">
                   <App />
                 </Container>
               </Router>

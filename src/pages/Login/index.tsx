@@ -1,13 +1,16 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
 import { useTranslation } from "react-i18next";
-import { toast, ToastContent } from "react-toastify";
+import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
-import axios from "axios";
 import { RegisterResponseError } from "src/types/axios.types";
 import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
+import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
+import { generateYupSchema } from "../Register/generate-registration-schema";
+import { generateLoginFormFields } from "./generate-login-fields";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -17,18 +20,11 @@ export const LoginPage = () => {
   const { signIn, user } = useAuth();
 
   const { isLoading, setIsLoading } = useLoading();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+
+  const loginFormFields = generateLoginFormFields();
+  const validationSchema = generateYupSchema(loginFormFields);
 
   const from = location.state?.from?.pathname || "/";
-
-  const handleChangeUsername = ({
-    target: { value },
-  }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setUsername(value);
-
-  const handleChangePassword = ({
-    target: { value },
-  }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPassword(value);
 
   useEffect(() => {
     if (user) {
@@ -49,13 +45,19 @@ export const LoginPage = () => {
               username: "",
               password: "",
             }}
-            onSubmit={async (values, { setSubmitting, setFieldError }) => {
+            validationSchema={validationSchema}
+            onSubmit={async (
+              values,
+              { setSubmitting, setFieldError, resetForm }
+            ) => {
               setIsLoading(true);
               setSubmitting(true);
 
               try {
                 await signIn(values.username, values.password);
-                toast.success("Poprawnie zalogowano");
+                const successMessage = t("login-success");
+                toast.success(successMessage);
+
                 setIsLoading(false);
                 setSubmitting(false);
 
@@ -63,32 +65,35 @@ export const LoginPage = () => {
               } catch (error) {
                 setIsLoading(false);
                 setSubmitting(false);
+
                 if (axios.isAxiosError(error) && error.response) {
                   for (const fieldName of registerFormFieldsNamesArray) {
                     const err = error as RegisterResponseError;
                     const errors = err.response.data[fieldName];
-                    const errorMessage =
-                      typeof errors === "object" ? errors.join(", ") : errors;
+                    const errorMessage = handleCombineErrors(errors);
 
                     if (errors) {
                       setFieldError(fieldName, errorMessage);
+                      return;
                     }
                   }
+
+                  resetForm({
+                    values: {
+                      username: values.username,
+                      password: "",
+                    },
+                  });
+                  handleNonFieldErrors(error);
                 } else {
-                  console.error(error);
-                  throw new Error("Other login user error");
+                  resetForm();
+                  const errorMessage = error as string;
+                  toast.error(errorMessage);
                 }
               }
             }}
           >
             {({ values, handleChange, errors, touched }) => {
-              const hasErrorUsername = Boolean(
-                errors.username && touched.username
-              );
-              const hasErrorPassword = Boolean(
-                errors.password && touched.password
-              );
-
               return (
                 <Box>
                   <Form
@@ -105,26 +110,24 @@ export const LoginPage = () => {
                       width="100%"
                       gridTemplateColumns="1fr 1fr"
                     >
-                      <TextField
-                        label="Username"
-                        name="username"
-                        variant="outlined"
-                        disabled={isLoading}
-                        value={values.username}
-                        onChange={handleChange}
-                        error={hasErrorUsername}
-                        helperText={hasErrorUsername && errors.username}
-                      />
-                      <TextField
-                        label="Password"
-                        name="password"
-                        variant="outlined"
-                        disabled={isLoading}
-                        value={values.password}
-                        onChange={handleChange}
-                        error={hasErrorPassword}
-                        helperText={hasErrorPassword && errors.password}
-                      />
+                      {loginFormFields.map((field) => {
+                        const { label, name, type } = field;
+                        const hasError = Boolean(errors[name] && touched[name]);
+                        return (
+                          <TextField
+                            key={name}
+                            name={name}
+                            type={type}
+                            label={label}
+                            variant="outlined"
+                            error={hasError}
+                            value={values[name]}
+                            disabled={isLoading}
+                            onChange={handleChange}
+                            helperText={hasError && errors[name]}
+                          />
+                        );
+                      })}
                     </Box>
 
                     <Button

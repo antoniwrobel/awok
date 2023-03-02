@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useLoading } from "src/hooks";
 
-export const LoggedIn = () => {
+export const YourAccount = () => {
   const { setIsLoading } = useLoading();
   const [user, setUser] = useState<any>();
 
@@ -33,7 +33,7 @@ export const LoggedIn = () => {
 
   return (
     <Box>
-      Zostales poprawnie zalogowany <br />
+      Twoje konto <br />
       {JSON.stringify(user, null, 2)}
     </Box>
   );

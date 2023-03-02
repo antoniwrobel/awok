@@ -1,7 +1,6 @@
-import axios from "axios";
 import { createContext } from "react";
-import { setAccessToken } from "src/auth/auth-service";
 
+import { removeAccessToken, setAccessToken } from "src/auth/auth-service";
 import ax from "src/auth/axios-config";
 import { fakeAuthProvider } from "../auth/auth";
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -21,6 +20,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (successResponse.status === 200) {
         setAccessToken(successResponse.data.token);
+
         return successResponse.data;
       }
     } catch (error) {
@@ -39,6 +39,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     setAccessToken("");
     callback();
+    removeAccessToken();
   };
 
   const value = { user, signin, signout, signIn };

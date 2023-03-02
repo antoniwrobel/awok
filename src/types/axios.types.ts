@@ -10,13 +10,21 @@ export type ErrorResponse = {
   };
 };
 
+type NotFieldsErrorType = {
+  response: {
+    data: {
+      non_field_errors?: string[] | string;
+    };
+  };
+};
+
 export type RegisterResponseError = {
   response: {
     data: {
       [key in RegisterFormFieldNamesType]?: string[] | string;
     };
   };
-};
+} & NotFieldsErrorType;
 
 export type AxiosErrorType<T> = AxiosError<T> | Error;
 
