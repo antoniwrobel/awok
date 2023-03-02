@@ -1,8 +1,8 @@
 // External imports
-@import "@fontsource/roboto/300.css";
-@import "@fontsource/roboto/400.css";
-@import "@fontsource/roboto/500.css";
-@import "@fontsource/roboto/700.css";
+@import "@fontsource/fira-code/300.css";
+@import "@fontsource/fira-code/400.css";
+@import "@fontsource/fira-code/500.css";
+@import "@fontsource/fira-code/700.css";
 
 // Imports
 @import "./imports";
@@ -27,7 +27,7 @@ html {
 
 body {
   font-size: 1rem; /* 16px */
-  font-family: Roboto, sans-serif;
+  font-family: "Fira Code", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -37,15 +37,8 @@ body {
  * concepts used commonly throughout a UI.
  * Learn more: https://developers.google.com/fonts/docs/material_icons
  */
-@font-face {
-  font-family: "Material Icons";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/material-icons.ttf") format("truetype");
-}
 
 .material-icons {
-  font-family: "Material Icons", sans-serif;
   font-weight: normal;
   font-style: normal;
   font-size: 24px; /* Preferred icon size */

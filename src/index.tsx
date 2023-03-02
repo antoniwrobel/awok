@@ -2,7 +2,7 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Box, Container } from "@mui/material";
+import { Box, Container, createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 
 // Local imports
@@ -16,8 +16,8 @@ import styles from "./index.module.scss";
 
 import reportWebVitals from "./util/web-vitals";
 
-import "./styles/main.scss";
 import "react-toastify/dist/ReactToastify.css";
+import "./styles/main.scss";
 
 // Global initialization
 initI18n();
@@ -30,8 +30,14 @@ const appVersion = process.env.REACT_APP_PACKAGE_VERSION;
 
 console.log({ appVersion });
 
+const theme = createTheme({
+  typography: {
+    fontFamily: "Fira Code",
+  },
+});
+
 reactRoot.render(
-  <>
+  <ThemeProvider theme={theme}>
     <Box className={styles["main-wrapper"]}>
       <ToastContainer
         theme="colored"
@@ -62,7 +68,7 @@ reactRoot.render(
         </AuthProvider>
       </ErrorBoundary>
     </Box>
-  </>
+  </ThemeProvider>
 );
 
 if (process.env.REACT_APP_ENV !== "production" && reportOn) {
