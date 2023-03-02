@@ -33,8 +33,9 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
       <Typography
         variant="h6"
         noWrap
-        component="div"
-        sx={{ display: { xs: "none", sm: "block" } }}
+        component="a"
+        href={process.env.PUBLIC_URL}
+        sx={{ display: { xs: "none", sm: "block", color: "#fff" } }}
       >
         AWOK
       </Typography>
