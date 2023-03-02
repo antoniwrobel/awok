@@ -1,8 +1,10 @@
 // External imports
+import * as Sentry from "@sentry/react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Container, createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
+import { BrowserTracing } from "@sentry/tracing";
 
 // Local imports
 import App from "./app";
@@ -11,7 +13,6 @@ import Layout from "./components/Layout";
 import AuthProvider from "./context/AuthProvider";
 import LoadingProvider from "./context/LoadingProvider";
 import ErrorBoundary from "./error-boundary";
-import styles from "./index.module.scss";
 import { Navbar } from "./components/Navbar";
 
 import reportWebVitals from "./util/web-vitals";
@@ -21,14 +22,16 @@ import "./styles/main.scss";
 
 // Global initialization
 initI18n();
+Sentry.init({
+  dsn: process.env.REACT_APP_SENTRY_DNS,
+  integrations: [new BrowserTracing()],
+  tracesSampleRate: 1.0,
+  tunnel: "/unblocksentry",
+});
 
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = createRoot(htmlRoot);
 const reportOn = false;
-
-const appVersion = process.env.REACT_APP_PACKAGE_VERSION;
-
-console.log({ appVersion });
 
 const theme = createTheme({
   typography: {
@@ -36,9 +39,24 @@ const theme = createTheme({
   },
 });
 
+const containerSx = {
+  border: "1px solid #dedede",
+  borderRadius: "4px",
+  padding: ["10px", "10px", "20px"],
+  boxsizing: "border-box",
+  marginBottom: "20px",
+};
+
 reactRoot.render(
   <ThemeProvider theme={theme}>
-    <Box className={styles["main-wrapper"]}>
+    <Box
+      sx={{
+        backgroundColor: "#f8f8f9",
+        height: "100vh",
+        padding: ["10px", "20px 10px"],
+        boxSizing: "border-box",
+      }}
+    >
       <ToastContainer
         theme="colored"
         position="top-right"
@@ -51,22 +69,17 @@ reactRoot.render(
         pauseOnHover
         pauseOnFocusLoss
       />
+
       <ErrorBoundary>
         <AuthProvider>
           <LoadingProvider>
-            <Box className={styles["main-box"]}>
+            <Box>
               <Router basename={process.env.PUBLIC_URL}>
                 <Navbar />
-                <Container
-                  maxWidth={false}
-                  className={styles["main-container"]}
-                >
+                <Container maxWidth={false} sx={containerSx}>
                   <Layout />
                 </Container>
-                <Container
-                  maxWidth={false}
-                  className={styles["main-container"]}
-                >
+                <Container maxWidth={false} sx={containerSx}>
                   <App />
                 </Container>
               </Router>

@@ -11,7 +11,7 @@ const Layout = () => {
   return (
     <Box height="100%">
       <AuthStatus />
-      <Box display="flex" flexDirection="column" pt="20px">
+      <Box display="flex" flexDirection="column" pt={["10px", "20px"]}>
         <Link to="/">{t("go-to-public")}</Link>
         <Link to="/protected">{t("go-to-protected")}</Link>
         <Link to="/register">{t("go-to-register")}</Link>

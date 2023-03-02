@@ -108,7 +108,7 @@ export const LoginPage = () => {
                       display="grid"
                       gap="10px"
                       width="100%"
-                      gridTemplateColumns="1fr 1fr"
+                      gridTemplateColumns={["1fr", "1fr 1fr", "1fr 1fr"]}
                     >
                       {loginFormFields.map((field) => {
                         const { label, name, type } = field;
@@ -133,7 +133,9 @@ export const LoginPage = () => {
                     <Button
                       sx={{ mt: "10px" }}
                       disabled={isLoading}
+                      color="primary"
                       type="submit"
+                      variant="contained"
                     >
                       {t("login")}
                     </Button>

@@ -115,7 +115,7 @@ export const RegisterPage = () => {
                       display="grid"
                       flexDirection="column"
                       gap="10px"
-                      gridTemplateColumns="2fr 2fr"
+                      gridTemplateColumns={["1fr", "1fr", "2fr 2fr"]}
                       width="100%"
                     >
                       {registerFormFields.map((field) => {
@@ -140,10 +140,10 @@ export const RegisterPage = () => {
 
                     <Button
                       type="submit"
+                      variant="contained"
                       disabled={isLoading}
                       sx={{
-                        maxWidth: "150px",
-                        mt: "20px",
+                        mt: ["10px", "10px", "20px"],
                       }}
                     >
                       {t("register")}

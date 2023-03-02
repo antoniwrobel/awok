@@ -67,8 +67,8 @@ const HelloWorld = ({ alert, box }: HelloWorldProps) => {
 // Default props
 HelloWorld.defaultProps = {
   alert: {
-    severity: "success",
-    sx: { width: 300 },
+    severity: "info",
+    sx: { width: "100%" },
     variant: "filled",
   },
   box: {},
