@@ -1,19 +1,24 @@
 // External imports
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import ToolbarComponent from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import LanguageSharpIcon from "@mui/icons-material/LanguageSharp";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import PublishSharpIcon from "@mui/icons-material/PublishSharp";
 
 // Local imports
-import { Search, SearchIconWrapper, StyledInputBase } from "./composition";
+import {
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+  SubmitIconWrapper,
+} from "./composition";
 
 const menuId = "primary-search-account-menu";
 const menuId1 = "primary-locale-select-menu";
@@ -28,6 +33,35 @@ type ToolbarPropsType = {
 export const Toolbar = (toolbarProps: ToolbarPropsType) => {
   const { handleProfileMenuOpen, handleMobileMenuOpen, handleLocalesMenuOpen } =
     toolbarProps;
+  const [focused, setFocused] = useState(false);
+
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const useKeypress = (key: string, action: () => void) => {
+    useEffect(() => {
+      const onKeyup = (e: { key: string }) => {
+        if (e.key === key) {
+          action();
+        }
+      };
+
+      window.addEventListener("keyup", onKeyup);
+
+      return () => window.removeEventListener("keyup", onKeyup);
+    }, [focused, searchRef]);
+  };
+
+  const handleLogSearchValue = (condition: boolean) => {
+    if (searchRef && searchRef.current) {
+      const inputValue = searchRef.current.value;
+      if (condition && inputValue.trim()) {
+        console.log("search value => ", inputValue);
+      }
+    }
+  };
+
+  useKeypress("Enter", () => handleLogSearchValue(focused));
+
   return (
     <ToolbarComponent>
       <Typography
@@ -44,9 +78,21 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
+          inputRef={searchRef}
         />
+        <SubmitIconWrapper onClick={() => handleLogSearchValue(true)}>
+          <PublishSharpIcon
+            sx={{
+              userSelect: "inherit",
+              cursor: "pointer",
+              "&:hover": { color: "#1976d2" },
+            }}
+          />
+        </SubmitIconWrapper>
       </Search>
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ display: { xs: "none", md: "flex" } }}>
