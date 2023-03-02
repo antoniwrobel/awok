@@ -57,10 +57,16 @@ reactRoot.render(
             <Box className={styles["main-box"]}>
               <Router basename={process.env.PUBLIC_URL}>
                 <Navbar />
-                <Container className={styles["main-container"]} maxWidth="xl">
+                <Container
+                  maxWidth={false}
+                  className={styles["main-container"]}
+                >
                   <Layout />
                 </Container>
-                <Container className={styles["main-container"]} maxWidth="xl">
+                <Container
+                  maxWidth={false}
+                  className={styles["main-container"]}
+                >
                   <App />
                 </Container>
               </Router>

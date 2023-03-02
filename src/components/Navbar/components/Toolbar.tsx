@@ -30,22 +30,13 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
     toolbarProps;
   return (
     <ToolbarComponent>
-      <IconButton
-        size="large"
-        edge="start"
-        color="inherit"
-        aria-label="open drawer"
-        sx={{ mr: 2 }}
-      >
-        <MenuIcon />
-      </IconButton>
       <Typography
         variant="h6"
         noWrap
         component="div"
         sx={{ display: { xs: "none", sm: "block" } }}
       >
-        MUI
+        AWOK
       </Typography>
       <Search>
         <SearchIconWrapper>
