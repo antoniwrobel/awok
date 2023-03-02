@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/awok-fe/static/css/main.8703f121.css",
-    "main.js": "/awok-fe/static/js/main.a263e265.js",
+    "main.css": "/awok-fe/static/css/main.371d6124.css",
+    "main.js": "/awok-fe/static/js/main.a5588bfc.js",
     "static/media/fira-code-all-500-normal.woff": "/awok-fe/static/media/fira-code-all-500-normal.f7083bb96f76675d4b91.woff",
     "static/media/fira-code-all-400-normal.woff": "/awok-fe/static/media/fira-code-all-400-normal.c050f0ce726c76d279c8.woff",
     "static/media/fira-code-all-300-normal.woff": "/awok-fe/static/media/fira-code-all-300-normal.bb31a6c9127e4853f3b1.woff",
@@ -31,11 +31,11 @@
     "static/media/fira-code-greek-ext-300-normal.woff2": "/awok-fe/static/media/fira-code-greek-ext-300-normal.aa4a9a2f0679b128d890.woff2",
     "static/media/fira-code-greek-ext-700-normal.woff2": "/awok-fe/static/media/fira-code-greek-ext-700-normal.72e608716d920962a358.woff2",
     "index.html": "/awok-fe/index.html",
-    "main.8703f121.css.map": "/awok-fe/static/css/main.8703f121.css.map",
-    "main.a263e265.js.map": "/awok-fe/static/js/main.a263e265.js.map"
+    "main.371d6124.css.map": "/awok-fe/static/css/main.371d6124.css.map",
+    "main.a5588bfc.js.map": "/awok-fe/static/js/main.a5588bfc.js.map"
   },
   "entrypoints": [
-    "static/css/main.8703f121.css",
-    "static/js/main.a263e265.js"
+    "static/css/main.371d6124.css",
+    "static/js/main.a5588bfc.js"
   ]
 }
