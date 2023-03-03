@@ -3,6 +3,14 @@ import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { LocaleContextType, LocalesType } from "src/types/locale.types";
 
+export const LocaleProviderWrapper = ({
+  children,
+}: {
+  children: JSX.Element;
+}) => {
+  return <LocaleProvider>{children}</LocaleProvider>;
+};
+
 export const LocaleContext = createContext<LocaleContextType>(null!);
 
 const LocaleProvider = ({ children }: { children: React.ReactNode }) => {

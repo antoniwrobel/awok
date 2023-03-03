@@ -9,19 +9,21 @@ import { BrowserTracing } from "@sentry/tracing";
 
 // Local imports
 import App from "./app";
+import initI18n from "./routes/i18n";
 import AuthProvider from "./context/AuthProvider";
 import LoadingProvider from "./context/LoadingProvider";
 import ErrorBoundary from "./error-boundary";
-import { Navbar } from "./components/Navbar";
-import LocaleProvider from "./context/LocaleProvider";
 import LoadingModal from "./modals/Loading";
+import { LocaleProviderWrapper } from "./context/LocaleProvider";
+import { Navbar } from "./components/Navbar";
+import { PagesList } from "./components/PagesList";
+import { UserProvider } from "./context/UserProvider";
 
 import reportWebVitals from "./util/web-vitals";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/main.scss";
-import initI18n from "./routes/i18n";
-import { PagesList } from "./components/PagesList";
+import { Wrapper } from "./components/Wrapper";
 
 // Global initialization
 initI18n();
@@ -49,55 +51,46 @@ const containerSx = {
   marginBottom: ["10px", "20px"],
 };
 
-const LocaleWrapper = ({ children }: { children: JSX.Element }) => {
-  return <LocaleProvider>{children}</LocaleProvider>;
-};
-
 reactRoot.render(
   <ThemeProvider theme={theme}>
-    <LocaleWrapper>
-      <Suspense fallback={<LoadingModal isOpen />}>
-        <Box
-          sx={{
-            backgroundColor: "#f8f8f9",
-            minHeight: "100vh",
-            padding: ["10px", "20px 10px"],
-            boxSizing: "border-box",
-          }}
-        >
-          <ToastContainer
-            theme="colored"
-            position="top-right"
-            rtl={false}
-            autoClose={5000}
-            newestOnTop={false}
-            hideProgressBar={false}
-            draggable
-            closeOnClick
-            pauseOnHover
-            pauseOnFocusLoss
-          />
+    <LocaleProviderWrapper>
+      <UserProvider>
+        <Suspense fallback={<LoadingModal isOpen />}>
+          <Wrapper>
+            <ToastContainer
+              theme="colored"
+              position="top-right"
+              rtl={false}
+              autoClose={5000}
+              newestOnTop={false}
+              hideProgressBar={false}
+              draggable
+              closeOnClick
+              pauseOnHover
+              pauseOnFocusLoss
+            />
 
-          <ErrorBoundary>
-            <AuthProvider>
-              <LoadingProvider>
-                <Box>
-                  <Router basename={process.env.PUBLIC_URL}>
-                    <Navbar />
-                    <Container maxWidth={false} sx={containerSx}>
-                      <PagesList />
-                    </Container>
-                    <Container maxWidth={false} sx={containerSx}>
-                      <App />
-                    </Container>
-                  </Router>
-                </Box>
-              </LoadingProvider>
-            </AuthProvider>
-          </ErrorBoundary>
-        </Box>
-      </Suspense>
-    </LocaleWrapper>
+            <ErrorBoundary>
+              <AuthProvider>
+                <LoadingProvider>
+                  <Box>
+                    <Router basename={process.env.PUBLIC_URL}>
+                      <Navbar />
+                      <Container maxWidth={false} sx={containerSx}>
+                        <PagesList />
+                      </Container>
+                      <Container maxWidth={false} sx={containerSx}>
+                        <App />
+                      </Container>
+                    </Router>
+                  </Box>
+                </LoadingProvider>
+              </AuthProvider>
+            </ErrorBoundary>
+          </Wrapper>
+        </Suspense>
+      </UserProvider>
+    </LocaleProviderWrapper>
   </ThemeProvider>
 );
 

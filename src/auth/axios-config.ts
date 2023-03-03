@@ -65,7 +65,7 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
           return Promise.reject(error.error);
         } else {
           console.error("Handle other types of errors here", error);
-          return Promise.reject("Something went");
+          return Promise.reject("Sorry, something went wrong...");
         }
       })
     );
@@ -76,7 +76,7 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
 const axiosInstance = withErrorHandling(
   axios.create({
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 5000,
+    timeout: 10000,
   })
 );
 
