@@ -1,6 +1,5 @@
 import {
   LoginPage,
-  HomePage,
   ProtectedPage,
   RegisterPage,
   LoggedIn,
@@ -18,12 +17,6 @@ type RouteType = {
 };
 
 const routes: RouteType[] = [
-  {
-    path: "/",
-    component: HomePage,
-    name: "AWOK",
-    translKey: "go-to-public",
-  },
   {
     path: "/login",
     component: LoginPage,

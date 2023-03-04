@@ -75,9 +75,7 @@ reactRoot.render(
                       <ContainerBox>
                         <PagesList />
                       </ContainerBox>
-                      <ContainerBox>
-                        <App />
-                      </ContainerBox>
+                      <App />
                     </Router>
                   </Box>
                 </AuthProvider>

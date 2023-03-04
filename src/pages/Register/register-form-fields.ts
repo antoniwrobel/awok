@@ -16,12 +16,20 @@ export type RegisterFormFieldsType = {
   required?: boolean;
   minLength?: number;
   maxLength?: number;
+  notEditable?: boolean;
 };
 
 export const registerFormFieldsNamesArray = [
   "username",
   "password",
   "password2",
+  "email",
+  "first_name",
+  "last_name",
+] as const;
+
+export const editableRegisterFormFieldsNamesArray = [
+  "username",
   "email",
   "first_name",
   "last_name",

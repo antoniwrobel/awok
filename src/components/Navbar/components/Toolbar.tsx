@@ -20,6 +20,8 @@ import {
   SubmitIconWrapper,
 } from "./composition";
 import { useTranslation } from "react-i18next";
+import { useUser } from "src/hooks";
+import { UserContextType } from "src/types/user.types";
 
 const menuId = "primary-search-account-menu";
 const menuId1 = "primary-locale-select-menu";
@@ -31,13 +33,26 @@ type ToolbarPropsType = {
   handleLocalesMenuOpen: (event: MouseEvent<HTMLElement>) => void;
 };
 
+const createInitials = (user: UserContextType["user"]): string | undefined => {
+  if (!user) {
+    return;
+  }
+
+  const firstInitial = user.first_name.charAt(0);
+  const lastInitial = user.last_name.charAt(0);
+  return `${firstInitial}.${lastInitial}`.toUpperCase();
+};
+
 export const Toolbar = (toolbarProps: ToolbarPropsType) => {
   const { handleProfileMenuOpen, handleMobileMenuOpen, handleLocalesMenuOpen } =
     toolbarProps;
 
   const { t } = useTranslation();
-  const searchRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const { user } = useUser();
+
+  const userInitials = createInitials(user);
 
   const useKeypress = useMemo(
     () => (key: string, action: () => void) =>
@@ -70,21 +85,27 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
   useKeypress("Enter", () => handleLogSearchValue(focused));
 
   return (
-    <ToolbarComponent>
+    <ToolbarComponent
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+      }}
+    >
       <Typography
         variant="h6"
         noWrap
         component="a"
         href={process.env.PUBLIC_URL}
-        sx={{ display: { xs: "none", sm: "none", lg: "block", color: "#fff" } }}
+        sx={{ color: "#fff" }}
       >
         AWOK
       </Typography>
 
       <Search
         sx={{
-          width: { lg: "550px", md: "100%", xs: "100%", sm: "100%" },
-
+          width: { lg: "550px", md: "80%" },
+          display: { xs: "none", sm: "none", md: "block" },
           ml: "auto",
           mr: "auto",
         }}
@@ -112,9 +133,12 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         </SubmitIconWrapper>
       </Search>
 
-      <Box sx={{ display: { xs: "none", md: "flex" } }}>
+      <Box sx={{ display: { xs: "none", md: "flex", gap: "5px " } }}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge
+            color="error"
+            //badgeContent={4}
+          >
             <MailIcon />
           </Badge>
         </IconButton>
@@ -139,10 +163,21 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
           aria-haspopup="true"
           onClick={handleProfileMenuOpen}
           color="inherit"
+          sx={{
+            display: {
+              sm: "none",
+              lg: "flex",
+            },
+          }}
         >
-          <AccountCircle />
+          {userInitials ? (
+            <Typography>{userInitials}</Typography>
+          ) : (
+            <AccountCircle />
+          )}
         </IconButton>
       </Box>
+
       <Box sx={{ display: { xs: "flex", md: "none" } }}>
         <IconButton
           size="large"
@@ -151,6 +186,11 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
           aria-haspopup="true"
           onClick={handleMobileMenuOpen}
           color="inherit"
+          sx={{
+            ml: {
+              xs: "auto",
+            },
+          }}
         >
           <MoreIcon />
         </IconButton>

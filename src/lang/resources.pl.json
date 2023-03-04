@@ -37,5 +37,7 @@
   "search": "Wyszukaj...",
   "this-is-protected": "Dostęp do strony jest chroniony",
   "this-is-admin-page": "To jest strona admina",
-  "user-logged-in": "Zostałeś poprawnie zalogowany"
+  "user-logged-in": "Zostałeś poprawnie zalogowany",
+  "save": "Zapisz",
+  "edit-success-message": "Zapisano zmiany użytkownika"
 }

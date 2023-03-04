@@ -1,106 +1,109 @@
+import { TextField } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import axios from "axios";
-import { Typography, Button, TextField, Box } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth, useLoading, useUser } from "../../hooks";
+import { Form, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { Form, Formik } from "formik";
+import axiosInstance from "src/auth/axios-config";
+import { useLoading, useUser } from "src/hooks";
+import { generateRegisterFormFields } from "src/pages/Register/generate-registration-fields";
+import { generateYupSchema } from "src/pages/Register/generate-registration-schema";
+import {
+  editableRegisterFormFieldsNamesArray,
+  RegisterFormFieldNamesType,
+  registerFormFieldsNamesArray,
+} from "src/pages/Register/register-form-fields";
 import { RegisterResponseError } from "src/types/axios.types";
-import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
-import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
-import { generateYupSchema } from "../Register/generate-registration-schema";
-import { generateLoginFormFields } from "./generate-login-fields";
 
-export const LoginPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
+export const EditUser = () => {
   const { t } = useTranslation();
-  const { signIn } = useAuth();
   const { isLoading, setIsLoading } = useLoading();
+  const { user } = useUser();
 
-  const loginFormFields = generateLoginFormFields();
-  const validationSchema = generateYupSchema(loginFormFields);
+  const registerFormFields = generateRegisterFormFields();
+  const validationSchema = generateYupSchema(registerFormFields, true);
 
-  const from = location.state?.from?.pathname || "/";
+  if (!user) {
+    return null;
+  }
+
+  const initialValues = editableRegisterFormFieldsNamesArray.reduce(
+    (acc, currVal) => {
+      return {
+        ...acc,
+        [currVal]: user[currVal],
+      };
+    },
+    {}
+  ) as { [key in RegisterFormFieldNamesType]: string };
 
   return (
-    <Box display="flex" flexDirection="column" width="100%">
-      {from !== "/" && (
-        <Typography variant="h6" component="h6">
-          {t("login-to-view")} "{from}"
-        </Typography>
-      )}
-
-      <Box display="flex" mt="10px" justifyContent="space-between">
+    <Box>
+      <Box display="flex" mt="10px" justifyContent="space-between" width="100%">
         <Box width="100%">
           <Formik
-            initialValues={{
-              username: "",
-              password: "",
-            }}
-            validationSchema={validationSchema}
-            onSubmit={async (
-              values,
-              { setSubmitting, setFieldError, resetForm }
-            ) => {
+            initialValues={initialValues}
+            onSubmit={async (values, { setSubmitting, setFieldError }) => {
               setIsLoading(true);
               setSubmitting(true);
-
               try {
-                await signIn(values.username, values.password);
-                navigate("/logged-in");
-                window.location.reload();
+                console.log({ values });
+                const editUserResponse = await axiosInstance.patch(
+                  "/user-update",
+                  values
+                );
+                if (editUserResponse.status === 200) {
+                  const successMessage = t("edit-success-message");
+                  toast.success(successMessage);
+                }
               } catch (error) {
                 if (axios.isAxiosError(error) && error.response) {
                   for (const fieldName of registerFormFieldsNamesArray) {
                     const err = error as RegisterResponseError;
                     const errors = err.response.data[fieldName];
-                    const errorMessage = handleCombineErrors(errors);
+                    const errorMessage =
+                      typeof errors === "object" ? errors.join(", ") : errors;
 
                     if (errors) {
                       setFieldError(fieldName, errorMessage);
-                      return;
                     }
                   }
-
-                  resetForm({
-                    values: {
-                      username: values.username,
-                      password: "",
-                    },
-                  });
-                  handleNonFieldErrors(error);
                 } else {
-                  resetForm();
-                  const errorMessage = error as string;
-                  toast.error(errorMessage);
+                  console.error(error);
+                  throw new Error("Other edit user error");
                 }
               } finally {
                 setIsLoading(false);
                 setSubmitting(false);
               }
             }}
+            validationSchema={validationSchema}
           >
             {({ values, handleChange, errors, touched }) => {
               return (
                 <Box>
                   <Form
                     style={{
-                      display: "flex",
                       width: "100%",
+                      display: "flex",
                       flexDirection: "column",
                       alignItems: "flex-end",
                     }}
                   >
                     <Box
                       display="grid"
+                      flexDirection="column"
                       gap="10px"
+                      gridTemplateColumns={["1fr", "1fr 1fr", "2fr 2fr"]}
                       width="100%"
-                      gridTemplateColumns={["1fr", "1fr 1fr", "1fr 1fr"]}
                     >
-                      {loginFormFields.map((field) => {
-                        const { label, name, type } = field;
+                      {registerFormFields.map((field) => {
+                        const { label, name, type, notEditable } = field;
+
+                        if (notEditable) {
+                          return;
+                        }
                         const hasError = Boolean(errors[name] && touched[name]);
                         return (
                           <TextField
@@ -114,11 +117,6 @@ export const LoginPage = () => {
                             disabled={isLoading}
                             onChange={handleChange}
                             helperText={hasError && errors[name]}
-                            inputProps={{
-                              form: {
-                                autocomplete: "off",
-                              },
-                            }}
                           />
                         );
                       })}
@@ -126,12 +124,13 @@ export const LoginPage = () => {
 
                     <Button
                       type="submit"
-                      color="primary"
                       variant="contained"
                       disabled={isLoading}
-                      sx={{ mt: "10px" }}
+                      sx={{
+                        mt: ["10px", "10px", "20px"],
+                      }}
                     >
-                      {t("login")}
+                      {t("save")}
                     </Button>
                   </Form>
                 </Box>

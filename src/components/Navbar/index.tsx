@@ -129,8 +129,8 @@ export const Navbar = () => {
       >
         {isLoggedIn ? (
           <Box>
-            <MenuItem onClick={handleLogout}>{t("signout")}</MenuItem>
             <MenuItem onClick={handleYourAccount}>{t("your-account")}</MenuItem>
+            <MenuItem onClick={handleLogout}>{t("signout")}</MenuItem>
           </Box>
         ) : (
           <MenuItem onClick={handleLogin}>{t("login")}</MenuItem>

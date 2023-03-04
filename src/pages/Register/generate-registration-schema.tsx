@@ -2,12 +2,19 @@ import { useTranslation } from "react-i18next";
 import { object, ref, string, StringSchema } from "yup";
 import { RegisterFormFieldsType } from "./register-form-fields";
 
-export const generateYupSchema = (fields: RegisterFormFieldsType[]) => {
+export const generateYupSchema = (
+  fields: RegisterFormFieldsType[],
+  isEditSchema?: boolean
+) => {
   const { t } = useTranslation();
 
   const schema: Record<string, StringSchema> = {};
 
   fields.forEach((field) => {
+    if (isEditSchema && field.notEditable) {
+      return;
+    }
+
     let fieldSchema = string();
 
     if (field.name === "username") {

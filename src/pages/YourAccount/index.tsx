@@ -1,10 +1,12 @@
 import Box from "@mui/material/Box";
-import { useLoading } from "src/hooks";
+import Typography from "@mui/material/Typography";
+import { EditUser } from "src/components/EditUser";
 
 export const YourAccount = () => {
   return (
     <Box>
-      Twoje konto <br />
+      <Typography>Twoje konto</Typography>
+      <EditUser />
     </Box>
   );
 };

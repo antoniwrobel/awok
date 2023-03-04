@@ -8,6 +8,7 @@ import LoadingModal from "../modals/Loading";
 import RequireAuth from "../components/RequireAuth";
 import { useLoading } from "../hooks";
 import RequirePublic from "src/components/RequirePublic";
+import { ContainerBox } from "src/components/ContainerBox";
 
 // Component definition
 const App = () => {
@@ -27,17 +28,19 @@ const App = () => {
                 key={index}
                 path={path}
                 element={
-                  isProtected ? (
-                    <RequireAuth>
+                  <ContainerBox>
+                    {isProtected ? (
+                      <RequireAuth>
+                        <RouteComponent />
+                      </RequireAuth>
+                    ) : isPublicOnly ? (
+                      <RequirePublic>
+                        <RouteComponent />
+                      </RequirePublic>
+                    ) : (
                       <RouteComponent />
-                    </RequireAuth>
-                  ) : isPublicOnly ? (
-                    <RequirePublic>
-                      <RouteComponent />
-                    </RequirePublic>
-                  ) : (
-                    <RouteComponent />
-                  )
+                    )}
+                  </ContainerBox>
                 }
               />
             );

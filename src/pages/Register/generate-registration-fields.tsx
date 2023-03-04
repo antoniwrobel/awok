@@ -24,6 +24,7 @@ export const generateRegisterFormFields = (): RegisterFormFieldsType[] => {
       label: t("pass"),
       required: true,
       maxLength: 150,
+      notEditable: true,
     },
     {
       name: "password2",
@@ -31,6 +32,7 @@ export const generateRegisterFormFields = (): RegisterFormFieldsType[] => {
       label: t("pass-confirm"),
       required: true,
       maxLength: 150,
+      notEditable: true,
     },
 
     {
