@@ -115,7 +115,7 @@
     "sbook-https": "env-cmd --no-override -f ./.env-override/.env.local start-storybook -p 3003 -s public --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "slint": "./node_modules/.bin/stylelint \"src/**/*.{css,scss}\"",
     "slint:f": "./node_modules/.bin/stylelint --fix \"src/**/*.{css,scss}\"",
-    "start": "PORT=3000 env-cmd --no-override -f ./.env-override/.env.local react-scripts start",
+    "start": "set PORT=3000 && env-cmd --no-override -f ./.env-override/.env.local react-scripts start",
     "start-https": "PORT=3001 HTTPS=true SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem env-cmd --no-override -f ./.env-override/.env.local react-scripts start",
     "test": "env-cmd --no-override -f ./.env-override/.env.test react-scripts test --env=jsdom --coverage --coverageDirectory='./out/coverage' --watchAll=false"
   },
