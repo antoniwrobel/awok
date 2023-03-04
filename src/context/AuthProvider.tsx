@@ -1,16 +1,14 @@
 import { createContext } from "react";
-
-import ax from "src/auth/axios-config";
 import { removeAccessToken, setAccessToken } from "src/auth/auth-service";
 import { AuthContextType } from "../types/auth.types";
-import { UserContextType } from "src/types/user.types";
+import axiosInstance from "src/auth/axios-config";
 
 export const AuthContext = createContext<AuthContextType>(null!);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signIn = async (username: string, password: string) => {
     try {
-      const successResponse = await ax.post("/api-token-auth", {
+      const successResponse = await axiosInstance.post("/api-token-auth", {
         username,
         password,
       });
@@ -24,7 +22,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signOut = async (callback: VoidFunction) => {
-    setAccessToken("");
     callback();
     removeAccessToken();
   };

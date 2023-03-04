@@ -60,6 +60,7 @@ export const RegisterPage = () => {
                     if (apiTokenAuthResponse.status === 200) {
                       setAccessToken(apiTokenAuthResponse.data.token);
                       navigate("/logged-in");
+                      window.location.reload();
                     }
                   } catch (error) {
                     console.error(error);

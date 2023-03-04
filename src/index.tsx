@@ -1,11 +1,11 @@
 // External imports
 import { Suspense } from "react";
 import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Container, createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
-import { BrowserTracing } from "@sentry/tracing";
 
 // Local imports
 import App from "./app";
@@ -19,6 +19,8 @@ import { LocaleProviderWrapper } from "./context/LocaleProvider";
 import { Navbar } from "./components/Navbar";
 import { PagesList } from "./components/PagesList";
 import { Wrapper } from "./components/Wrapper";
+import { UserDetails } from "./components/UserDetails";
+import { ContainerBox } from "./components/ContainerBox";
 
 import reportWebVitals from "./util/web-vitals";
 
@@ -43,13 +45,6 @@ const theme = createTheme({
     fontFamily: "Fira Code",
   },
 });
-
-const containerSx = {
-  border: "1px solid #dedede",
-  borderRadius: "4px",
-  padding: ["10px", "10px", "20px"],
-  marginBottom: ["10px", "20px"],
-};
 
 reactRoot.render(
   <ThemeProvider theme={theme}>
@@ -76,12 +71,13 @@ reactRoot.render(
                   <Box>
                     <Router basename={process.env.PUBLIC_URL}>
                       <Navbar />
-                      <Container maxWidth={false} sx={containerSx}>
+                      <UserDetails />
+                      <ContainerBox>
                         <PagesList />
-                      </Container>
-                      <Container maxWidth={false} sx={containerSx}>
+                      </ContainerBox>
+                      <ContainerBox>
                         <App />
-                      </Container>
+                      </ContainerBox>
                     </Router>
                   </Box>
                 </AuthProvider>

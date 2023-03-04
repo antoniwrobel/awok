@@ -1,5 +1,6 @@
 {
   "hello": "Witaj",
+  "hello-user": "Witaj {{ username }}!",
   "hello-world": "Witaj świecie!",
   "signout": "Wyloguj",
   "login": "Zaloguj",
