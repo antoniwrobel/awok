@@ -1,11 +1,11 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { getAccessToken } from "src/auth/auth-service";
+import { useUser } from "src/hooks";
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
-  const token = getAccessToken();
+  const { user, hasBeenChecked } = useUser();
 
-  if (!token) {
+  if (hasBeenChecked && !user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

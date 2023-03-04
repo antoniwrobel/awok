@@ -20,7 +20,7 @@ const AuthStatus = () => {
 
     signOut(() => {
       setIsLoading(false);
-      navigate("/");
+      window.location.reload();
     });
   };
 

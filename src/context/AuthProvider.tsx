@@ -3,6 +3,7 @@ import { createContext } from "react";
 import ax from "src/auth/axios-config";
 import { removeAccessToken, setAccessToken } from "src/auth/auth-service";
 import { AuthContextType } from "../types/auth.types";
+import { UserContextType } from "src/types/user.types";
 
 export const AuthContext = createContext<AuthContextType>(null!);
 
@@ -16,14 +17,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (successResponse.status === 200) {
         setAccessToken(successResponse.data.token);
-        return successResponse.data;
       }
     } catch (error) {
       return Promise.reject(error);
     }
   };
 
-  const signOut = (callback: VoidFunction) => {
+  const signOut = async (callback: VoidFunction) => {
     setAccessToken("");
     callback();
     removeAccessToken();

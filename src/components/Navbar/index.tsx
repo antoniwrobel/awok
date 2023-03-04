@@ -4,14 +4,15 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 
 // Local imports
+import MenuItem from "@mui/material/MenuItem";
 import { Toolbar } from "./components/Toolbar";
 import { Menu, MobileMenu } from "./components/composition";
 import { useTranslation } from "react-i18next";
-import { getAccessToken, removeAccessToken } from "src/auth/auth-service";
+import { removeAccessToken } from "src/auth/auth-service";
 import { useNavigate } from "react-router-dom";
-import MenuItem from "@mui/material/MenuItem";
 import { useLocale } from "src/hooks/useLocale";
 import { LocalesType } from "src/types/locale.types";
+import { useUser } from "src/hooks";
 
 type Language = {
   [key: string]: { nativeName: string };
@@ -40,7 +41,7 @@ export const Navbar = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isLocaleMenuOpen = Boolean(localeAnchorEl);
 
-  const isUserLogged = getAccessToken();
+  const { isLoggedIn } = useUser();
   const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event: MouseEvent<HTMLElement>) => {
@@ -66,6 +67,7 @@ export const Navbar = () => {
     removeAccessToken();
     handleMenuClose();
     navigate("/");
+    window.location.reload();
   };
 
   const handleLogin = () => {
@@ -125,7 +127,7 @@ export const Navbar = () => {
         handleMenuClose={handleMenuClose}
         handleProfileMenuOpen={handleProfileMenuOpen}
       >
-        {isUserLogged ? (
+        {isLoggedIn ? (
           <Box>
             <MenuItem onClick={handleLogout}>{t("signout")}</MenuItem>
             <MenuItem onClick={handleYourAccount}>{t("your-account")}</MenuItem>

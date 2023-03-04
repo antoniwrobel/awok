@@ -1,8 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
-
-type Nullable<T> = {
-  [K in keyof T]: T[K] | null | undefined;
-};
+import { ReactNode } from "react";
 
 type UserType = {
   id: number;
@@ -16,5 +12,12 @@ export type UserTypeKeys = keyof UserType;
 
 export interface UserContextType {
   user: UserType;
-  setUser: Dispatch<SetStateAction<UserType | null>>;
+  setUser: (user: UserType) => void;
+  getUserSession: () => Promise<UserContextType["user"] | undefined>;
+  isLoggedIn: boolean;
+  hasBeenChecked: boolean;
+}
+
+export interface IUserProvider {
+  children: ReactNode;
 }

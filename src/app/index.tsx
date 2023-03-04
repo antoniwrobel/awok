@@ -7,6 +7,7 @@ import routes from "../../src/routes";
 import LoadingModal from "../modals/Loading";
 import RequireAuth from "../components/RequireAuth";
 import { useLoading } from "../hooks";
+import RequirePublic from "src/components/RequirePublic";
 
 // Component definition
 const App = () => {
@@ -17,7 +18,10 @@ const App = () => {
       <LoadingModal isOpen={isLoading} />
       <Routes>
         {routes.map(
-          ({ path, isProtected, component: RouteComponent }, index) => {
+          (
+            { path, isProtected, isPublicOnly, component: RouteComponent },
+            index
+          ) => {
             return (
               <Route
                 key={index}
@@ -27,6 +31,10 @@ const App = () => {
                     <RequireAuth>
                       <RouteComponent />
                     </RequireAuth>
+                  ) : isPublicOnly ? (
+                    <RequirePublic>
+                      <RouteComponent />
+                    </RequirePublic>
                   ) : (
                     <RouteComponent />
                   )

@@ -10,7 +10,6 @@ import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
-import { getUserSession } from "src/api/user";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -18,7 +17,6 @@ export const LoginPage = () => {
 
   const { t } = useTranslation();
   const { signIn } = useAuth();
-  const { setUser } = useUser();
   const { isLoading, setIsLoading } = useLoading();
 
   const loginFormFields = generateLoginFormFields();
@@ -53,17 +51,8 @@ export const LoginPage = () => {
                 await signIn(values.username, values.password);
                 const successMessage = t("login-success");
                 toast.success(successMessage);
-
-                try {
-                  const user = await getUserSession();
-                  setUser(user);
-                  navigate("/logged-in");
-                } catch (error) {
-                  console.error("error", error);
-                } finally {
-                  setIsLoading(false);
-                  setSubmitting(false);
-                }
+                navigate("/logged-in");
+                window.location.reload();
               } catch (error) {
                 if (axios.isAxiosError(error) && error.response) {
                   for (const fieldName of registerFormFieldsNamesArray) {

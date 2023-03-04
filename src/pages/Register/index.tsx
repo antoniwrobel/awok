@@ -49,8 +49,6 @@ export const RegisterPage = () => {
                 if (registerResponse.status === 201) {
                   const successMessage = t("register-success-message");
 
-                  setIsLoading(false);
-                  setSubmitting(false);
                   toast.success(successMessage);
 
                   try {
@@ -68,9 +66,6 @@ export const RegisterPage = () => {
                   }
                 }
               } catch (error) {
-                setIsLoading(false);
-                setSubmitting(false);
-
                 if (axios.isAxiosError(error) && error.response) {
                   for (const fieldName of registerFormFieldsNamesArray) {
                     const err = error as RegisterResponseError;
@@ -86,6 +81,9 @@ export const RegisterPage = () => {
                   console.error(error);
                   throw new Error("Other register user error");
                 }
+              } finally {
+                setIsLoading(false);
+                setSubmitting(false);
               }
             }}
             validationSchema={validationSchema}
