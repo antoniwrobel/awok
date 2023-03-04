@@ -4,21 +4,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useUser } from "src/hooks";
 import { ContainerBox } from "../ContainerBox";
-import { useLocale } from "src/hooks/useLocale";
-import dayjs from "dayjs";
 
 export const UserDetails = () => {
   const { t } = useTranslation();
   const { isLoggedIn, user } = useUser();
   const { signOut } = useAuth();
-  const { locale } = useLocale();
-
-  const formatOptions = {
-    en: "MM-DD-YYYY",
-    pl: "DD-MM-YYYY",
-    es: "DD-MM-YYYY",
-  };
-  const todaysDate = dayjs(new Date()).format(formatOptions[locale]);
 
   const navigate = useNavigate();
 
@@ -49,48 +39,13 @@ export const UserDetails = () => {
             .split(user.username)
             .map((part, index) =>
               index > 0 ? (
-                <Typography
-                  key={index}
-                  sx={{
-                    textUnderlinePosition: "under",
-                    textUnderlineThickness: 3,
-                    textUnderlineOffset: "0.4em",
-                    fontWeight: "bold",
-                    ml: "7px",
-                    position: "relative",
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: "-4px",
-                      left: 0,
-                      width: "100%",
-                      height: "4px",
-                      backgroundColor: "#1976d2",
-                      animation: "bounce 2s linear infinite",
-                    },
-                    "@keyframes bounce": {
-                      "0%, 100%": {
-                        transform: "translateX(0)",
-                      },
-                      "50%": {
-                        transform: "translateX(50%)",
-                      },
-                      "75%": {
-                        transform: "translateX(25%)",
-                      },
-                      "25%": {
-                        transform: "translateX(-25%)",
-                      },
-                    },
-                  }}
-                >
-                  {user.username}
+                <Typography fontWeight="bold" mx="8px">
+                  {user.username}!
                 </Typography>
               ) : (
-                <span key={index}>{part}</span>
+                <Typography key={index}>{part}</Typography>
               )
-            )}{" "}
-          - {todaysDate}
+            )}
         </Box>
         <Button
           onClick={handleLogout}
