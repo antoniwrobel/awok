@@ -1,23 +1,20 @@
-export type Nullable<T> = {
+import { Dispatch, SetStateAction } from "react";
+
+type Nullable<T> = {
   [K in keyof T]: T[K] | null | undefined;
 };
 
-export type UserType = {
+type UserType = {
   id: number;
   first_name: string;
   last_name: string;
   username: string;
   email: string;
-};
+} | null;
+
 export type UserTypeKeys = keyof UserType;
 
-export type UserAction =
-  | { type: "SET_USER"; payload: UserType }
-  | { type: "SET_USERNAME"; payload: UserType["username"] }
-  | { type: "TEST" };
-
-export type UserDispatch = (action: UserAction) => void;
-
-export type UserState = { user: Nullable<UserType> };
-
-export type UserProviderProps = { children: React.ReactNode };
+export interface UserContextType {
+  user: UserType;
+  setUser: Dispatch<SetStateAction<UserType | null>>;
+}

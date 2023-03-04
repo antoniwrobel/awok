@@ -12,12 +12,12 @@ import App from "./app";
 import initI18n from "./routes/i18n";
 import AuthProvider from "./context/AuthProvider";
 import LoadingProvider from "./context/LoadingProvider";
+import UserProvider from "./context/UserProvider";
 import ErrorBoundary from "./error-boundary";
 import LoadingModal from "./modals/Loading";
 import { LocaleProviderWrapper } from "./context/LocaleProvider";
 import { Navbar } from "./components/Navbar";
 import { PagesList } from "./components/PagesList";
-import { UserProvider } from "./context/UserProvider";
 import { Wrapper } from "./components/Wrapper";
 
 import reportWebVitals from "./util/web-vitals";

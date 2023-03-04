@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth, useLoading } from "../../hooks";
+import { useAuth, useLoading, useUser } from "../../hooks";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
@@ -10,7 +10,7 @@ import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
-import { useUser } from "src/context/UserProvider";
+import { getUserSession } from "src/api/user";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export const LoginPage = () => {
 
   const { t } = useTranslation();
   const { signIn } = useAuth();
-  const { dispatchUser } = useUser();
+  const { setUser } = useUser();
   const { isLoading, setIsLoading } = useLoading();
 
   const loginFormFields = generateLoginFormFields();
@@ -54,12 +54,16 @@ export const LoginPage = () => {
                 const successMessage = t("login-success");
                 toast.success(successMessage);
 
-                dispatchUser({
-                  type: "SET_USERNAME",
-                  payload: values.username,
-                });
-
-                navigate("/logged-in");
+                try {
+                  const user = await getUserSession();
+                  setUser(user);
+                  navigate("/logged-in");
+                } catch (error) {
+                  console.error("error", error);
+                } finally {
+                  setIsLoading(false);
+                  setSubmitting(false);
+                }
               } catch (error) {
                 if (axios.isAxiosError(error) && error.response) {
                   for (const fieldName of registerFormFieldsNamesArray) {
