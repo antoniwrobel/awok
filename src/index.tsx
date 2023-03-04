@@ -18,21 +18,21 @@ import { LocaleProviderWrapper } from "./context/LocaleProvider";
 import { Navbar } from "./components/Navbar";
 import { PagesList } from "./components/PagesList";
 import { UserProvider } from "./context/UserProvider";
+import { Wrapper } from "./components/Wrapper";
 
 import reportWebVitals from "./util/web-vitals";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/main.scss";
-import { Wrapper } from "./components/Wrapper";
 
 // Global initialization
 initI18n();
-Sentry.init({
-  dsn: process.env.REACT_APP_SENTRY_DNS,
-  integrations: [new BrowserTracing()],
-  tracesSampleRate: 1.0,
-  tunnel: "/unblocksentry",
-});
+// Sentry.init({
+//   dsn: process.env.REACT_APP_SENTRY_DNS,
+//   integrations: [new BrowserTracing()],
+//   tracesSampleRate: 1.0,
+//   tunnel: "/unblocksentry",
+// });
 
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = createRoot(htmlRoot);
@@ -53,26 +53,26 @@ const containerSx = {
 
 reactRoot.render(
   <ThemeProvider theme={theme}>
-    <LocaleProviderWrapper>
-      <UserProvider>
-        <Suspense fallback={<LoadingModal isOpen />}>
-          <Wrapper>
-            <ToastContainer
-              theme="colored"
-              position="top-right"
-              rtl={false}
-              autoClose={5000}
-              newestOnTop={false}
-              hideProgressBar={false}
-              draggable
-              closeOnClick
-              pauseOnHover
-              pauseOnFocusLoss
-            />
+    <LoadingProvider>
+      <LocaleProviderWrapper>
+        <UserProvider>
+          <Suspense fallback={<LoadingModal isOpen />}>
+            <Wrapper>
+              <ToastContainer
+                theme="colored"
+                position="top-right"
+                rtl={false}
+                autoClose={5000}
+                newestOnTop={false}
+                hideProgressBar={false}
+                draggable
+                closeOnClick
+                pauseOnHover
+                pauseOnFocusLoss
+              />
 
-            <ErrorBoundary>
-              <AuthProvider>
-                <LoadingProvider>
+              <ErrorBoundary>
+                <AuthProvider>
                   <Box>
                     <Router basename={process.env.PUBLIC_URL}>
                       <Navbar />
@@ -84,13 +84,13 @@ reactRoot.render(
                       </Container>
                     </Router>
                   </Box>
-                </LoadingProvider>
-              </AuthProvider>
-            </ErrorBoundary>
-          </Wrapper>
-        </Suspense>
-      </UserProvider>
-    </LocaleProviderWrapper>
+                </AuthProvider>
+              </ErrorBoundary>
+            </Wrapper>
+          </Suspense>
+        </UserProvider>
+      </LocaleProviderWrapper>
+    </LoadingProvider>
   </ThemeProvider>
 );
 

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useEffect } from "react";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
@@ -11,27 +10,21 @@ import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
-import { getAccessToken } from "src/auth/auth-service";
+import { useUser } from "src/context/UserProvider";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const accessToken = getAccessToken();
 
   const { t } = useTranslation();
-  const { signIn, user } = useAuth();
+  const { signIn } = useAuth();
+  const { dispatchUser } = useUser();
   const { isLoading, setIsLoading } = useLoading();
 
   const loginFormFields = generateLoginFormFields();
   const validationSchema = generateYupSchema(loginFormFields);
 
   const from = location.state?.from?.pathname || "/";
-
-  useEffect(() => {
-    if (user || accessToken) {
-      navigate(from, { replace: true });
-    }
-  }, [user, accessToken]);
 
   return (
     <Box display="flex" flexDirection="column" width="100%">
@@ -61,14 +54,13 @@ export const LoginPage = () => {
                 const successMessage = t("login-success");
                 toast.success(successMessage);
 
-                setIsLoading(false);
-                setSubmitting(false);
+                dispatchUser({
+                  type: "SET_USERNAME",
+                  payload: values.username,
+                });
 
                 navigate("/logged-in");
               } catch (error) {
-                setIsLoading(false);
-                setSubmitting(false);
-
                 if (axios.isAxiosError(error) && error.response) {
                   for (const fieldName of registerFormFieldsNamesArray) {
                     const err = error as RegisterResponseError;
@@ -93,6 +85,9 @@ export const LoginPage = () => {
                   const errorMessage = error as string;
                   toast.error(errorMessage);
                 }
+              } finally {
+                setIsLoading(false);
+                setSubmitting(false);
               }
             }}
           >
@@ -102,8 +97,8 @@ export const LoginPage = () => {
                   <Form
                     style={{
                       display: "flex",
-                      flexDirection: "column",
                       width: "100%",
+                      flexDirection: "column",
                       alignItems: "flex-end",
                     }}
                   >
@@ -134,11 +129,11 @@ export const LoginPage = () => {
                     </Box>
 
                     <Button
-                      sx={{ mt: "10px" }}
-                      disabled={isLoading}
-                      color="primary"
                       type="submit"
+                      color="primary"
                       variant="contained"
+                      disabled={isLoading}
+                      sx={{ mt: "10px" }}
                     >
                       {t("login")}
                     </Button>

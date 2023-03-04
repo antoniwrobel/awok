@@ -1,9 +1,8 @@
 import axios from "axios";
 import axiosInstance from "src/auth/axios-config";
-import { useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth, useLoading } from "../../hooks";
+import { useNavigate } from "react-router-dom";
+import { useLoading } from "../../hooks";
 import { useTranslation } from "react-i18next";
 import { Formik, Form } from "formik";
 import {
@@ -14,14 +13,11 @@ import { generateYupSchema } from "./generate-registration-schema";
 import { generateRegisterFormFields } from "./generate-registration-fields";
 import { toast } from "react-toastify";
 import { RegisterResponseError } from "src/types/axios.types";
-import { getAccessToken, setAccessToken } from "src/auth/auth-service";
+import { setAccessToken } from "src/auth/auth-service";
 
 export const RegisterPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const { t } = useTranslation();
-  const { user } = useAuth();
-  const accessToken = getAccessToken();
+  const navigate = useNavigate();
 
   const initialValues = registerFormFieldsNamesArray.reduce((acc, currVal) => {
     return {
@@ -32,15 +28,8 @@ export const RegisterPage = () => {
 
   const { isLoading, setIsLoading } = useLoading();
 
-  const from = location.state?.from?.pathname || "/";
   const registerFormFields = generateRegisterFormFields();
   const validationSchema = generateYupSchema(registerFormFields);
-
-  useEffect(() => {
-    if (user || accessToken) {
-      navigate(from, { replace: true });
-    }
-  }, [user, accessToken]);
 
   return (
     <Box>

@@ -6,31 +6,47 @@ import {
   UserState,
 } from "src/types/user.types";
 
+const initialState: UserState = {
+  user: {
+    id: null,
+    email: null,
+    first_name: null,
+    last_name: null,
+    username: null,
+  },
+};
+
 const UserStateContext =
   createContext<
     { userState: UserState; dispatchUser: UserDispatch } | undefined
   >(undefined);
 
-const userReducer = (state: UserState, action: UserAction): UserState => {
+const userReducer = (state: UserState, action: UserAction) => {
   switch (action.type) {
-    case "setUser": {
-      console.log({ state });
-
+    case "SET_USERNAME": {
       return {
-        user: null,
+        user: {
+          ...state.user,
+          username: action.payload,
+        },
       };
     }
+
+    case "SET_USER": {
+      return {
+        user: action.payload,
+      };
+    }
+
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      console.error(`Unhandled action type: ${action.type}`);
+      return state;
     }
   }
 };
 
 const UserProvider = ({ children }: UserProviderProps) => {
-  const [userState, dispatchUser] = useReducer(userReducer, { user: null });
-
-  // NOTE: *might* need to memoize this value
-  // http://kcd.im/optimize-context
+  const [userState, dispatchUser] = useReducer(userReducer, initialState);
   const value = { userState, dispatchUser };
 
   return (

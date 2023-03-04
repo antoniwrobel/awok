@@ -1,36 +1,42 @@
 import Box from "@mui/material/Box";
-import axios from "axios";
-import axiosInstance from "src/auth/axios-config";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useLoading } from "src/hooks";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getUserInfo } from "src/api/user";
+import { useUser } from "src/context/UserProvider";
+import { useLoading } from "src/hooks/useLoading";
 
 export const LoggedIn = () => {
   const { t } = useTranslation();
+  const {
+    userState: { user },
+    dispatchUser,
+  } = useUser();
   const { setIsLoading } = useLoading();
-  const [user, setUser] = useState<any>();
+  const navigate = useNavigate();
 
-  const getUserDetails = async () => {
+  const checkUserInfo = async () => {
+    const { username } = user;
+
+    if (!username) {
+      navigate("/login");
+      return;
+    }
+
     setIsLoading(true);
+
     try {
-      const userDetailsResponse = await axiosInstance.get("/get-user");
-      if (userDetailsResponse.status === 200) {
-        setUser(userDetailsResponse.data);
-      }
-      setIsLoading(false);
+      const payload = await getUserInfo("username", username);
+      dispatchUser({ type: "SET_USER", payload });
     } catch (error) {
+      console.error(error);
+    } finally {
       setIsLoading(false);
-      if (axios.isAxiosError(error) && error.response) {
-        toast.error(error.response.data.error);
-      } else {
-        console.error(error);
-        throw new Error("Other get user details error");
-      }
     }
   };
+
   useEffect(() => {
-    getUserDetails();
+    checkUserInfo();
   }, []);
 
   return (

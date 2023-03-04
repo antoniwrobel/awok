@@ -10,7 +10,7 @@ import { useAuth, useLoading } from "../../hooks";
 const AuthStatus = () => {
   const { t } = useTranslation();
   const { isLoading, setIsLoading } = useLoading();
-  const { user, signout } = useAuth();
+  const { signOut } = useAuth();
 
   const token = getAccessToken();
   const navigate = useNavigate();
@@ -18,13 +18,13 @@ const AuthStatus = () => {
   const handleSignout = () => {
     setIsLoading(true);
 
-    signout(() => {
+    signOut(() => {
       setIsLoading(false);
       navigate("/");
     });
   };
 
-  if (!user && !token) {
+  if (!token) {
     return (
       <Box display="flex" justifyContent="space-between" mb={["10px", "20px"]}>
         <Typography variant="h6" component="h6">

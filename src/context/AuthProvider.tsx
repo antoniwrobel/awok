@@ -1,16 +1,12 @@
 import { createContext } from "react";
 
-import { removeAccessToken, setAccessToken } from "src/auth/auth-service";
 import ax from "src/auth/axios-config";
-import { fakeAuthProvider } from "../auth/auth";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { removeAccessToken, setAccessToken } from "src/auth/auth-service";
 import { AuthContextType } from "../types/auth.types";
 
 export const AuthContext = createContext<AuthContextType>(null!);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useLocalStorage("user", null);
-
   const signIn = async (username: string, password: string) => {
     try {
       const successResponse = await ax.post("/api-token-auth", {
@@ -20,7 +16,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (successResponse.status === 200) {
         setAccessToken(successResponse.data.token);
-
         return successResponse.data;
       }
     } catch (error) {
@@ -28,21 +23,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const signin = (newUser: string, callback: VoidFunction) => {
-    return fakeAuthProvider.signin(() => {
-      setUser(newUser);
-      callback();
-    });
-  };
-
-  const signout = (callback: VoidFunction) => {
-    setUser(null);
+  const signOut = (callback: VoidFunction) => {
     setAccessToken("");
     callback();
     removeAccessToken();
   };
 
-  const value = { user, signin, signout, signIn };
+  const value = { signOut, signIn };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
