@@ -1,5 +1,5 @@
 {
-  "react-dom": "^18.2.0",
+  "homepage": "https://antoniwrobel.github.io/awok-fe/",
   "name": "awok",
   "version": "0.1.3",
   "description": "AWOK",
@@ -98,7 +98,7 @@
   "scripts": {
     "predeploy": "yarn build",
     "deploy": "gh-pages -d out/build/production",
-    "build": "env-cmd --no-override -f ./.env-override/.env.production react-scripts build  cp _redirects out/build/production/_redirects",
+    "build": "env-cmd --no-override -f ./.env-override/.env.production react-scripts build",
     "build:d": "env-cmd --no-override -f ./.env-override/.env.development react-scripts build",
     "build:l": "env-cmd --no-override -f ./.env-override/.env.local react-scripts build",
     "build:q": "env-cmd --no-override -f ./.env-override/.env.qa react-scripts build",
