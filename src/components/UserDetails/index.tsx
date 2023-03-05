@@ -47,6 +47,7 @@ export const UserDetails = () => {
               )
             )}
         </Box>
+
         <Button
           onClick={handleLogout}
           variant="contained"
