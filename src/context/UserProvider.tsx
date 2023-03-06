@@ -49,13 +49,9 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
       }
 
       return getUserSessionResponse.data;
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      } else {
-        console.error(error);
-      }
-    }
+
+      // SWALLOW THE ERROR
+    } catch (error) {}
   };
 
   const handleCheckUser = async () => {
@@ -65,6 +61,8 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
       setUser(user);
       setIsLoggedIn(true);
     }
+
+    setHasBeenChecked(true);
   };
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { toast } from "react-toastify";
 import { AxiosErrorType } from "src/types/axios.types";
 import {
   getRefreshToken,
@@ -23,16 +24,17 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
   ),
     axiosInstance.interceptors.response.use(
       (response) => response,
+
       axiosErrorHandler<AxiosErrorType<T>>(async (error) => {
         if (error.type === "axios-error" && error.error.response) {
           const { status } = error.error.response;
 
           if (status === 400) {
-            return Promise.reject(error);
+            return Promise.reject(error.error);
           }
 
           if (status === 401) {
-            return Promise.reject(error);
+            return Promise.reject(error.error);
           }
 
           if (status === 403) {
@@ -50,9 +52,12 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
                 setRefreshToken(newRefreshToken);
 
                 const originalRequest = error.error.response.config;
+
                 originalRequest.headers.Authorization = `Token ${accessToken}`;
+
                 return axiosInstance.request(originalRequest);
               } catch (error) {
+                console.error("Refresh token error occured, ", error);
                 return Promise.reject(error);
               }
             } else {
@@ -61,14 +66,18 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
           }
 
           if (status === 404) {
-            return Promise.reject(error.error);
+            toast.error("Sorry, request failed with status code 404");
+            return;
           }
 
-          console.error("Status not handled, ", error);
+          console.error("Status not handled, ", error.error);
           return Promise.reject(error.error);
+        } else if (error.type === "axios-error") {
+          return Promise.reject(
+            `Sorry, something went wrong... ${error.error.message}`
+          );
         } else {
-          console.error("Not an axios error occured", error);
-          return Promise.reject("Sorry, something went wrong...");
+          return Promise.reject(`Stock error occurred: ${error.error.message}`);
         }
       })
     );

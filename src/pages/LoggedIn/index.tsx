@@ -20,15 +20,6 @@ export const LoggedIn = () => {
   return (
     <Box>
       {t("user-logged-in")} <br />
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(1, 1fr)",
-          whiteSpace: "break-spaces",
-        }}
-      >
-        {JSON.stringify(user, null, 2)}
-      </Box>
     </Box>
   );
 };

@@ -39,7 +39,7 @@ export const UserDetails = () => {
             .split(user.username)
             .map((part, index) =>
               index > 0 ? (
-                <Typography fontWeight="bold" mx="8px">
+                <Typography key={index} fontWeight="bold" mx="8px">
                   {user.username}!
                 </Typography>
               ) : (

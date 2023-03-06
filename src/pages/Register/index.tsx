@@ -13,7 +13,7 @@ import { generateYupSchema } from "./generate-registration-schema";
 import { generateRegisterFormFields } from "./generate-registration-fields";
 import { toast } from "react-toastify";
 import { RegisterResponseError } from "src/types/axios.types";
-import { axiosErrorHandler, setAccessToken } from "src/auth/auth-service";
+import { axiosErrorHandler } from "src/auth/auth-service";
 
 export const RegisterPage = () => {
   const { t } = useTranslation();
@@ -31,10 +31,6 @@ export const RegisterPage = () => {
 
   const registerFormFields = generateRegisterFormFields();
   const validationSchema = generateYupSchema(registerFormFields);
-
-  function handleAxiosError(arg0: AxiosError) {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <Box>
@@ -62,14 +58,7 @@ export const RegisterPage = () => {
                   } catch (error) {
                     const handleAxiosError =
                       axiosErrorHandler<RegisterResponseError>((err) => {
-                        if (err.type === "axios-error") {
-                          if (err.error.message) {
-                            toast.error(err.error.message);
-                          }
-                        } else {
-                          console.error("Stock error occurred:", error);
-                          toast.error(err.error.message);
-                        }
+                        toast.error(err.error.message);
                       });
 
                     if (axios.isAxiosError(error)) {
@@ -92,13 +81,6 @@ export const RegisterPage = () => {
                           setFieldError(fieldName, errorMessage);
                         }
                       }
-
-                      if (err.error.message) {
-                        toast.error(err.error.message);
-                      }
-                    } else {
-                      console.error("Stock error occurred:", error);
-                      toast.error(err.error.message);
                     }
                   });
 

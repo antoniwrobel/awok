@@ -9,6 +9,7 @@ import routes from "src/routes";
 export const PagesList = () => {
   const { t } = useTranslation();
   const { isLoggedIn } = useUser();
+
   return (
     <ContainerBox>
       <Box height="100%">
@@ -17,7 +18,6 @@ export const PagesList = () => {
             if (isLoggedIn && route.isPublicOnly) {
               return;
             }
-
             if (!isLoggedIn && route.isProtected) {
               return;
             }

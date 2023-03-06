@@ -1,16 +1,16 @@
 import axios, { AxiosError } from "axios";
+import { useTranslation } from "react-i18next";
+import { Form, Formik } from "formik";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth, useLoading, useUser } from "../../hooks";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { Form, Formik } from "formik";
+
+import { useAuth, useLoading } from "../../hooks";
 import { RegisterResponseError } from "src/types/axios.types";
-import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
-import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
+import { axiosErrorHandler } from "src/auth/auth-service";
 import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
-import { axiosErrorHandler } from "src/auth/auth-service";
+import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
+import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -75,10 +75,6 @@ export const LoginPage = () => {
                           password: "",
                         },
                       });
-                    } else {
-                      console.error("Stock error occurred:", error);
-                      toast.error(err.error.message);
-                      resetForm();
                     }
                   });
 

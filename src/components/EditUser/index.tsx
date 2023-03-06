@@ -49,7 +49,6 @@ export const EditUser = () => {
               setIsLoading(true);
               setSubmitting(true);
               try {
-                console.log({ values });
                 const editUserResponse = await axiosInstance.patch(
                   "/user-update",
                   values
@@ -73,9 +72,6 @@ export const EditUser = () => {
                           setFieldError(fieldName, errorMessage);
                         }
                       }
-                    } else {
-                      console.error("Stock error occurred:", error);
-                      toast.error(err.error.message);
                     }
                   });
 
