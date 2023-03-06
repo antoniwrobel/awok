@@ -48,9 +48,9 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
     toolbarProps;
 
   const { t } = useTranslation();
+  const { user } = useUser();
   const [focused, setFocused] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
-  const { user } = useUser();
 
   const userInitials = createInitials(user);
 
@@ -88,8 +88,8 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
     <ToolbarComponent
       sx={{
         display: "flex",
-        justifyContent: "space-between",
         width: "100%",
+        justifyContent: "space-between",
       }}
     >
       <Typography
@@ -104,10 +104,10 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
 
       <Search
         sx={{
-          width: { lg: "550px", md: "80%" },
-          display: { xs: "none", sm: "none", md: "block" },
           ml: "auto",
           mr: "auto",
+          width: { lg: "550px", md: "80%" },
+          display: { xs: "none", sm: "none", md: "block" },
         }}
       >
         <SearchIconWrapper>
@@ -115,18 +115,18 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         </SearchIconWrapper>
 
         <StyledInputBase
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          inputRef={searchRef}
           placeholder={t("search")}
           inputProps={{ "aria-label": "search" }}
-          inputRef={searchRef}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
         />
 
         <SubmitIconWrapper onClick={() => handleLogSearchValue(true)}>
           <PublishSharpIcon
             sx={{
-              userSelect: "inherit",
               cursor: "pointer",
+              userSelect: "inherit",
               "&:hover": { color: "#1976d2" },
             }}
           />
@@ -146,23 +146,23 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         <IconButton
           size="large"
           edge="end"
+          color="inherit"
+          aria-haspopup="true"
           aria-label="select language"
           aria-controls={menuId1}
-          aria-haspopup="true"
           onClick={handleLocalesMenuOpen}
-          color="inherit"
         >
           <LanguageSharpIcon />
         </IconButton>
 
         <IconButton
-          size="large"
           edge="end"
-          aria-label="account of current user"
-          aria-controls={menuId}
-          aria-haspopup="true"
-          onClick={handleProfileMenuOpen}
+          size="large"
           color="inherit"
+          aria-label="account of current user"
+          aria-haspopup="true"
+          aria-controls={menuId}
+          onClick={handleProfileMenuOpen}
           sx={{
             display: {
               sm: "none",
@@ -181,11 +181,11 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
       <Box sx={{ display: { xs: "flex", md: "none" } }}>
         <IconButton
           size="large"
+          color="inherit"
+          aria-haspopup="true"
           aria-label="show more"
           aria-controls={mobileMenuId}
-          aria-haspopup="true"
           onClick={handleMobileMenuOpen}
-          color="inherit"
           sx={{
             ml: {
               xs: "auto",

@@ -1,10 +1,10 @@
 // External imports
 import { Suspense } from "react";
-import * as Sentry from "@sentry/react";
-import { BrowserTracing } from "@sentry/tracing";
+// import * as Sentry from "@sentry/react";
+// import { BrowserTracing } from "@sentry/tracing";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Box, Container, createTheme, ThemeProvider } from "@mui/material";
+import { Box, createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 
 // Local imports
@@ -20,7 +20,6 @@ import { Navbar } from "./components/Navbar";
 import { PagesList } from "./components/PagesList";
 import { Wrapper } from "./components/Wrapper";
 import { UserDetails } from "./components/UserDetails";
-import { ContainerBox } from "./components/ContainerBox";
 
 import reportWebVitals from "./util/web-vitals";
 
@@ -54,30 +53,26 @@ reactRoot.render(
           <Suspense fallback={<LoadingModal isOpen />}>
             <Wrapper>
               <ToastContainer
+                draggable
+                closeOnClick
+                pauseOnHover
+                pauseOnFocusLoss
                 theme="colored"
                 position="top-right"
                 rtl={false}
                 autoClose={5000}
                 newestOnTop={false}
                 hideProgressBar={false}
-                draggable
-                closeOnClick
-                pauseOnHover
-                pauseOnFocusLoss
               />
 
               <ErrorBoundary>
                 <AuthProvider>
-                  <Box>
-                    <Router basename={process.env.PUBLIC_URL}>
-                      <Navbar />
-                      <UserDetails />
-                      <ContainerBox>
-                        <PagesList />
-                      </ContainerBox>
-                      <App />
-                    </Router>
-                  </Box>
+                  <Router basename={process.env.PUBLIC_URL}>
+                    <Navbar />
+                    <UserDetails />
+                    <PagesList />
+                    <App />
+                  </Router>
                 </AuthProvider>
               </ErrorBoundary>
             </Wrapper>

@@ -1,12 +1,12 @@
-import axiosInstance from "src/auth/axios-config";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { createContext, FC, useEffect, useMemo, useState } from "react";
+
+import axiosInstance from "src/auth/axios-config";
 import {
   IUserProvider,
   UserContextType,
   UserTypeKeys,
 } from "src/types/user.types";
-import { toast } from "react-toastify";
 
 export const UserContext = createContext<UserContextType>({
   user: null,
@@ -40,8 +40,22 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
       const getUserSessionResponse = (await axiosInstance.get(
         `/get-session`
       )) as AxiosResponse<UserContextType["user"]>;
+      const responseType = typeof getUserSessionResponse.data;
+
+      if (responseType !== "object") {
+        throw new Error(
+          `get-session response wrong type. received "${responseType}" instead of "object" type`
+        );
+      }
+
       return getUserSessionResponse.data;
-    } catch (error) {}
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error(error);
+      }
+    }
   };
 
   const handleCheckUser = async () => {
@@ -51,7 +65,6 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
       setUser(user);
       setIsLoggedIn(true);
     }
-    setHasBeenChecked(true);
   };
 
   useEffect(() => {

@@ -1,10 +1,11 @@
 import { TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Form, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { axiosErrorHandler } from "src/auth/auth-service";
 import axiosInstance from "src/auth/axios-config";
 import { useLoading, useUser } from "src/hooks";
 import { generateRegisterFormFields } from "src/pages/Register/generate-registration-fields";
@@ -58,20 +59,28 @@ export const EditUser = () => {
                   toast.success(successMessage);
                 }
               } catch (error) {
-                if (axios.isAxiosError(error) && error.response) {
-                  for (const fieldName of registerFormFieldsNamesArray) {
-                    const err = error as RegisterResponseError;
-                    const errors = err.response.data[fieldName];
-                    const errorMessage =
-                      typeof errors === "object" ? errors.join(", ") : errors;
+                const handleAxiosError =
+                  axiosErrorHandler<RegisterResponseError>((err) => {
+                    if (err.type === "axios-error") {
+                      for (const fieldName of registerFormFieldsNamesArray) {
+                        const errors = err.error.response?.data[fieldName];
+                        const errorMessage =
+                          typeof errors === "object"
+                            ? errors.join(", ")
+                            : errors;
 
-                    if (errors) {
-                      setFieldError(fieldName, errorMessage);
+                        if (errors) {
+                          setFieldError(fieldName, errorMessage);
+                        }
+                      }
+                    } else {
+                      console.error("Stock error occurred:", error);
+                      toast.error(err.error.message);
                     }
-                  }
-                } else {
-                  console.error(error);
-                  throw new Error("Other edit user error");
+                  });
+
+                if (axios.isAxiosError(error)) {
+                  handleAxiosError(error as AxiosError);
                 }
               } finally {
                 setIsLoading(false);

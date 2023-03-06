@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useLoading, useUser } from "../../hooks";
@@ -10,6 +10,7 @@ import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
+import { axiosErrorHandler } from "src/auth/auth-service";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -50,31 +51,39 @@ export const LoginPage = () => {
               try {
                 await signIn(values.username, values.password);
                 navigate("/logged-in");
+
                 window.location.reload();
               } catch (error) {
-                if (axios.isAxiosError(error) && error.response) {
-                  for (const fieldName of registerFormFieldsNamesArray) {
-                    const err = error as RegisterResponseError;
-                    const errors = err.response.data[fieldName];
-                    const errorMessage = handleCombineErrors(errors);
+                const handleAxiosError =
+                  axiosErrorHandler<RegisterResponseError>((err) => {
+                    if (err.type === "axios-error") {
+                      for (const fieldName of registerFormFieldsNamesArray) {
+                        const errors = err.error.response?.data[fieldName];
+                        const errorMessage = handleCombineErrors(errors);
 
-                    if (errors) {
-                      setFieldError(fieldName, errorMessage);
-                      return;
+                        if (errors) {
+                          setFieldError(fieldName, errorMessage);
+                          return;
+                        }
+                      }
+
+                      handleNonFieldErrors(err.error);
+
+                      resetForm({
+                        values: {
+                          username: values.username,
+                          password: "",
+                        },
+                      });
+                    } else {
+                      console.error("Stock error occurred:", error);
+                      toast.error(err.error.message);
+                      resetForm();
                     }
-                  }
-
-                  resetForm({
-                    values: {
-                      username: values.username,
-                      password: "",
-                    },
                   });
-                  handleNonFieldErrors(error);
-                } else {
-                  resetForm();
-                  const errorMessage = error as string;
-                  toast.error(errorMessage);
+
+                if (axios.isAxiosError(error)) {
+                  handleAxiosError(error as AxiosError);
                 }
               } finally {
                 setIsLoading(false);

@@ -24,8 +24,6 @@ const LocaleProvider = ({ children }: { children: React.ReactNode }) => {
     setLocale(lang);
   });
 
-  useEffect(() => {}, [locale]);
-
   const changeLocale = (l: LocalesType) => {
     if (locale !== l) {
       i18n.changeLanguage(l);

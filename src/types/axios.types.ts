@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import { AxiosError, HttpStatusCode } from "axios";
 import { RegisterFormFieldNamesType } from "src/pages/Register/register-form-fields";
 
 export type ErrorResponse = {
@@ -6,25 +6,18 @@ export type ErrorResponse = {
     data?: {
       message: string;
     };
-    status: number;
+    status: HttpStatusCode;
   };
 };
 
 type NotFieldsErrorType = {
-  response: {
-    data: {
-      non_field_errors?: string[] | string;
-    };
-  };
+  non_field_errors?: string[] | string;
 };
 
 export type RegisterResponseError = {
-  response: {
-    data: {
-      [key in RegisterFormFieldNamesType]?: string[] | string;
-    };
-  };
-} & NotFieldsErrorType;
+  [key in RegisterFormFieldNamesType]?: string[] | string;
+} &
+  NotFieldsErrorType;
 
 export type AxiosErrorType<T> = AxiosError<T> | Error;
 

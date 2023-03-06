@@ -28,15 +28,14 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
           const { status } = error.error.response;
 
           if (status === 400) {
-            return Promise.reject(error.error);
+            return Promise.reject(error);
           }
 
           if (status === 401) {
-            return Promise.reject(error.error);
+            return Promise.reject(error);
           }
 
           if (status === 403) {
-            // Refresh access token using refresh token
             const refreshToken = getRefreshToken();
 
             if (refreshToken) {
@@ -61,10 +60,14 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
             }
           }
 
-          console.error("Handle the error response here", error);
+          if (status === 404) {
+            return Promise.reject(error.error);
+          }
+
+          console.error("Status not handled, ", error);
           return Promise.reject(error.error);
         } else {
-          console.error("Handle other types of errors here", error);
+          console.error("Not an axios error occured", error);
           return Promise.reject("Sorry, something went wrong...");
         }
       })

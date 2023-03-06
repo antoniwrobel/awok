@@ -26,10 +26,10 @@ export const UserDetails = () => {
   return (
     <ContainerBox>
       <Box
-        display="flex"
-        justifyContent="space-between"
         width="100%"
+        display="flex"
         alignItems="center"
+        justifyContent="space-between"
       >
         <Box display="flex">
           {t("hello-user", {
@@ -49,8 +49,8 @@ export const UserDetails = () => {
         </Box>
 
         <Button
-          onClick={handleLogout}
           variant="contained"
+          onClick={handleLogout}
           sx={{ display: { lg: "none", md: "flex" } }}
         >
           {t("signout")}
