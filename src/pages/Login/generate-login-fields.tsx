@@ -7,7 +7,7 @@ export const generateLoginFormFields = (): LoginFormFieldsType[] => {
     {
       name: "username",
       type: "text",
-      label: t("username"),
+      label: `${t("email")}/${t("username")}`,
       required: true,
       maxLength: 150,
     },

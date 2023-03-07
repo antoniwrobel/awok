@@ -3,7 +3,7 @@ import axiosInstance from "src/auth/axios-config";
 import { Button, TextField, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../../hooks";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Formik, Form } from "formik";
 import {
   RegisterFormFieldNamesType,
@@ -106,10 +106,10 @@ export const RegisterPage = () => {
                     }}
                   >
                     <Box
+                      gap="10px"
                       width="100%"
                       display="grid"
                       flexDirection="column"
-                      gap={["20px", "20px", "10px"]}
                       gridTemplateColumns={["1fr", "1fr", "2fr 2fr"]}
                     >
                       {registerFormFields.map((field) => {
@@ -126,7 +126,9 @@ export const RegisterPage = () => {
                             value={values[name]}
                             disabled={isLoading}
                             onChange={handleChange}
-                            helperText={hasError && errors[name]}
+                            helperText={
+                              hasError && <Trans i18nKey={errors[name]} />
+                            }
                           />
                         );
                       })}

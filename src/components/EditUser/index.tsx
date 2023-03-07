@@ -1,21 +1,22 @@
-import { TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import axios, { AxiosError } from "axios";
+import { TextField } from "@mui/material";
 import { Form, Formik } from "formik";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { axiosErrorHandler } from "src/auth/auth-service";
+
 import axiosInstance from "src/auth/axios-config";
 import { useLoading, useUser } from "src/hooks";
+import { axiosErrorHandler } from "src/auth/auth-service";
 import { generateRegisterFormFields } from "src/pages/Register/generate-registration-fields";
 import { generateYupSchema } from "src/pages/Register/generate-registration-schema";
+import { RegisterResponseError } from "src/types/axios.types";
 import {
   editableRegisterFormFieldsNamesArray,
   RegisterFormFieldNamesType,
   registerFormFieldsNamesArray,
 } from "src/pages/Register/register-form-fields";
-import { RegisterResponseError } from "src/types/axios.types";
 
 export const EditUser = () => {
   const { t } = useTranslation();
@@ -97,11 +98,11 @@ export const EditUser = () => {
                     }}
                   >
                     <Box
+                      gap="10px"
+                      width="100%"
                       display="grid"
                       flexDirection="column"
-                      gap="10px"
-                      gridTemplateColumns={["1fr", "1fr 1fr", "2fr 2fr"]}
-                      width="100%"
+                      gridTemplateColumns={["1fr", "1fr", "1fr 1fr"]}
                     >
                       {registerFormFields.map((field) => {
                         const { label, name, type, notEditable } = field;
@@ -121,7 +122,9 @@ export const EditUser = () => {
                             value={values[name]}
                             disabled={isLoading}
                             onChange={handleChange}
-                            helperText={hasError && errors[name]}
+                            helperText={
+                              hasError && <Trans i18nKey={errors[name]} />
+                            }
                           />
                         );
                       })}

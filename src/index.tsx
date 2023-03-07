@@ -58,7 +58,7 @@ reactRoot.render(
                 pauseOnHover
                 pauseOnFocusLoss
                 theme="colored"
-                position="top-right"
+                position="bottom-left"
                 rtl={false}
                 autoClose={5000}
                 newestOnTop={false}

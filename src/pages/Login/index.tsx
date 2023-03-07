@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { Form, Formik } from "formik";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -99,9 +99,9 @@ export const LoginPage = () => {
                     }}
                   >
                     <Box
+                      gap="10px"
                       width="100%"
                       display="grid"
-                      gap={["20px", "20px", "10px"]}
                       gridTemplateColumns={["1fr", "1fr", "1fr 1fr"]}
                     >
                       {loginFormFields.map((field) => {
@@ -118,7 +118,9 @@ export const LoginPage = () => {
                             value={values[name]}
                             disabled={isLoading}
                             onChange={handleChange}
-                            helperText={hasError && errors[name]}
+                            helperText={
+                              hasError && <Trans i18nKey={errors[name]} />
+                            }
                             inputProps={{
                               form: {
                                 autocomplete: "off",

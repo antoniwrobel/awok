@@ -15,6 +15,8 @@ export const generateYupSchema = (
       return;
     }
 
+    const formattedLabel = field.label.toLowerCase();
+
     let fieldSchema = string();
 
     if (field.name === "username") {
@@ -24,15 +26,11 @@ export const generateYupSchema = (
       });
     }
 
-    if (field.required) {
-      fieldSchema = fieldSchema.required(t("required", { label: field.label }));
-    }
-
     if (field.minLength) {
       fieldSchema = fieldSchema.min(
         field.minLength,
         t("min-length", {
-          label: field.label,
+          label: formattedLabel,
           length: field.minLength,
         })
       );
@@ -42,7 +40,7 @@ export const generateYupSchema = (
       fieldSchema = fieldSchema.max(
         field.maxLength,
         t("max-length", {
-          label: field.label,
+          label: formattedLabel,
           length: field.minLength,
         })
       );
@@ -64,6 +62,12 @@ export const generateYupSchema = (
       fieldSchema = fieldSchema
         .oneOf([ref("password")], t("pass-match"))
         .required(t("pass-confirm"));
+    }
+
+    if (field.required) {
+      fieldSchema = fieldSchema.required(
+        t("required", { label: formattedLabel })
+      );
     }
 
     schema[field.name] = fieldSchema;
