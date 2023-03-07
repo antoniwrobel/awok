@@ -52,7 +52,7 @@ export const generateYupSchema = (
 
     if (field.type === "password") {
       fieldSchema = fieldSchema
-        .min(8, t("min-length", { label: field.name, length: 8 }))
+        .min(8, t("min-length", { label: formattedLabel, length: 8 }))
         .matches(/[a-z]/, t("pass-one-lowercase"))
         .matches(/[A-Z]/, t("pass-one-uppercase"))
         .matches(/\d/, t("pass-one-digit"));
