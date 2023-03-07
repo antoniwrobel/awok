@@ -36,7 +36,7 @@ const LoadingModal = (props: LoadingModalProps) => {
           borderRadius: "4px",
         }}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress />
       </Backdrop>
     </Box>
   ) : null;

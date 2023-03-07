@@ -128,7 +128,7 @@ export const EditUser = () => {
                         <Button
                           type="button"
                           variant="contained"
-                          color="warning"
+                          color="secondary"
                           disabled={resetButtonDisabled}
                           onClick={handleResetToDefaultColor}
                           sx={{

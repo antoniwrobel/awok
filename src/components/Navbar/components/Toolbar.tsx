@@ -97,7 +97,7 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         noWrap
         component="a"
         href={process.env.PUBLIC_URL}
-        sx={{ color: "inherit" }}
+        sx={{ color: "#fff" }}
       >
         AWOK
       </Typography>
@@ -126,28 +126,24 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
           <PublishSharpIcon
             sx={{
               cursor: "pointer",
-              userSelect: "inherit",
             }}
           />
         </SubmitIconWrapper>
       </Search>
 
       <Box sx={{ display: { xs: "none", md: "flex", gap: "5px " } }}>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge
-            color="error"
-            //badgeContent={4}
-          >
+        {/* <IconButton size="large" aria-label="show 4 new mails">
+          <Badge>
             <MailIcon />
           </Badge>
-        </IconButton>
+        </IconButton> */}
 
         <IconButton
           size="large"
           edge="end"
-          color="inherit"
           aria-haspopup="true"
           aria-label="select language"
+          color="inherit"
           aria-controls={menuId1}
           onClick={handleLocalesMenuOpen}
         >
@@ -157,9 +153,9 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         <IconButton
           edge="end"
           size="large"
-          color="inherit"
           aria-label="account of current user"
           aria-haspopup="true"
+          color="inherit"
           aria-controls={menuId}
           onClick={handleProfileMenuOpen}
           sx={{
@@ -180,9 +176,9 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
       <Box sx={{ display: { xs: "flex", md: "none" } }}>
         <IconButton
           size="large"
-          color="inherit"
           aria-haspopup="true"
           aria-label="show more"
+          color="inherit"
           aria-controls={mobileMenuId}
           onClick={handleMobileMenuOpen}
           sx={{
