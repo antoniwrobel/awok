@@ -2,10 +2,12 @@ import { createTheme } from "@mui/material";
 
 export const handlePrimaryColor = (
   primaryValue: string,
-  secondaryValue: string
+  secondaryValue: string,
+  mode: "light" | "dark"
 ) => {
   const theme = createTheme({
     palette: {
+      mode: mode,
       primary: {
         main: primaryValue,
       },
@@ -25,6 +27,14 @@ export const handlePrimaryColor = (
             },
           },
         },
+      },
+      MuiTypography: {
+        variants: [
+          {
+            props: { color: "#0288d1" },
+            style: { "a&": { color: "#0288d1" } },
+          },
+        ],
       },
     },
   });

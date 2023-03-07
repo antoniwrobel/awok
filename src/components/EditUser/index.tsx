@@ -1,11 +1,13 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import axios, { AxiosError } from "axios";
-import { TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { Form, Formik } from "formik";
 import { Trans, useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { matchIsValidColor, MuiColorInput } from "mui-color-input";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
 import axiosInstance from "src/auth/axios-config";
 import { useLoading, useUser } from "src/hooks";
@@ -32,6 +34,8 @@ export const EditUser = () => {
     resetToDefaultColor,
     hasThemeBeenChanged,
     defaultValues: { defaultPrimaryColor, defaultSecondaryColor },
+    mode,
+    toggleColorMode,
   } = useThemeColor();
 
   const registerFormFields = generateRegisterFormFields();
@@ -55,7 +59,30 @@ export const EditUser = () => {
 
   return (
     <Box>
-      <Box display="flex" mt="10px" justifyContent="space-between" width="100%">
+      <Box
+        width="100%"
+        display="flex"
+        flexDirection="column"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+      >
+        <Box
+          sx={{
+            mb: ["10px", "20px"],
+            ml: "auto",
+            color: "primary",
+            cursor: "pointer",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={toggleColorMode}
+        >
+          {mode} mode
+          <IconButton sx={{ ml: "20px" }}>
+            {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+        </Box>
+
         <Box width="100%">
           <Box mb="20px">
             <Formik

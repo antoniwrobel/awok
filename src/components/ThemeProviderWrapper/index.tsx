@@ -1,18 +1,25 @@
+import CssBaseline from "@mui/material/CssBaseline";
+
 import { ThemeProvider } from "@mui/material";
 import { ReactNode, useEffect, useState } from "react";
 import { useThemeColor } from "src/hooks/useThemeColor";
 import { handlePrimaryColor } from "src/styles/create-theme";
 
 export const ThemeProviderWrapper = ({ children }: { children: ReactNode }) => {
-  const { primaryColor, secondaryColor } = useThemeColor();
-  const defaultTheme = handlePrimaryColor(primaryColor, secondaryColor);
+  const { primaryColor, secondaryColor, mode } = useThemeColor();
+  const defaultTheme = handlePrimaryColor(primaryColor, secondaryColor, mode);
 
   const [theme, setTheme] = useState(defaultTheme);
 
   useEffect(() => {
-    const theme = handlePrimaryColor(primaryColor, secondaryColor);
+    const theme = handlePrimaryColor(primaryColor, secondaryColor, mode);
     setTheme(theme);
-  }, [primaryColor, secondaryColor]);
+  }, [primaryColor, secondaryColor, mode]);
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
 };

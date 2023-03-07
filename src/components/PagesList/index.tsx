@@ -1,7 +1,7 @@
 // External imports
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useUser } from "src/hooks";
 import { ContainerBox } from "../ContainerBox";
 import routes from "src/routes";
@@ -22,7 +22,7 @@ export const PagesList = () => {
               return;
             }
             return (
-              <Link to={route.path} key={route.name}>
+              <Link to={route.path} key={route.name} component={RouterLink}>
                 {t(route.translKey)}
               </Link>
             );

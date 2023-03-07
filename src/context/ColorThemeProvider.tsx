@@ -1,4 +1,5 @@
-import { createContext } from "react";
+import { useMediaQuery } from "@mui/material";
+import { createContext, useMemo } from "react";
 import { useLocalStorage } from "src/hooks/useLocalStorage";
 import { ColorThemeContextType } from "src/types/color.types";
 
@@ -17,10 +18,23 @@ const ColorThemeProvider = ({ children }: { children: React.ReactNode }) => {
     "primaryColor",
     defaultPrimaryColor
   );
+
   const [secondaryColor, setSecondaryColor] = useLocalStorage(
     "secondaryColor",
     defaultSecondaryColor
   );
+
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const [mode, setMode] = useLocalStorage(
+    "mode",
+    prefersDarkMode ? "dark" : "light"
+  );
+
+  const toggleColorMode = () => {
+    const updatedMode = mode === "light" ? "dark" : "light";
+    setMode(updatedMode);
+  };
 
   const resetToDefaultColor = () => {
     setPrimaryColor(defaultPrimaryColor);
@@ -39,6 +53,8 @@ const ColorThemeProvider = ({ children }: { children: React.ReactNode }) => {
     resetToDefaultColor,
     hasThemeBeenChanged,
     defaultValues,
+    mode,
+    toggleColorMode,
   };
 
   return (

@@ -11,4 +11,6 @@ export interface ColorThemeContextType {
     defaultPrimaryColor: string;
     defaultSecondaryColor: string;
   };
+  mode: "light" | "dark";
+  toggleColorMode: () => void;
 }

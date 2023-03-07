@@ -4,7 +4,6 @@
 import { Suspense, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-
 import { ToastContainer } from "react-toastify";
 
 // Local imports
@@ -15,20 +14,18 @@ import LoadingProvider from "./context/LoadingProvider";
 import UserProvider from "./context/UserProvider";
 import ErrorBoundary from "./error-boundary";
 import LoadingModal from "./modals/Loading";
-import { handlePrimaryColor } from "./styles/create-theme";
+import ColorThemeProvider from "./context/ColorThemeProvider";
 import { LocaleProviderWrapper } from "./context/LocaleProvider";
 import { Navbar } from "./components/Navbar";
 import { PagesList } from "./components/PagesList";
 import { Wrapper } from "./components/Wrapper";
 import { UserDetails } from "./components/UserDetails";
+import { ThemeProviderWrapper } from "./components/ThemeProviderWrapper";
 
 import reportWebVitals from "./util/web-vitals";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/main.scss";
-import ColorThemeProvider from "./context/ColorThemeProvider";
-import { ThemeProviderWrapper } from "./components/ThemeProviderWrapper";
-
 // Global initialization
 initI18n();
 // Sentry.init({
