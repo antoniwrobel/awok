@@ -41,9 +41,6 @@ const LocalePicker = () => {
           <Button
             type="submit"
             variant="outlined"
-            sx={{
-              backgroundColor: "#fff",
-            }}
             key={lng}
             onClick={() => {
               const lang = lng as LocalesType;

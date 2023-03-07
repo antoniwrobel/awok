@@ -29,7 +29,6 @@ const LoadingModal = (props: LoadingModalProps) => {
       <Backdrop
         open
         sx={{
-          color: "#fff",
           zIndex: (theme) => theme.zIndex.drawer + 1,
           width: "250px",
           height: "250px",

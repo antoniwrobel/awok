@@ -7,4 +7,8 @@ export interface ColorThemeContextType {
   setSecondaryColor: Dispatch<SetStateAction<string>>;
   resetToDefaultColor: () => void;
   hasThemeBeenChanged: boolean;
+  defaultValues: {
+    defaultPrimaryColor: string;
+    defaultSecondaryColor: string;
+  };
 }

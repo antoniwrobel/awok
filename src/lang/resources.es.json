@@ -38,6 +38,10 @@
   "this-is-protected": "Esta página está protegida",
   "this-is-admin-page": "Esta es la página admin",
   "user-logged-in": "Se ha identificado correctamente",
-  "save": "Save",
-  "edit-success-message": "User has been updated"
+  "save": "Guardar",
+  "edit-success-message": "El usuario ha sido actualizado",
+  "reset": "Reiniciar",
+  "primary-color": "Color primario",
+  "secondary-color": "Color secundario",
+  "changes-saved": "Se han guardado los cambios."
 }

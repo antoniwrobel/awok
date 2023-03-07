@@ -10,7 +10,6 @@ export const Wrapper = (wrapperProps: WrapperPropsType) => {
   return (
     <Box
       sx={{
-        backgroundColor: "#f8f8f9",
         minHeight: "100vh",
         padding: ["10px", "20px 10px"],
         boxSizing: "border-box",

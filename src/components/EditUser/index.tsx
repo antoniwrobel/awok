@@ -31,6 +31,7 @@ export const EditUser = () => {
     setSecondaryColor,
     resetToDefaultColor,
     hasThemeBeenChanged,
+    defaultValues: { defaultPrimaryColor, defaultSecondaryColor },
   } = useThemeColor();
 
   const registerFormFields = generateRegisterFormFields();
@@ -50,6 +51,8 @@ export const EditUser = () => {
     {}
   ) as { [key in RegisterFormFieldNamesType]: string };
 
+  const changesSavedMessage = t("changes-saved");
+
   return (
     <Box>
       <Box display="flex" mt="10px" justifyContent="space-between" width="100%">
@@ -67,7 +70,7 @@ export const EditUser = () => {
                 if (isPrimaryValid && isSecondaryValid) {
                   setPrimaryColor(primaryColor);
                   setSecondaryColor(secondaryColor);
-                  toast.success("Changes has been saved!");
+                  toast.success(changesSavedMessage);
                 }
               }}
             >
@@ -76,8 +79,14 @@ export const EditUser = () => {
 
                 const handleResetToDefaultColor = () => {
                   resetToDefaultColor();
-                  resetForm();
-                  toast.success("Changes has been saved!");
+                  resetForm({
+                    values: {
+                      primaryColor: defaultPrimaryColor,
+                      secondaryColor: defaultSecondaryColor,
+                    },
+                  });
+
+                  toast.success(changesSavedMessage);
                 };
 
                 return (
@@ -99,70 +108,22 @@ export const EditUser = () => {
                       >
                         <MuiColorInput
                           name="primaryColor"
-                          label="Primary color"
+                          label={t("primary-color")}
                           value={values.primaryColor}
                           onChange={(value) =>
                             setFieldValue("primaryColor", value)
                           }
                         />
                         <MuiColorInput
-                          label="Secondary color"
+                          label={t("secondary-color")}
                           name="secondaryColor"
                           value={values.secondaryColor}
                           onChange={(value) =>
                             setFieldValue("secondaryColor", value)
                           }
                         />
-                        {/* <TextField
-                          name="primaryColor"
-                          type="text"
-                          label="Primary color"
-                          variant="outlined"
-                          error={hasError1}
-                          value={values["primaryColor"]}
-                          disabled={isLoading}
-                          onChange={handleChange}
-                          helperText={
-                            hasError1 && (
-                              <Trans
-                                i18nKey={errors["primaryColor"]}
-                                components={{
-                                  strong: (
-                                    <strong
-                                      style={{ textDecoration: "underline" }}
-                                    />
-                                  ),
-                                }}
-                              />
-                            )
-                          }
-                        />
-                        <TextField
-                          name="secondaryColor"
-                          type="text"
-                          label="Secondary color"
-                          variant="outlined"
-                          error={hasError2}
-                          value={values["secondaryColor"]}
-                          disabled={isLoading}
-                          onChange={handleChange}
-                          helperText={
-                            hasError2 && (
-                              <Trans
-                                i18nKey={errors["secondaryColor"]}
-                                components={{
-                                  strong: (
-                                    <strong
-                                      style={{ textDecoration: "underline" }}
-                                    />
-                                  ),
-                                }}
-                              />
-                            )
-                          }
-                        />
-                       */}
                       </Box>
+
                       <Box>
                         <Button
                           type="button"
@@ -171,7 +132,6 @@ export const EditUser = () => {
                           disabled={resetButtonDisabled}
                           onClick={handleResetToDefaultColor}
                           sx={{
-                            width: "auto",
                             mr: "10px",
                             mt: ["10px", "10px", "20px"],
                           }}
@@ -182,7 +142,6 @@ export const EditUser = () => {
                           type="submit"
                           variant="contained"
                           sx={{
-                            width: "auto",
                             mt: ["10px", "10px", "20px"],
                           }}
                         >

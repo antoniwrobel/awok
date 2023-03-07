@@ -55,12 +55,9 @@ reactRoot.render(
                   closeOnClick
                   pauseOnHover
                   pauseOnFocusLoss
-                  theme="colored"
+                  theme="light"
                   position="bottom-left"
-                  rtl={false}
-                  autoClose={5000}
-                  newestOnTop={false}
-                  hideProgressBar={false}
+                  autoClose={3000}
                 />
 
                 <ErrorBoundary>

@@ -39,5 +39,9 @@
   "this-is-admin-page": "This is admin page",
   "user-logged-in": "You have been correctly logged in",
   "save": "Save",
-  "edit-success-message": "User has been updated"
+  "edit-success-message": "User has been updated",
+  "reset": "Reset",
+  "primary-color": "Primary color",
+  "secondary-color": "Secondary color",
+  "changes-saved": "Changes has been saved"
 }

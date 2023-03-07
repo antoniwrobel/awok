@@ -8,6 +8,11 @@ const ColorThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const defaultPrimaryColor = "#3f50b5";
   const defaultSecondaryColor = "#3f51b5";
 
+  const defaultValues = {
+    defaultPrimaryColor,
+    defaultSecondaryColor,
+  };
+
   const [primaryColor, setPrimaryColor] = useLocalStorage(
     "primaryColor",
     defaultPrimaryColor
@@ -26,8 +31,6 @@ const ColorThemeProvider = ({ children }: { children: React.ReactNode }) => {
     primaryColor !== defaultPrimaryColor ||
     secondaryColor !== defaultSecondaryColor;
 
-  console.log({ hasThemeBeenChanged });
-
   const value = {
     primaryColor,
     setPrimaryColor,
@@ -35,6 +38,7 @@ const ColorThemeProvider = ({ children }: { children: React.ReactNode }) => {
     setSecondaryColor,
     resetToDefaultColor,
     hasThemeBeenChanged,
+    defaultValues,
   };
 
   return (

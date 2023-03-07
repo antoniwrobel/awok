@@ -1,6 +1,6 @@
 {
   "hello": "Witaj",
-  "hello-user": "Witaj <strong> {{ username }} </strong>!",
+  "hello-user": "Witaj <strong>{{username}}</strong>!",
   "hello-world": "Witaj świecie!",
   "signout": "Wyloguj",
   "login": "Zaloguj",
@@ -39,5 +39,9 @@
   "this-is-admin-page": "To jest strona admina",
   "user-logged-in": "Zostałeś poprawnie zalogowany",
   "save": "Zapisz",
-  "edit-success-message": "Zapisano zmiany użytkownika"
+  "edit-success-message": "Zapisano zmiany użytkownika",
+  "reset": "Zresetuj",
+  "primary-color": "Podstawowy kolor",
+  "secondary-color": "Dodatkowy kolor",
+  "changes-saved": "Zmiany zostały zapisane"
 }
