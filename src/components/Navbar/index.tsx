@@ -82,7 +82,12 @@ export const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1, mb: ["10px", "10px", "20px"] }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          borderRadius: "4px",
+        }}
+      >
         <Toolbar
           handleMobileMenuOpen={handleMobileMenuOpen}
           handleProfileMenuOpen={handleProfileMenuOpen}
