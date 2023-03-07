@@ -119,7 +119,18 @@ export const LoginPage = () => {
                             disabled={isLoading}
                             onChange={handleChange}
                             helperText={
-                              hasError && <Trans i18nKey={errors[name]} />
+                              hasError && (
+                                <Trans
+                                  i18nKey={errors[name]}
+                                  components={{
+                                    strong: (
+                                      <strong
+                                        style={{ textDecoration: "underline" }}
+                                      />
+                                    ),
+                                  }}
+                                />
+                              )
                             }
                             inputProps={{
                               form: {

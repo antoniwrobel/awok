@@ -127,7 +127,6 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
             sx={{
               cursor: "pointer",
               userSelect: "inherit",
-              "&:hover": { color: "#1976d2" },
             }}
           />
         </SubmitIconWrapper>

@@ -32,7 +32,13 @@ export const UserDetails = () => {
         gridTemplateColumns={["5fr 1fr"]}
       >
         <Box>
-          <Trans i18nKey={"hello-user"} values={{ username: user.username }} />
+          <Trans
+            i18nKey={"hello-user"}
+            values={{ username: user.username }}
+            components={{
+              strong: <strong style={{ textDecoration: "underline" }} />,
+            }}
+          />
         </Box>
 
         <Button

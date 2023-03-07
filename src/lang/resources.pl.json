@@ -18,7 +18,7 @@
   "regiter": "Register",
   "only-letters": "Tylko <strong>litery</strong>, <strong>cyfry</strong>, i <strong>@/./+/-/_</strong> są dozwolone",
   "required": "Pole <strong>{{label}}</strong> jest wymagane",
-  "invalid-email": "Podaj poprawny adres e-mail",
+  "invalid-email": "Podaj poprawny adres <strong>e-mail</strong>",
   "pass-one-uppercase": "<strong>Hasło</strong> musi zawierać przynajmniej jedną wielką literę",
   "pass-one-lowercase": "<strong>Hasło</strong> musi zawierać przynajmniej jedną małą literę",
   "pass-one-digit": "<strong>Hasło</strong> musi zawierać przynajmniej jedną cyfrę",
