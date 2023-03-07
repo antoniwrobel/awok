@@ -106,11 +106,11 @@ export const RegisterPage = () => {
                     }}
                   >
                     <Box
+                      width="100%"
                       display="grid"
                       flexDirection="column"
-                      gap="10px"
+                      gap={["20px", "20px", "10px"]}
                       gridTemplateColumns={["1fr", "1fr", "2fr 2fr"]}
-                      width="100%"
                     >
                       {registerFormFields.map((field) => {
                         const { label, name, type } = field;
