@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/awok-fe/static/css/main.9a93fd48.css",
-    "main.js": "/awok-fe/static/js/main.fca0b1a3.js",
+    "main.js": "/awok-fe/static/js/main.abd63b5a.js",
     "static/media/fira-code-all-500-normal.woff": "/awok-fe/static/media/fira-code-all-500-normal.f7083bb96f76675d4b91.woff",
     "static/media/fira-code-all-400-normal.woff": "/awok-fe/static/media/fira-code-all-400-normal.c050f0ce726c76d279c8.woff",
     "static/media/fira-code-all-300-normal.woff": "/awok-fe/static/media/fira-code-all-300-normal.bb31a6c9127e4853f3b1.woff",
@@ -32,10 +32,10 @@
     "static/media/fira-code-greek-ext-700-normal.woff2": "/awok-fe/static/media/fira-code-greek-ext-700-normal.72e608716d920962a358.woff2",
     "index.html": "/awok-fe/index.html",
     "main.9a93fd48.css.map": "/awok-fe/static/css/main.9a93fd48.css.map",
-    "main.fca0b1a3.js.map": "/awok-fe/static/js/main.fca0b1a3.js.map"
+    "main.abd63b5a.js.map": "/awok-fe/static/js/main.abd63b5a.js.map"
   },
   "entrypoints": [
     "static/css/main.9a93fd48.css",
-    "static/js/main.fca0b1a3.js"
+    "static/js/main.abd63b5a.js"
   ]
 }
