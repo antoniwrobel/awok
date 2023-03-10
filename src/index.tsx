@@ -26,8 +26,10 @@ import reportWebVitals from "./util/web-vitals";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/main.scss";
+
 // Global initialization
 initI18n();
+
 // Sentry.init({
 //   dsn: process.env.REACT_APP_SENTRY_DNS,
 //   integrations: [new BrowserTracing()],

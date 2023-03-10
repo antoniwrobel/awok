@@ -1,6 +1,6 @@
-import { AxiosResponse } from "axios";
 import { createContext, FC, useEffect, useMemo, useState } from "react";
-
+import { toast } from "react-toastify";
+import { getAccessToken, removeTokens } from "src/auth/auth-service";
 import axiosInstance from "src/auth/axios-config";
 import {
   IUserProvider,
@@ -11,9 +11,11 @@ import {
 export const UserContext = createContext<UserContextType>({
   user: null,
   setUser: (user: UserContextType["user"]) => undefined,
-  getUserSession: async () => undefined,
+  verifyToken: async () => false,
   isLoggedIn: false,
   hasBeenChecked: false,
+  setIsLoggedIn: () => undefined,
+  setHasBeenChecked: () => undefined,
 });
 
 export const UserProvider: FC<IUserProvider> = ({ children }) => {
@@ -21,63 +23,80 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [hasBeenChecked, setHasBeenChecked] = useState(false);
 
-  const getUserInfo = async <K extends UserTypeKeys>(
-    key: K,
-    value: UserContextType["user"][K]
-  ) => {
-    try {
-      const response = await axiosInstance.get(`/get-user?${key}=${value}`);
-      return response.data;
-    } catch (error) {
-      return Promise.reject(error);
+  // const getUserInfo = async <K extends UserTypeKeys>(
+  //   key: K,
+  //   value: UserContextType["user"][K]
+  // ) => {
+  //   try {
+  //     const response = await axiosInstance.get(`/get-user?${key}=${value}`);
+  //     return response.data;
+  //   } catch (error) {
+  //     return Promise.reject(error);
+  //   }
+  // };
+
+  const verifyToken = async (): Promise<Boolean> => {
+    const accessToken = getAccessToken();
+
+    if (!accessToken) {
+      return false;
     }
-  };
 
-  const getUserSession = async (): Promise<
-    UserContextType["user"] | undefined
-  > => {
     try {
-      const getUserSessionResponse = (await axiosInstance.get(
-        `/get-session`
-      )) as AxiosResponse<UserContextType["user"]>;
-      const responseType = typeof getUserSessionResponse.data;
+      const verifyTokenResponse = await axiosInstance.post(
+        `token/verify-token`,
+        { token: accessToken }
+      );
 
-      if (responseType !== "object") {
-        throw new Error(
-          `get-session response wrong type. received "${responseType}" instead of "object" type`
-        );
+      if (verifyTokenResponse.status === 200) {
+        return true;
+      } else {
+        return false;
       }
 
-      return getUserSessionResponse.data;
-
       // SWALLOW THE ERROR
-    } catch (error) {}
+    } catch (error) {
+      return false;
+    }
   };
 
-  const handleCheckUser = async () => {
-    const user = await getUserSession();
+  const checkIsUserLoggedIn = async () => {
+    try {
+      const isTokenValid = await verifyToken();
 
-    if (user) {
-      setUser(user);
-      setIsLoggedIn(true);
+      if (isTokenValid) {
+        // setUser(user);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+    } finally {
+      setHasBeenChecked(true);
     }
-
-    setHasBeenChecked(true);
   };
 
   useEffect(() => {
-    handleCheckUser();
+    checkIsUserLoggedIn();
   }, []);
 
   const userContextProviderValue = useMemo(
     () => ({
       user,
       setUser,
-      getUserSession,
+      verifyToken,
       isLoggedIn,
       hasBeenChecked,
+      setIsLoggedIn,
+      setHasBeenChecked,
     }),
-    [user, setUser, getUserSession, isLoggedIn, hasBeenChecked]
+    [
+      user,
+      setUser,
+      verifyToken,
+      isLoggedIn,
+      hasBeenChecked,
+      setIsLoggedIn,
+      setHasBeenChecked,
+    ]
   );
 
   return (

@@ -12,6 +12,7 @@ export type ErrorResponse = {
 
 type NotFieldsErrorType = {
   non_field_errors?: string[] | string;
+  detail?: string[] | string;
 };
 
 export type RegisterResponseError = {

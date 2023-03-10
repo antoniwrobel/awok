@@ -14,8 +14,10 @@ export const setAccessToken = (token: string): void => {
 export const setRefreshToken = (token: string): void => {
   localStorage.setItem(REFRESH_TOKEN_KEY, token);
 };
-export const removeAccessToken = (): void =>
+export const removeTokens = (): void => {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
+  localStorage.removeItem(REFRESH_TOKEN_KEY);
+};
 
 export const axiosErrorHandler = <T>(
   callback: (err: IAxiosError<T> | IStockError<T>) => void

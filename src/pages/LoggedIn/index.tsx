@@ -6,16 +6,16 @@ import { useUser } from "src/hooks";
 
 export const LoggedIn = () => {
   const { t } = useTranslation();
-  const { user } = useUser();
-
+  const { isLoggedIn } = useUser();
+  console.log({ isLoggedIn });
   useEffect(() => {
-    if (!user) {
+    if (!isLoggedIn) {
       return;
     }
 
     const successMessage = t("login-success");
     toast.success(successMessage);
-  }, [user]);
+  }, [isLoggedIn]);
 
   return (
     <Box>

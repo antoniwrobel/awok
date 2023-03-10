@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Toolbar } from "./components/Toolbar";
 import { Menu, MobileMenu } from "./components/composition";
 import { useTranslation } from "react-i18next";
-import { removeAccessToken } from "src/auth/auth-service";
+import { removeTokens } from "src/auth/auth-service";
 import { useNavigate } from "react-router-dom";
 import { useLocale } from "src/hooks/useLocale";
 import { LocalesType } from "src/types/locale.types";
@@ -64,7 +64,7 @@ export const Navbar = () => {
     setMobileMoreAnchorEl(event.currentTarget);
 
   const handleLogout = () => {
-    removeAccessToken();
+    removeTokens();
     handleMenuClose();
     navigate("/");
     window.location.reload();

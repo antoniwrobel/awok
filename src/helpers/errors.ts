@@ -10,7 +10,14 @@ export const handleCombineErrors = (errors: string | string[] | undefined) => {
 export const handleNonFieldErrors = (
   error: AxiosError<RegisterResponseError>
 ) => {
-  const errors = error.response?.data.non_field_errors;
-  const errorMessage = handleCombineErrors(errors);
+  let err;
+  const nonFieldErrors = error.response?.data.non_field_errors;
+  if (!nonFieldErrors) {
+    err = error.response?.data.detail;
+  } else {
+    err = nonFieldErrors;
+  }
+  console.log(err);
+  const errorMessage = handleCombineErrors(err);
   toast.error(errorMessage);
 };

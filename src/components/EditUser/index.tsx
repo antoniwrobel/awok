@@ -25,7 +25,7 @@ import { useThemeColor } from "src/hooks/useThemeColor";
 export const EditUser = () => {
   const { t } = useTranslation();
   const { isLoading, setIsLoading } = useLoading();
-  const { user } = useUser();
+  const { isLoggedIn } = useUser();
   const {
     primaryColor,
     secondaryColor,
@@ -41,7 +41,7 @@ export const EditUser = () => {
   const registerFormFields = generateRegisterFormFields();
   const validationSchema = generateYupSchema(registerFormFields, true);
 
-  if (!user) {
+  if (!isLoggedIn) {
     return null;
   }
 
@@ -49,7 +49,7 @@ export const EditUser = () => {
     (acc, currVal) => {
       return {
         ...acc,
-        [currVal]: user[currVal],
+        [currVal]: "", //user[currVal], TODO: handle user object
       };
     },
     {}

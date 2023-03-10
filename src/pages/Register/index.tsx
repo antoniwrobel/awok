@@ -18,7 +18,7 @@ import { axiosErrorHandler } from "src/auth/auth-service";
 export const RegisterPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const { getAccessAndRefresh } = useAuth();
 
   const initialValues = registerFormFieldsNamesArray.reduce((acc, currVal) => {
     return {
@@ -52,9 +52,9 @@ export const RegisterPage = () => {
                   toast.success(successMessage);
 
                   try {
-                    await signIn(values.username, values.password);
-                    navigate("/logged-in");
-                    window.location.reload();
+                    await getAccessAndRefresh(values.username, values.password);
+                    // navigate("/logged-in");
+                    // window.location.reload();
                   } catch (error) {
                     const handleAxiosError =
                       axiosErrorHandler<RegisterResponseError>((err) => {

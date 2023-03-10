@@ -4,20 +4,23 @@ import { Form, Formik } from "formik";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { useAuth, useLoading } from "../../hooks";
+import { useAuth, useLoading, useUser } from "../../hooks";
 import { RegisterResponseError } from "src/types/axios.types";
 import { axiosErrorHandler } from "src/auth/auth-service";
 import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
 import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
+import { toast } from "react-toastify";
+import { takeNapPlease } from "src/helpers/utils";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const { t } = useTranslation();
-  const { signIn } = useAuth();
+  const { setHasBeenChecked, setIsLoggedIn } = useUser();
+  const { getAccessAndRefresh } = useAuth();
   const { isLoading, setIsLoading } = useLoading();
 
   const loginFormFields = generateLoginFormFields();
@@ -49,10 +52,15 @@ export const LoginPage = () => {
               setSubmitting(true);
 
               try {
-                await signIn(values.username, values.password);
-                navigate("/logged-in");
+                await getAccessAndRefresh(values.username, values.password);
 
-                window.location.reload();
+                resetForm();
+                await takeNapPlease(1000);
+                setIsLoading(false);
+                setSubmitting(false);
+                setIsLoggedIn(true);
+                setHasBeenChecked(true);
+                navigate("/logged-in");
               } catch (error) {
                 const handleAxiosError =
                   axiosErrorHandler<RegisterResponseError>((err) => {
