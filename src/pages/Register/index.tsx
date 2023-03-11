@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import axiosInstance from "src/auth/axios-config";
 import { Button, TextField, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuth, useLoading } from "../../hooks";
+import { useAuth, useLoading, useUser } from "../../hooks";
 import { Trans, useTranslation } from "react-i18next";
 import { Formik, Form } from "formik";
 import {
@@ -14,12 +14,13 @@ import { generateRegisterFormFields } from "./generate-registration-fields";
 import { toast } from "react-toastify";
 import { RegisterResponseError } from "src/types/axios.types";
 import { axiosErrorHandler } from "src/auth/auth-service";
+import { takeNapPlease } from "src/helpers/utils";
 
 export const RegisterPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { getAccessAndRefresh } = useAuth();
-
+  const { setIsLoggedIn, setHasBeenChecked } = useUser();
   const initialValues = registerFormFieldsNamesArray.reduce((acc, currVal) => {
     return {
       ...acc,
@@ -38,7 +39,10 @@ export const RegisterPage = () => {
         <Box width="100%">
           <Formik
             initialValues={initialValues}
-            onSubmit={async (values, { setSubmitting, setFieldError }) => {
+            onSubmit={async (
+              values,
+              { setSubmitting, setFieldError, resetForm }
+            ) => {
               setIsLoading(true);
               setSubmitting(true);
               try {
@@ -53,8 +57,14 @@ export const RegisterPage = () => {
 
                   try {
                     await getAccessAndRefresh(values.username, values.password);
-                    // navigate("/logged-in");
-                    // window.location.reload();
+
+                    resetForm();
+                    await takeNapPlease(1000);
+                    setIsLoading(false);
+                    setSubmitting(false);
+                    setIsLoggedIn(true);
+                    setHasBeenChecked(true);
+                    navigate("/logged-in");
                   } catch (error) {
                     const handleAxiosError =
                       axiosErrorHandler<RegisterResponseError>((err) => {

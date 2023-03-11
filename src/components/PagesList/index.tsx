@@ -8,7 +8,7 @@ import routes from "src/routes";
 
 export const PagesList = () => {
   const { t } = useTranslation();
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, checkIsUserLoggedIn } = useUser();
 
   return (
     <ContainerBox>
@@ -22,7 +22,12 @@ export const PagesList = () => {
               return;
             }
             return (
-              <Link to={route.path} key={route.name} component={RouterLink}>
+              <Link
+                to={route.path}
+                key={route.name}
+                component={RouterLink}
+                onClick={checkIsUserLoggedIn}
+              >
                 {t(route.translKey)}
               </Link>
             );

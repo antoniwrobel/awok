@@ -7,7 +7,7 @@ import { useUser } from "src/hooks";
 export const LoggedIn = () => {
   const { t } = useTranslation();
   const { isLoggedIn } = useUser();
-  console.log({ isLoggedIn });
+
   useEffect(() => {
     if (!isLoggedIn) {
       return;

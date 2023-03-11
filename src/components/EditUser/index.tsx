@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { matchIsValidColor, MuiColorInput } from "mui-color-input";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-
 import axiosInstance from "src/auth/axios-config";
 import { useLoading, useUser } from "src/hooks";
 import { axiosErrorHandler } from "src/auth/auth-service";
@@ -25,7 +24,7 @@ import { useThemeColor } from "src/hooks/useThemeColor";
 export const EditUser = () => {
   const { t } = useTranslation();
   const { isLoading, setIsLoading } = useLoading();
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, user } = useUser();
   const {
     primaryColor,
     secondaryColor,
@@ -41,7 +40,7 @@ export const EditUser = () => {
   const registerFormFields = generateRegisterFormFields();
   const validationSchema = generateYupSchema(registerFormFields, true);
 
-  if (!isLoggedIn) {
+  if (!isLoggedIn || !user) {
     return null;
   }
 
@@ -49,7 +48,7 @@ export const EditUser = () => {
     (acc, currVal) => {
       return {
         ...acc,
-        [currVal]: "", //user[currVal], TODO: handle user object
+        [currVal]: user[currVal],
       };
     },
     {}

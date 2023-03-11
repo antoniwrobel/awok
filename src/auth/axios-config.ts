@@ -14,7 +14,7 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
     (config) => {
       const token = getAccessToken();
       if (token) {
-        config.headers.Authorization = `Token ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     },
@@ -34,7 +34,9 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
           }
 
           if (status === 401) {
-            return Promise.reject(error.error);
+            console.log(error);
+
+            // return Promise.reject(error.error);
           }
 
           if (status === 403) {

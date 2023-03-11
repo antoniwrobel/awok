@@ -13,11 +13,13 @@ export type UserTypeKeys = keyof UserType;
 export interface UserContextType {
   user: UserType;
   setUser: (user: UserType) => void;
-  verifyToken: () => Promise<Boolean>;
+  verifyToken: () => Promise<Boolean | undefined>;
   isLoggedIn: boolean;
   hasBeenChecked: boolean;
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
   setHasBeenChecked: Dispatch<SetStateAction<boolean>>;
+  getSessionAndSetUser: () => Promise<undefined>;
+  checkIsUserLoggedIn: () => Promise<void>;
 }
 
 export interface IUserProvider {

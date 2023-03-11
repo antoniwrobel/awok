@@ -53,7 +53,6 @@ export const LoginPage = () => {
 
               try {
                 await getAccessAndRefresh(values.username, values.password);
-
                 resetForm();
                 await takeNapPlease(1000);
                 setIsLoading(false);

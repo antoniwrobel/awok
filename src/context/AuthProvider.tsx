@@ -9,11 +9,12 @@ import {
   AuthContextType,
   GetAccessAndRefreshResponse,
 } from "../types/auth.types";
-import { useTranslation } from "react-i18next";
+import { useUser } from "src/hooks";
 
 export const AuthContext = createContext<AuthContextType>(null!);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const { getSessionAndSetUser } = useUser();
   const getAccessAndRefresh = async (username: string, password: string) => {
     try {
       const successResponse =
@@ -24,6 +25,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (successResponse.status === 200) {
         setAccessToken(successResponse.data.access);
         setRefreshToken(successResponse.data.refresh);
+        try {
+          await getSessionAndSetUser();
+        } catch (error) {
+          console.error(error); // TODO: what should we do
+        }
       }
     } catch (error) {
       return Promise.reject(error);
