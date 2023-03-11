@@ -34,37 +34,40 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
           }
 
           if (status === 401) {
-            console.log(error);
+            if (error.error.response.data.message === "token expired") {
+              const refreshToken = getRefreshToken();
 
-            // return Promise.reject(error.error);
+              if (refreshToken) {
+                try {
+                  const response = await axios.post("/token/refresh-token", {
+                    refresh: refreshToken,
+                  });
+
+                  const { accessToken, refreshToken: newRefreshToken } =
+                    response.data;
+
+                  setAccessToken(accessToken);
+                  setRefreshToken(newRefreshToken);
+
+                  const originalRequest = error.error.response.config;
+
+                  originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+
+                  return axiosInstance.request(originalRequest);
+                } catch (error) {
+                  console.error("Refresh token error occured, ", error);
+                  return Promise.reject(error);
+                }
+              } else {
+                return Promise.reject(error.error);
+              }
+            }
+
+            return Promise.reject(error.error);
           }
 
           if (status === 403) {
-            const refreshToken = getRefreshToken();
-
-            if (refreshToken) {
-              try {
-                const response = await axios.post("/auth/refresh-token", {
-                  refreshToken,
-                });
-                const { accessToken, refreshToken: newRefreshToken } =
-                  response.data;
-
-                setAccessToken(accessToken);
-                setRefreshToken(newRefreshToken);
-
-                const originalRequest = error.error.response.config;
-
-                originalRequest.headers.Authorization = `Token ${accessToken}`;
-
-                return axiosInstance.request(originalRequest);
-              } catch (error) {
-                console.error("Refresh token error occured, ", error);
-                return Promise.reject(error);
-              }
-            } else {
-              return Promise.reject(error.error);
-            }
+            return Promise.reject(error.error);
           }
 
           if (status === 404) {
