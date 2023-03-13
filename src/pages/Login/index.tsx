@@ -11,7 +11,6 @@ import { generateYupSchema } from "../Register/generate-registration-schema";
 import { generateLoginFormFields } from "./generate-login-fields";
 import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
-import { toast } from "react-toastify";
 import { takeNapPlease } from "src/helpers/utils";
 
 export const LoginPage = () => {

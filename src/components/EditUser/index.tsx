@@ -20,11 +20,12 @@ import {
   registerFormFieldsNamesArray,
 } from "src/pages/Register/register-form-fields";
 import { useThemeColor } from "src/hooks/useThemeColor";
+import { UserContextType } from "src/types/user.types";
 
 export const EditUser = () => {
   const { t } = useTranslation();
   const { isLoading, setIsLoading } = useLoading();
-  const { isLoggedIn, user } = useUser();
+  const { isLoggedIn, user, setUser } = useUser();
   const {
     primaryColor,
     secondaryColor,
@@ -187,11 +188,12 @@ export const EditUser = () => {
               setIsLoading(true);
               setSubmitting(true);
               try {
-                const editUserResponse = await axiosInstance.patch(
-                  "/user-update",
-                  values
-                );
+                const editUserResponse = await axiosInstance.patch<
+                  UserContextType["user"]
+                >("/user-update", values);
                 if (editUserResponse.status === 200) {
+                  setUser(editUserResponse.data);
+
                   const successMessage = t("edit-success-message");
                   toast.success(successMessage);
                 }

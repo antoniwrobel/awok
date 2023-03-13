@@ -17,7 +17,7 @@ export const generateYupSchema = (
 
     const formattedLabel = field.label.toLowerCase();
 
-    let fieldSchema = string();
+    let fieldSchema = string().trim();
 
     if (field.name === "username") {
       fieldSchema = fieldSchema.matches(/^[a-zA-Z0-9@/./+/-/_]+$/, {
