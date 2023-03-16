@@ -7,13 +7,14 @@ import { ContainerBox } from "../ContainerBox";
 
 export const UserDetails = () => {
   const { t } = useTranslation();
-  const { isLoggedIn, user } = useUser();
+  const { isLoggedIn, user, setUser } = useUser();
   const { signOut } = useAuth();
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     signOut(() => {
+      setUser(null);
       navigate("/");
       window.location.reload();
     });

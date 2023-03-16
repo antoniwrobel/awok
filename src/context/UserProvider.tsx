@@ -51,13 +51,8 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
 
     try {
       const verifyTokenResponse = await axiosInstance.get(`token/verify-token`);
-
       return verifyTokenResponse.status === 200;
-
-      // SWALLOW THE ERROR
-    } catch (error) {
-      setUser(null);
-    }
+    } catch (error) {}
   };
 
   const checkIsUserLoggedIn = async () => {
@@ -72,10 +67,8 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
           setIsLoggedIn(true);
         }
       } else {
-        setUser(null);
       }
     } catch (error) {
-      setUser(null);
     } finally {
       setHasBeenChecked(true);
     }

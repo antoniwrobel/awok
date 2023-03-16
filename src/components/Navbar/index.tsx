@@ -8,11 +8,10 @@ import MenuItem from "@mui/material/MenuItem";
 import { Toolbar } from "./components/Toolbar";
 import { Menu, MobileMenu } from "./components/composition";
 import { useTranslation } from "react-i18next";
-import { removeTokens } from "src/auth/auth-service";
 import { useNavigate } from "react-router-dom";
 import { useLocale } from "src/hooks/useLocale";
 import { LocalesType } from "src/types/locale.types";
-import { useUser } from "src/hooks";
+import { useAuth, useUser } from "src/hooks";
 
 type Language = {
   [key: string]: { nativeName: string };
@@ -30,6 +29,8 @@ export const Navbar = () => {
     i18n: { resolvedLanguage },
   } = useTranslation();
   const { changeLocale } = useLocale();
+  const { setUser } = useUser();
+  const { signOut } = useAuth();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [localeAnchorEl, setLocaleAnchorEl] =
@@ -64,10 +65,11 @@ export const Navbar = () => {
     setMobileMoreAnchorEl(event.currentTarget);
 
   const handleLogout = () => {
-    removeTokens();
-    handleMenuClose();
-    navigate("/");
-    window.location.reload();
+    signOut(() => {
+      setUser(null);
+      navigate("/");
+      window.location.reload();
+    });
   };
 
   const handleLogin = () => {
