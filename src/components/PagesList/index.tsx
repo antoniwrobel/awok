@@ -1,7 +1,7 @@
-// External imports
 import { Box, Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
+
 import { useUser } from "src/hooks";
 import { ContainerBox } from "../ContainerBox";
 import routes from "src/routes";

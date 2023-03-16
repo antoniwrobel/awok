@@ -1,7 +1,7 @@
-import CssBaseline from "@mui/material/CssBaseline";
-
-import { ThemeProvider } from "@mui/material";
 import { ReactNode, useEffect, useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material";
+
 import { useThemeColor } from "src/hooks/useThemeColor";
 import { handlePrimaryColor } from "src/styles/create-theme";
 

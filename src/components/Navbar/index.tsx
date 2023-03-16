@@ -1,9 +1,7 @@
-// External imports
 import { useState, MouseEvent } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 
-// Local imports
 import MenuItem from "@mui/material/MenuItem";
 import { Toolbar } from "./components/Toolbar";
 import { Menu, MobileMenu } from "./components/composition";
@@ -29,7 +27,6 @@ export const Navbar = () => {
     i18n: { resolvedLanguage },
   } = useTranslation();
   const { changeLocale } = useLocale();
-  const { setUser } = useUser();
   const { signOut } = useAuth();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -64,13 +61,7 @@ export const Navbar = () => {
   const handleMobileMenuOpen = (event: MouseEvent<HTMLElement>) =>
     setMobileMoreAnchorEl(event.currentTarget);
 
-  const handleLogout = () => {
-    signOut(() => {
-      setUser(null);
-      navigate("/");
-      window.location.reload();
-    });
-  };
+  const handleLogout = () => signOut();
 
   const handleLogin = () => {
     handleMenuClose();

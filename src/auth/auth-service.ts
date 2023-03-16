@@ -3,6 +3,7 @@ import { IAxiosError, IStockError } from "src/types/axios.types";
 
 const ACCESS_TOKEN_KEY = "access_token";
 const REFRESH_TOKEN_KEY = "refresh_token";
+export const USER_KEY = "user";
 
 export const getAccessToken = (): string | null =>
   window.localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -21,6 +22,10 @@ export const setRefreshToken = (token: string): void => {
 export const removeTokens = (): void => {
   window.localStorage.removeItem(ACCESS_TOKEN_KEY);
   window.localStorage.removeItem(REFRESH_TOKEN_KEY);
+};
+
+export const removeUser = (): void => {
+  window.localStorage.removeItem(USER_KEY);
 };
 
 export const axiosErrorHandler = <T>(

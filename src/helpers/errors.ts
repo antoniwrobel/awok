@@ -1,5 +1,6 @@
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+
 import { RegisterResponseError } from "src/types/axios.types";
 
 export const handleCombineErrors = (errors: string | string[] | undefined) => {
@@ -17,7 +18,7 @@ export const handleNonFieldErrors = (
   } else {
     err = nonFieldErrors;
   }
-  console.log(err);
+
   const errorMessage = handleCombineErrors(err);
   toast.error(errorMessage);
 };

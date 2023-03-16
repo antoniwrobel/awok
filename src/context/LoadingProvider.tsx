@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+
 import { LoadingContextType } from "../types/loading.types";
 
 export const LoadingContext = createContext<LoadingContextType>(null!);

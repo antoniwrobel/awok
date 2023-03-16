@@ -1,5 +1,5 @@
 export interface AuthContextType {
-  signOut: (callback: VoidFunction) => Promise<void>;
+  signOut: (callback?: VoidFunction) => Promise<void>;
   getAccessAndRefresh: (username: string, password: string) => Promise<void>;
 }
 

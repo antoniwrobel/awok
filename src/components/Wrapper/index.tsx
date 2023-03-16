@@ -1,5 +1,5 @@
-import Box from "@mui/material/Box";
 import { ReactNode } from "react";
+import Box from "@mui/material/Box";
 
 type WrapperPropsType = {
   children: ReactNode;

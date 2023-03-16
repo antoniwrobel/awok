@@ -5,7 +5,7 @@
  * Learn more: https://github.com/testing-library/jest-dom
  */
 import "@testing-library/jest-dom";
-import initI18n from "./lang";
+import initI18n from "./routes/i18n";
 
 // Global initialization
 initI18n();

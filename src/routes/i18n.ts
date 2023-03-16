@@ -2,7 +2,6 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-// Local imports
 import resourcesPl from "./../../src/lang/resources.pl.json";
 import resourcesEn from "./../../src/lang/resources.en.json";
 import resourcesEs from "./../../src/lang/resources.es.json";

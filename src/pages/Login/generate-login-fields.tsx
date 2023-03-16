@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+
 import { LoginFormFieldsType } from "./login-form-fields";
 
 export const generateLoginFormFields = (): LoginFormFieldsType[] => {

@@ -1,8 +1,17 @@
+import axios, { AxiosError } from "axios";
 import { createContext, FC, useEffect, useMemo, useState } from "react";
-import { getAccessToken } from "src/auth/auth-service";
+import { toast } from "react-toastify";
+
 import axiosInstance from "src/auth/axios-config";
 import { IUserProvider, UserContextType } from "src/types/user.types";
 import { useLocalStorage } from "src/hooks/useLocalStorage";
+import { ErrorDetailResponse } from "src/types/axios.types";
+import { useAuth, useLoading } from "src/hooks";
+import {
+  axiosErrorHandler,
+  getAccessToken,
+  USER_KEY,
+} from "src/auth/auth-service";
 
 export const UserContext = createContext<UserContextType>({
   user: null,
@@ -17,15 +26,16 @@ export const UserContext = createContext<UserContextType>({
 });
 
 export const UserProvider: FC<IUserProvider> = ({ children }) => {
-  const [user, setUser] = useLocalStorage("user", null);
+  const [user, setUser] = useLocalStorage(USER_KEY, null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [hasBeenChecked, setHasBeenChecked] = useState(false);
+  const { signOut } = useAuth();
+  const { setIsLoading } = useLoading();
 
   const getSessionAndSetUser = async () => {
-    const userFromLocalStorage = window.localStorage.getItem("user") || "false";
-    const parsedUserFromLocalStorage = JSON.parse(userFromLocalStorage);
+    const parsedUser = JSON.parse(user);
 
-    if (parsedUserFromLocalStorage) {
+    if (parsedUser) {
       return;
     }
 
@@ -49,28 +59,38 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
       return false;
     }
 
-    try {
-      const verifyTokenResponse = await axiosInstance.get(`token/verify-token`);
-      return verifyTokenResponse.status === 200;
-    } catch (error) {}
+    const verifyTokenResponse = await axiosInstance.get(`token/verify-token`);
+    return verifyTokenResponse.status === 200;
   };
 
   const checkIsUserLoggedIn = async () => {
+    setIsLoading(true);
     try {
       const isTokenValid = await verifyToken();
 
-      if (isTokenValid) {
-        try {
-          await getSessionAndSetUser();
-        } catch (error) {
-        } finally {
-          setIsLoggedIn(true);
+      if (!isTokenValid) {
+        return;
+      }
+
+      try {
+        await getSessionAndSetUser();
+        setIsLoggedIn(true);
+      } catch (error) {
+        const handleAxiosError = axiosErrorHandler((err) => {
+          const error = err.error as ErrorDetailResponse;
+          toast.error(error.response.data.detail);
+          signOut();
+        });
+
+        if (axios.isAxiosError(error)) {
+          handleAxiosError(error as AxiosError);
         }
-      } else {
       }
     } catch (error) {
+      // SWALLOW
     } finally {
       setHasBeenChecked(true);
+      setIsLoading(false);
     }
   };
 

@@ -1,5 +1,6 @@
 import { useMediaQuery } from "@mui/material";
-import { createContext, useMemo } from "react";
+import { createContext } from "react";
+
 import { useLocalStorage } from "src/hooks/useLocalStorage";
 import { ColorThemeContextType } from "src/types/color.types";
 

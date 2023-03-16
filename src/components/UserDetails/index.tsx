@@ -1,24 +1,16 @@
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { Trans, useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+
 import { useAuth, useUser } from "src/hooks";
 import { ContainerBox } from "../ContainerBox";
 
 export const UserDetails = () => {
   const { t } = useTranslation();
-  const { isLoggedIn, user, setUser } = useUser();
+  const { isLoggedIn, user } = useUser();
   const { signOut } = useAuth();
 
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    signOut(() => {
-      setUser(null);
-      navigate("/");
-      window.location.reload();
-    });
-  };
+  const handleLogout = () => signOut();
 
   if (!isLoggedIn || !user) {
     return null;

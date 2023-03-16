@@ -1,18 +1,14 @@
-// External imports
-import { MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import ToolbarComponent from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
 import LanguageSharpIcon from "@mui/icons-material/LanguageSharp";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import PublishSharpIcon from "@mui/icons-material/PublishSharp";
+import { MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 
-// Local imports
 import {
   Search,
   SearchIconWrapper,

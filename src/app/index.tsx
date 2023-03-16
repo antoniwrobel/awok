@@ -1,16 +1,13 @@
-// External imports
 import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 
-// Local imports
 import routes from "../../src/routes";
 import LoadingModal from "../modals/Loading";
 import RequireAuth from "../components/RequireAuth";
-import { useLoading } from "../hooks";
 import RequirePublic from "src/components/RequirePublic";
+import { useLoading } from "../hooks";
 import { ContainerBox } from "src/components/ContainerBox";
 
-// Component definition
 const App = () => {
   const { isLoading } = useLoading();
 
@@ -51,5 +48,4 @@ const App = () => {
   );
 };
 
-// Default export
 export default App;

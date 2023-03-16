@@ -1,6 +1,15 @@
 import { AxiosError, HttpStatusCode } from "axios";
 import { RegisterFormFieldNamesType } from "src/pages/Register/register-form-fields";
 
+export type ErrorDetailResponse = {
+  response: {
+    data: {
+      detail: string[] | string;
+    };
+    status: HttpStatusCode;
+  };
+};
+
 export type ErrorResponse = {
   response: {
     data?: {
@@ -10,7 +19,7 @@ export type ErrorResponse = {
   };
 };
 
-type NotFieldsErrorType = {
+export type NotFieldsErrorType = {
   non_field_errors?: string[] | string;
   detail?: string[] | string;
 };

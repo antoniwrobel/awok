@@ -1,6 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
+
 import { LocaleContextType, LocalesType } from "src/types/locale.types";
 
 export const LocaleProviderWrapper = ({

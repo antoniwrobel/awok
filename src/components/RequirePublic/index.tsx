@@ -1,4 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
+
 import { useUser } from "src/hooks";
 
 const RequirePublic = ({ children }: { children: JSX.Element }) => {

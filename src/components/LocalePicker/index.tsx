@@ -1,10 +1,8 @@
-// External imports
 import { Box, Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "src/hooks/useLocale";
-import { LocalesType } from "src/types/locale.types";
 
-// Local imports
+import { LocalesType } from "src/types/locale.types";
 import { useUser } from "../../hooks";
 
 type Language = {

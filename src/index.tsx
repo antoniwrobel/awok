@@ -1,12 +1,10 @@
-// External imports
 // import * as Sentry from "@sentry/react";
 // import { BrowserTracing } from "@sentry/tracing";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-// Local imports
 import App from "./app";
 import initI18n from "./routes/i18n";
 import AuthProvider from "./context/AuthProvider";
@@ -21,8 +19,6 @@ import { PagesList } from "./components/PagesList";
 import { Wrapper } from "./components/Wrapper";
 import { UserDetails } from "./components/UserDetails";
 import { ThemeProviderWrapper } from "./components/ThemeProviderWrapper";
-
-import reportWebVitals from "./util/web-vitals";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/main.scss";
@@ -46,42 +42,34 @@ reactRoot.render(
     <ThemeProviderWrapper>
       <LoadingProvider>
         <LocaleProviderWrapper>
-          <UserProvider>
-            <Suspense fallback={<LoadingModal isOpen />}>
-              <Wrapper>
-                <ToastContainer
-                  draggable
-                  closeOnClick
-                  pauseOnHover
-                  pauseOnFocusLoss
-                  theme="light"
-                  position="bottom-left"
-                  autoClose={3000}
-                />
+          <AuthProvider>
+            <UserProvider>
+              <Suspense fallback={<LoadingModal isOpen />}>
+                <Wrapper>
+                  <ToastContainer
+                    draggable
+                    closeOnClick
+                    pauseOnHover
+                    pauseOnFocusLoss
+                    theme="light"
+                    position="bottom-left"
+                    autoClose={3000}
+                  />
 
-                <ErrorBoundary>
-                  <AuthProvider>
+                  <ErrorBoundary>
                     <Router basename={process.env.PUBLIC_URL}>
                       <Navbar />
                       <UserDetails />
                       <PagesList />
                       <App />
                     </Router>
-                  </AuthProvider>
-                </ErrorBoundary>
-              </Wrapper>
-            </Suspense>
-          </UserProvider>
+                  </ErrorBoundary>
+                </Wrapper>
+              </Suspense>
+            </UserProvider>
+          </AuthProvider>
         </LocaleProviderWrapper>
       </LoadingProvider>
     </ThemeProviderWrapper>
   </ColorThemeProvider>
 );
-
-if (process.env.REACT_APP_ENV !== "production" && reportOn) {
-  // If you want to start measuring performance in your app, pass a function
-  // to log results (for example: reportWebVitals(console.log))
-  // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-  // eslint-disable-next-line no-console
-  reportWebVitals(console.log);
-}
