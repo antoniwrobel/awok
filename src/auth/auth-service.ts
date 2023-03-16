@@ -6,14 +6,18 @@ const REFRESH_TOKEN_KEY = "refresh_token";
 
 export const getAccessToken = (): string | null =>
   window.localStorage.getItem(ACCESS_TOKEN_KEY);
+
 export const getRefreshToken = (): string | null =>
   window.localStorage.getItem(REFRESH_TOKEN_KEY);
+
 export const setAccessToken = (token: string): void => {
   window.localStorage.setItem(ACCESS_TOKEN_KEY, token);
 };
+
 export const setRefreshToken = (token: string): void => {
   window.localStorage.setItem(REFRESH_TOKEN_KEY, token);
 };
+
 export const removeTokens = (): void => {
   window.localStorage.removeItem(ACCESS_TOKEN_KEY);
   window.localStorage.removeItem(REFRESH_TOKEN_KEY);

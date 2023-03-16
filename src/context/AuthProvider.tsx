@@ -15,13 +15,19 @@ export const AuthContext = createContext<AuthContextType>(null!);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { getSessionAndSetUser } = useUser();
+
   const getAccessAndRefresh = async (username: string, password: string) => {
     try {
       const successResponse =
-        await axiosInstance.post<GetAccessAndRefreshResponse>("get-token", {
-          username,
-          password,
-        });
+        await axiosInstance.post<GetAccessAndRefreshResponse>(
+          "get-token",
+          {
+            username,
+            password,
+          },
+          { withCredentials: true }
+        );
+
       if (successResponse.status === 200) {
         setAccessToken(successResponse.data.access);
         setRefreshToken(successResponse.data.refresh);

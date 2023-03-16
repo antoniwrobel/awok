@@ -1,11 +1,7 @@
 import { createContext, FC, useEffect, useMemo, useState } from "react";
-import { getAccessToken, removeTokens } from "src/auth/auth-service";
+import { getAccessToken } from "src/auth/auth-service";
 import axiosInstance from "src/auth/axios-config";
-import {
-  IUserProvider,
-  UserContextType,
-  UserTypeKeys,
-} from "src/types/user.types";
+import { IUserProvider, UserContextType } from "src/types/user.types";
 import { useLocalStorage } from "src/hooks/useLocalStorage";
 
 export const UserContext = createContext<UserContextType>({
@@ -54,16 +50,12 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
     }
 
     try {
-      const verifyTokenResponse = await axiosInstance.post(
-        `token/verify-token`,
-        { token: accessToken }
-      );
+      const verifyTokenResponse = await axiosInstance.get(`token/verify-token`);
 
       return verifyTokenResponse.status === 200;
 
       // SWALLOW THE ERROR
     } catch (error) {
-      removeTokens();
       setUser(null);
     }
   };
@@ -76,16 +68,13 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
         try {
           await getSessionAndSetUser();
         } catch (error) {
-          removeTokens();
         } finally {
           setIsLoggedIn(true);
         }
       } else {
-        removeTokens();
         setUser(null);
       }
     } catch (error) {
-      removeTokens();
       setUser(null);
     } finally {
       setHasBeenChecked(true);

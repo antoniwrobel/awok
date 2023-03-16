@@ -5,7 +5,6 @@ import {
   getRefreshToken,
   getAccessToken,
   setAccessToken,
-  setRefreshToken,
   axiosErrorHandler,
 } from "./auth-service";
 
@@ -13,6 +12,7 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
   axiosInstance.interceptors.request.use(
     (config) => {
       const token = getAccessToken();
+
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -24,8 +24,10 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
   ),
     axiosInstance.interceptors.response.use(
       (response) => response,
-
       axiosErrorHandler<AxiosErrorType<T>>(async (error) => {
+        //@ts-ignore
+        const originalRequest = error.error.config;
+
         if (error.type === "axios-error" && error.error.response) {
           const { status } = error.error.response;
 
@@ -34,25 +36,24 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
           }
 
           if (status === 401) {
-            if (error.error.response.data.message === "token expired") {
+            if (!originalRequest._retry) {
+              originalRequest._retry = true;
+
               const refreshToken = getRefreshToken();
 
               if (refreshToken) {
                 try {
-                  const response = await axios.post("/token/refresh-token", {
-                    refresh: refreshToken,
-                  });
+                  const response = await axiosInstance.post(
+                    `token/refresh-token`,
+                    {
+                      refresh: refreshToken,
+                    }
+                  );
 
-                  const { accessToken, refreshToken: newRefreshToken } =
-                    response.data;
+                  const { access } = response.data;
 
-                  setAccessToken(accessToken);
-                  setRefreshToken(newRefreshToken);
-
-                  const originalRequest = error.error.response.config;
-
-                  originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-
+                  setAccessToken(access);
+                  originalRequest.headers.Authorization = `Bearer ${access}`;
                   return axiosInstance.request(originalRequest);
                 } catch (error) {
                   console.error("Refresh token error occured, ", error);
