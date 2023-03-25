@@ -59,7 +59,16 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
       return false;
     }
 
-    const verifyTokenResponse = await axiosInstance.get(`token/verify-token`);
+    const verifyTokenResponse = await axiosInstance.post(
+      `token/verify`,
+      {
+        token: accessToken,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
     return verifyTokenResponse.status === 200;
   };
 
