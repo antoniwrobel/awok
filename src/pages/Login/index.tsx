@@ -126,6 +126,7 @@ export const LoginPage = () => {
                             value={values[name]}
                             disabled={isLoading}
                             onChange={handleChange}
+                            autoFocus={name === "username"}
                             helperText={
                               hasError && (
                                 <Trans

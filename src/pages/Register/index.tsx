@@ -143,6 +143,7 @@ export const RegisterPage = () => {
                             name={name}
                             type={type}
                             label={label}
+                            autoFocus={name === "username"}
                             variant="outlined"
                             error={hasError}
                             value={values[name]}
