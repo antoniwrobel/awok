@@ -43,5 +43,6 @@
   "reset": "Zresetuj",
   "primary-color": "Podstawowy kolor",
   "secondary-color": "Dodatkowy kolor",
-  "changes-saved": "Zmiany zostały zapisane"
+  "changes-saved": "Zmiany zostały zapisane",
+  "user-signed-out": "Zostałeś wylogowany"
 }

@@ -35,7 +35,6 @@ initI18n();
 
 const htmlRoot = document.getElementById("root") as HTMLElement;
 const reactRoot = createRoot(htmlRoot);
-const reportOn = false;
 
 reactRoot.render(
   <ColorThemeProvider>

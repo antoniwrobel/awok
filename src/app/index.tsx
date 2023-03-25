@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 
@@ -7,9 +8,28 @@ import RequireAuth from "../components/RequireAuth";
 import RequirePublic from "src/components/RequirePublic";
 import { useLoading } from "../hooks";
 import { ContainerBox } from "src/components/ContainerBox";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const App = () => {
   const { isLoading } = useLoading();
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.pathname);
+    const isTokenExpiredValue = params.get("token-expired");
+
+    if (!isTokenExpiredValue) {
+      return;
+    }
+
+    const isTokenExpired = JSON.parse(isTokenExpiredValue);
+
+    if (isTokenExpired) {
+      const message = t("user-signed-out");
+      toast.error(message);
+    }
+  }, []);
 
   return (
     <Box height="100%">

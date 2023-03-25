@@ -33,6 +33,13 @@ export const axiosErrorHandler = <T>(
 ) => {
   return (error: Error | AxiosError<T>) => {
     if (axios.isAxiosError(error)) {
+      if (error.response?.data.code === "token_not_valid") {
+        return callback({
+          error: error as AxiosError<T>,
+          type: "auth-error",
+        });
+      }
+
       return callback({
         error: error as AxiosError<T>,
         type: "axios-error",
