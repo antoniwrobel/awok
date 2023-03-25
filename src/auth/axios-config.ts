@@ -43,12 +43,9 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
 
               if (refreshToken) {
                 try {
-                  const response = await axiosInstance.post(
-                    `token/refresh-token`,
-                    {
-                      refresh: refreshToken,
-                    }
-                  );
+                  const response = await axiosInstance.post(`token/refresh`, {
+                    refresh: refreshToken,
+                  });
 
                   const { access } = response.data;
 
