@@ -3,6 +3,7 @@ import { useTranslation, Trans } from "react-i18next";
 import { Form, Formik } from "formik";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 import { useAuth, useLoading, useUser } from "../../hooks";
 import { RegisterResponseError } from "src/types/axios.types";
@@ -12,10 +13,12 @@ import { generateLoginFormFields } from "./generate-login-fields";
 import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { takeNapPlease } from "src/helpers/utils";
+import useKeyPressed from "src/hooks/useKeyPressed";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   const { t } = useTranslation();
   const { setHasBeenChecked, setIsLoggedIn } = useUser();
@@ -26,6 +29,12 @@ export const LoginPage = () => {
   const validationSchema = generateYupSchema(loginFormFields);
 
   const from = location.state?.from?.pathname || "/";
+
+  useKeyPressed("Enter", () => {
+    submitButtonRef &&
+      submitButtonRef.current &&
+      submitButtonRef.current.click();
+  });
 
   return (
     <Box display="flex" flexDirection="column" width="100%">
@@ -142,6 +151,7 @@ export const LoginPage = () => {
                     </Box>
 
                     <Button
+                      ref={submitButtonRef}
                       type="submit"
                       color="primary"
                       variant="contained"

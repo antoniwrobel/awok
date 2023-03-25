@@ -15,10 +15,15 @@ import { toast } from "react-toastify";
 import { RegisterResponseError } from "src/types/axios.types";
 import { axiosErrorHandler } from "src/auth/auth-service";
 import { takeNapPlease } from "src/helpers/utils";
+import useKeyPressed from "src/hooks/useKeyPressed";
+import { useRef } from "react";
 
 export const RegisterPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
   const { getAccessAndRefresh } = useAuth();
   const { setIsLoggedIn, setHasBeenChecked } = useUser();
   const initialValues = registerFormFieldsNamesArray.reduce((acc, currVal) => {
@@ -29,6 +34,12 @@ export const RegisterPage = () => {
   }, {}) as { [key in RegisterFormFieldNamesType]: string };
 
   const { isLoading, setIsLoading } = useLoading();
+
+  useKeyPressed("Enter", () => {
+    submitButtonRef &&
+      submitButtonRef.current &&
+      submitButtonRef.current.click();
+  });
 
   const registerFormFields = generateRegisterFormFields();
   const validationSchema = generateYupSchema(registerFormFields);
@@ -157,6 +168,7 @@ export const RegisterPage = () => {
                     </Box>
 
                     <Button
+                      ref={submitButtonRef}
                       type="submit"
                       variant="contained"
                       disabled={isLoading}
