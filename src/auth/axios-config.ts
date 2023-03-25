@@ -6,6 +6,7 @@ import {
   getAccessToken,
   setAccessToken,
   axiosErrorHandler,
+  removeTokens,
 } from "./auth-service";
 
 const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
@@ -35,33 +36,26 @@ const withErrorHandling = <T>(axiosInstance: AxiosInstance): AxiosInstance => {
             return Promise.reject(error.error);
           }
 
-          if (status === 401) {
-            if (!originalRequest._retry) {
-              originalRequest._retry = true;
+          if (status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
 
-              const refreshToken = getRefreshToken();
+            const refreshToken = getRefreshToken();
 
-              if (refreshToken) {
-                try {
-                  const response = await axiosInstance.post(`token/refresh`, {
-                    refresh: refreshToken,
-                  });
+            try {
+              const response = await axiosInstance.post(`token/refresh`, {
+                refresh: refreshToken,
+              });
 
-                  const { access } = response.data;
+              const { access } = response.data;
 
-                  setAccessToken(access);
-                  originalRequest.headers.Authorization = `Bearer ${access}`;
-                  return axiosInstance.request(originalRequest);
-                } catch (error) {
-                  console.error("Refresh token error occured, ", error);
-                  return Promise.reject(error);
-                }
-              } else {
-                return Promise.reject(error.error);
-              }
+              setAccessToken(access);
+              error.error.response.headers.Authorization = `Bearer ${access}`;
+              return axiosInstance.request(originalRequest);
+            } catch (error) {
+              console.error("Refresh token error occured, ", error);
+              removeTokens();
+              return Promise.reject(error);
             }
-
-            return Promise.reject(error.error);
           }
 
           if (status === 403) {
