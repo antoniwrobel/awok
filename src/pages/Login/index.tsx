@@ -74,13 +74,6 @@ export const LoginPage = () => {
                       }
 
                       handleNonFieldErrors(err.error);
-
-                      resetForm({
-                        values: {
-                          username: values.username,
-                          password: "",
-                        },
-                      });
                     }
                   });
 

@@ -48,7 +48,8 @@ export const RegisterPage = () => {
               try {
                 const registerResponse = await axiosInstance.post(
                   "/register",
-                  values
+                  values,
+                  { withCredentials: true }
                 );
 
                 if (registerResponse.status === 201) {
