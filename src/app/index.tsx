@@ -63,6 +63,7 @@ const App = () => {
             );
           }
         )}
+        {/* <Route path="*" element={<ContainerBox>Page not found</ContainerBox>} /> */}
       </Routes>
     </Box>
   );

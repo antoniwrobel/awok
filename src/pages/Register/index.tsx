@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth, useLoading, useUser } from "../../hooks";
 import { Trans, useTranslation } from "react-i18next";
 import { Formik, Form } from "formik";
+import { useRef } from "react";
+
 import {
   RegisterFormFieldNamesType,
   registerFormFieldsNamesArray,
@@ -15,8 +17,7 @@ import { toast } from "react-toastify";
 import { RegisterResponseError } from "src/types/axios.types";
 import { axiosErrorHandler } from "src/auth/auth-service";
 import { takeNapPlease } from "src/helpers/utils";
-import useKeyPressed from "src/hooks/useKeyPressed";
-import { useRef } from "react";
+import { useKeyPressed } from "src/hooks/useKeyPressed";
 
 export const RegisterPage = () => {
   const { t } = useTranslation();

@@ -5,6 +5,7 @@ import {
   LoggedIn,
   YourAccount,
   AdminPage,
+  InventoryPage,
 } from "../pages";
 
 type RouteType = {
@@ -58,6 +59,13 @@ const routes: RouteType[] = [
     name: "ADMIN PAGE",
     isProtected: true,
     translKey: "go-to-admin-page",
+  },
+  {
+    path: "/inventory",
+    component: InventoryPage,
+    name: "INVENTORY PAGE",
+    isProtected: true,
+    translKey: "go-to-inventory-page",
   },
 ];
 

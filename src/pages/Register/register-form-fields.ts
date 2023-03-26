@@ -30,7 +30,6 @@ export const registerFormFieldsNamesArray = [
 
 export const editableRegisterFormFieldsNamesArray = [
   "username",
-  "email",
   "first_name",
   "last_name",
 ] as const;

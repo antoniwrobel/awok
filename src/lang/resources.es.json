@@ -44,5 +44,6 @@
   "primary-color": "Color primario",
   "secondary-color": "Color secundario",
   "changes-saved": "Se han guardado los cambios.",
-  "user-signed-out": "You have been signed out"
+  "user-signed-out": "You have been signed out",
+  "go-to-inventory-page": "Go to your inventory"
 }

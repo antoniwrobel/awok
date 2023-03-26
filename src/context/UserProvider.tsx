@@ -16,7 +16,6 @@ import {
 export const UserContext = createContext<UserContextType>({
   user: null,
   setUser: (user: UserContextType["user"]) => undefined,
-  verifyToken: async () => false,
   isLoggedIn: false,
   hasBeenChecked: false,
   setIsLoggedIn: () => undefined,
@@ -33,9 +32,7 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
   const { setIsLoading } = useLoading();
 
   const getSessionAndSetUser = async () => {
-    const parsedUser = JSON.parse(user);
-
-    if (parsedUser) {
+    if (user) {
       return;
     }
 
@@ -103,7 +100,6 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
     () => ({
       user,
       setUser,
-      verifyToken,
       isLoggedIn,
       hasBeenChecked,
       setIsLoggedIn,
@@ -114,7 +110,6 @@ export const UserProvider: FC<IUserProvider> = ({ children }) => {
     [
       user,
       setUser,
-      verifyToken,
       isLoggedIn,
       hasBeenChecked,
       setIsLoggedIn,

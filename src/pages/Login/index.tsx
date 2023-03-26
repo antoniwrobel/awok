@@ -13,7 +13,7 @@ import { generateLoginFormFields } from "./generate-login-fields";
 import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { takeNapPlease } from "src/helpers/utils";
-import useKeyPressed from "src/hooks/useKeyPressed";
+import { useKeyPressed } from "src/hooks/useKeyPressed";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -100,8 +100,8 @@ export const LoginPage = () => {
                 <Box>
                   <Form
                     style={{
-                      display: "flex",
                       width: "100%",
+                      display: "flex",
                       flexDirection: "column",
                       alignItems: "flex-end",
                     }}

@@ -44,5 +44,6 @@
   "primary-color": "Podstawowy kolor",
   "secondary-color": "Dodatkowy kolor",
   "changes-saved": "Zmiany zostały zapisane",
-  "user-signed-out": "Zostałeś wylogowany"
+  "user-signed-out": "Zostałeś wylogowany",
+  "go-to-inventory-page": "Przejdz do magazynu"
 }
