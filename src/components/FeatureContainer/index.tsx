@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { ReactNode } from "react";
 
 // TODO: USE USER MAKE IT DYNAMIC AS FEATURERS
-const userFeaturesArray = [1, 2, 3];
+const userFeaturesArray = [1];
 
 type FeatureContainerPropsType<P> = P & { children?: ReactNode | null };
 

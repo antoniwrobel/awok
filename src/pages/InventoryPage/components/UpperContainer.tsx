@@ -31,7 +31,7 @@ export const UpperContainer = () => {
         <SearchbarFeature />
       </FeatureContainer>
 
-      <FeatureContainer featureId={1} isLastElement>
+      <FeatureContainer featureId={1}>
         <Box display="flex" flexDirection={["column", "row", "row"]} gap="20px">
           <StyledActionButton>Dodaj</StyledActionButton>
           <StyledActionButton>Pokaż usunięte</StyledActionButton>
