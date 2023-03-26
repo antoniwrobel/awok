@@ -1,8 +1,6 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
-
-// TODO: USE USER MAKE IT DYNAMIC AS FEATURERS
-const userFeaturesArray = [1];
+import { userFeaturesArray } from "src/pages/InventoryPage/components/UpperContainer";
 
 type FeatureContainerPropsType<P> = P & { children?: ReactNode | null };
 

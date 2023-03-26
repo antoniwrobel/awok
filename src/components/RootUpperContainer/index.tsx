@@ -1,7 +1,8 @@
 import { Box } from "@mui/material";
+import { ReactNode } from "react";
 
 type RootUpperContainerPropsType = {
-  children: JSX.Element[];
+  children: ReactNode;
 };
 
 export const RootUpperContainer = (props: RootUpperContainerPropsType) => {
