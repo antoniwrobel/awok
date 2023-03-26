@@ -44,7 +44,7 @@ export const LoginPage = () => {
         </Typography>
       )}
 
-      <Box display="flex" mt="10px" justifyContent="space-between">
+      <Box display="flex" justifyContent="space-between">
         <Box width="100%">
           <Formik
             initialValues={{
@@ -156,7 +156,7 @@ export const LoginPage = () => {
                       type="submit"
                       color="primary"
                       variant="contained"
-                      sx={{ mt: "10px" }}
+                      sx={{ mt: "20px" }}
                       disabled={isLoading}
                     >
                       {t("login")}

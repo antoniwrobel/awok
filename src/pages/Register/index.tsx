@@ -47,7 +47,7 @@ export const RegisterPage = () => {
 
   return (
     <Box>
-      <Box display="flex" mt="10px" justifyContent="space-between" width="100%">
+      <Box display="flex" justifyContent="space-between" width="100%">
         <Box width="100%">
           <Formik
             initialValues={initialValues}
