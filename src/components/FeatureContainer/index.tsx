@@ -15,7 +15,7 @@ export const FeatureContainer = (
   const { children, featureId, isLastElement } = featureContainerProps;
 
   const sx = {
-    pb: "10px",
+    pb: "20px",
     mb: !isLastElement ? "20px" : "0",
     borderBottom: "1px solid",
   };

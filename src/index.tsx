@@ -15,9 +15,9 @@ import LoadingModal from "./modals/Loading";
 import ColorThemeProvider from "./context/ColorThemeProvider";
 import { LocaleProviderWrapper } from "./context/LocaleProvider";
 import { Navbar } from "./components/Navbar";
-import { PagesList } from "./components/PagesList";
+import PagesList from "./components/PagesList";
+import UserDetails from "./components/UserDetails";
 import { Wrapper } from "./components/Wrapper";
-import { UserDetails } from "./components/UserDetails";
 import { ThemeProviderWrapper } from "./components/ThemeProviderWrapper";
 
 import "react-toastify/dist/ReactToastify.css";
