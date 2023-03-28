@@ -17,6 +17,7 @@ export const generateRegisterFormFields = (): RegisterFormFieldsType[] => {
       label: t("email"),
       required: true,
       maxLength: 150,
+      notEditable: true,
     },
     {
       name: "password",
