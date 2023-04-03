@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e92dbe6a.css",
-    "main.js": "/static/js/main.c36bef7e.js",
+    "main.js": "/static/js/main.72d2e8f1.js",
     "static/media/fira-code-all-500-normal.woff": "/static/media/fira-code-all-500-normal.f7083bb96f76675d4b91.woff",
     "static/media/fira-code-all-400-normal.woff": "/static/media/fira-code-all-400-normal.c050f0ce726c76d279c8.woff",
     "static/media/fira-code-all-300-normal.woff": "/static/media/fira-code-all-300-normal.bb31a6c9127e4853f3b1.woff",
@@ -10,6 +10,7 @@
     "static/media/fira-code-latin-300-normal.woff2": "/static/media/fira-code-latin-300-normal.915b91cfd78aba38793e.woff2",
     "static/media/fira-code-latin-400-normal.woff2": "/static/media/fira-code-latin-400-normal.e662d57ce51fba1f46e3.woff2",
     "static/media/fira-code-latin-700-normal.woff2": "/static/media/fira-code-latin-700-normal.8f1040690afe97d81acc.woff2",
+    "static/media/logo.png": "/static/media/logo.57d6d00d999a30d01228.png",
     "static/media/fira-code-cyrillic-ext-400-normal.woff2": "/static/media/fira-code-cyrillic-ext-400-normal.8ae7ba46c49a0347ea65.woff2",
     "static/media/fira-code-cyrillic-ext-500-normal.woff2": "/static/media/fira-code-cyrillic-ext-500-normal.fe2d5fee5b3efcb85960.woff2",
     "static/media/fira-code-cyrillic-ext-300-normal.woff2": "/static/media/fira-code-cyrillic-ext-300-normal.601572d5a490532face4.woff2",
@@ -32,10 +33,10 @@
     "static/media/fira-code-greek-ext-700-normal.woff2": "/static/media/fira-code-greek-ext-700-normal.72e608716d920962a358.woff2",
     "index.html": "/index.html",
     "main.e92dbe6a.css.map": "/static/css/main.e92dbe6a.css.map",
-    "main.c36bef7e.js.map": "/static/js/main.c36bef7e.js.map"
+    "main.72d2e8f1.js.map": "/static/js/main.72d2e8f1.js.map"
   },
   "entrypoints": [
     "static/css/main.e92dbe6a.css",
-    "static/js/main.c36bef7e.js"
+    "static/js/main.72d2e8f1.js"
   ]
 }
