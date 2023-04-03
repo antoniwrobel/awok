@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import { Typography, Button, TextField, Box } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import { Helmet } from "react-helmet";
 
 import { useAuth, useLoading, useUser } from "../../hooks";
 import { RegisterResponseError } from "src/types/axios.types";
@@ -14,6 +15,7 @@ import { registerFormFieldsNamesArray } from "../Register/register-form-fields";
 import { handleCombineErrors, handleNonFieldErrors } from "src/helpers/errors";
 import { takeNapPlease } from "src/helpers/utils";
 import { useKeyPressed } from "src/hooks/useKeyPressed";
+import { PAGE_TITLE } from "src/consts";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -38,6 +40,9 @@ export const LoginPage = () => {
 
   return (
     <Box display="flex" flexDirection="column" width="100%">
+      <Helmet>
+        <title>{PAGE_TITLE + "Login"}</title>
+      </Helmet>
       {from !== "/" && (
         <Typography variant="h6" component="h6">
           {t("login-to-view")} "{from}"

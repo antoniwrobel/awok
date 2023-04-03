@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 import App from "./app";
 import initI18n from "./routes/i18n";
@@ -19,9 +20,11 @@ import PagesList from "./components/PagesList";
 import { Wrapper } from "./components/Wrapper";
 import { UserDetails } from "./components/UserDetails";
 import { ThemeProviderWrapper } from "./components/ThemeProviderWrapper";
+import Logo from "./assets/logo.png";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/main.scss";
+import { PAGE_TITLE } from "./consts";
 
 // Global initialization
 initI18n();
@@ -38,6 +41,14 @@ const reactRoot = createRoot(htmlRoot);
 
 reactRoot.render(
   <ColorThemeProvider>
+    <Helmet>
+      <title>{PAGE_TITLE + "Home"}</title>
+      <meta name="description" content="AWOK | Your business manager" />
+      <meta property="og:url" content="https://awok.fe" />
+      <meta property="og:site_name" content="AWOK | Your business manager" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content={Logo} />
+    </Helmet>
     <ThemeProviderWrapper>
       <LoadingProvider>
         <LocaleProviderWrapper>

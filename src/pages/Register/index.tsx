@@ -18,6 +18,8 @@ import { RegisterResponseError } from "src/types/axios.types";
 import { axiosErrorHandler } from "src/auth/auth-service";
 import { takeNapPlease } from "src/helpers/utils";
 import { useKeyPressed } from "src/hooks/useKeyPressed";
+import { Helmet } from "react-helmet";
+import { PAGE_TITLE } from "src/consts";
 
 export const RegisterPage = () => {
   const { t } = useTranslation();
@@ -47,6 +49,9 @@ export const RegisterPage = () => {
 
   return (
     <Box>
+      <Helmet>
+        <title>{PAGE_TITLE + "Register"}</title>
+      </Helmet>
       <Box display="flex" justifyContent="space-between" width="100%">
         <Box width="100%">
           <Formik
