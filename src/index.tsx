@@ -56,7 +56,7 @@ reactRoot.render(
                   />
 
                   <ErrorBoundary>
-                    <Router basename={process.env.PUBLIC_URL}>
+                    <Router>
                       <Navbar />
                       <UserDetails />
                       <PagesList />
