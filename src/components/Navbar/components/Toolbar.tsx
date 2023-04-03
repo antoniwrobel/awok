@@ -92,7 +92,7 @@ export const Toolbar = (toolbarProps: ToolbarPropsType) => {
         variant="h6"
         noWrap
         component="a"
-        href={process.env.PUBLIC_URL}
+        href="/"
         sx={{ color: "#fff" }}
       >
         AWOK
